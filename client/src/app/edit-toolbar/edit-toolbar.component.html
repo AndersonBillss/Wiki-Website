@@ -1,0 +1,18 @@
+<div class="edit-toolbar">
+
+    <div class="edit-tools">
+        <div class="edit button" *ngFor="let tool of tools; let i = index" (click)="selectTool(i)">
+            {{tool}}
+        </div>
+    </div>
+
+    <div class="tool">
+        <app-link *ngIf="tools[selectedToolIndex] === 'Link'"></app-link>
+        <app-element 
+        *ngIf="tools[selectedToolIndex] === 'Element'"
+        [elementsContainer]="elementsContainer"
+        [(data)]="data"
+        ></app-element>
+    </div>
+
+</div>

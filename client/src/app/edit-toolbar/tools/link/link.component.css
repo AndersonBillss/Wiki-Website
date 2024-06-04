@@ -1,0 +1,9 @@
+.edit.button{
+    padding: 15px;
+    background-color: var(--primary-light);
+}
+.linkComponent{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}

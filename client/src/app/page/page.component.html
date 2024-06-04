@@ -1,0 +1,65 @@
+<app-navbar *ngIf="!editMode"></app-navbar>
+
+<div *ngIf="editMode" id="toolbar-margin">
+</div>
+<app-edit-toolbar 
+id="edit-toolbar"
+*ngIf="editMode"
+[(data)]="pageContents"
+[elementsContainer]="elementsContainer"
+>
+</app-edit-toolbar>
+
+<div class="page" [ngClass]="editMode?'editMode':'viewMode'">
+    <div class="page-top">
+        <h1>
+            {{title | titlecase}}
+        </h1>
+
+        <div class="edit button" (click)="toggleEditMode()">
+            {{editMode?"save":"edit"}}
+        </div>
+    </div>
+
+
+    <div #elementsContainer class="elementsContainer" (ngClass)="editMode?'editMode':''">
+        <div *ngFor="let element of pageContents; let i=index" class="element">
+            <div *ngIf="editMode" class="elementType">
+                {{element.type}}
+            </div>
+
+            <app-header
+            *ngIf="element.type === 'Header'"
+            [editMode]="editMode"
+            [(data)]="pageContents[i]"
+            (enterPressed)="handleEnterPress(i)"
+            (deleteElement)="deleteElement(i)"
+            >
+            </app-header>
+    
+            <app-paragraph 
+            *ngIf="element.type === 'Paragraph'"
+            [editMode]="editMode"
+            [(data)]="pageContents[i]"
+            (enterPressed)="handleEnterPress(i)"
+            (deleteElement)="deleteElement(i)"
+            >
+            </app-paragraph>
+    
+        </div>
+    </div>
+    
+
+
+    <button (click)="test()">
+        test
+    </button>
+</div>
+
+<div class="snackbar" ngClass="{{snackbar.hidden?'fade-out':'fade-in'}} {{snackbar.success?'success':'failure'}}">
+    <div class="msg">
+        {{snackbar.msg}}
+    </div>
+    <div class="gradient">
+    </div>
+</div>

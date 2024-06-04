@@ -1,0 +1,10 @@
+.edit.button{
+    padding: 15px;
+    background-color: var(--primary-light);
+}
+.elementTypes{
+    display: flex;
+}
+.elementTypes *{
+    margin: auto 15px;
+}

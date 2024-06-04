@@ -1,0 +1,93 @@
+.editMode{
+    border: 3px var(--primary-color) solid;
+}
+.viewMode{
+    border: 3px var(--background-color) solid;
+}
+
+.page{
+    margin: 15px;
+    padding: 15px;
+}
+
+.page-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-top h1{
+    padding: 5px 50px 5px 5px;
+    border-bottom: 3px var(--primary-dark) solid;
+}
+.edit.button{
+    padding: 15px;
+    background-color: var(--primary-light);
+}
+
+
+
+.element{
+    margin: 10px;
+    border: 2px rgba(0, 0, 0, 0) solid;
+    position: relative;
+}
+.elementType{
+    position: absolute;
+    background-color: var(--background-color);
+    font-size: 15px;
+    margin: 0;
+    top: -10px;
+    left: 10px;
+    color: var(--primary-color);
+}
+.editMode .element{
+    border-color: var(--primary-color);
+}
+
+
+#toolbar-margin{
+    margin-bottom: 150px;
+}
+#edit-toolbar{
+    z-index: 6;
+    position: fixed;
+    top: 0;
+    left: 5px;
+    right: 5px;
+}
+
+.fade-out{
+    opacity: 0;
+    transition: opacity 1s;
+}
+.fade-in{
+    opacity: 1;
+    transition: opacity .5s;
+}
+.snackbar{
+    display: flex;
+    text-align: left;
+    position: fixed;
+    bottom: 15px;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+}
+.snackbar * {
+    flex-grow: 1;
+    padding: 10px 20px;
+}
+.snackbar.success .gradient{
+    background: linear-gradient(to right, lime, var(--background-color));
+}
+.snackbar.success .msg{
+    background-color: lime;
+}
+.snackbar.failure .gradient{
+    background: linear-gradient(to right, red, var(--background-color));;
+}
+.snackbar.failure .msg{
+    color: black;
+    background-color: red;
+}

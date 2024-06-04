@@ -1,0 +1,80 @@
+*{
+    transition: color .2s, border-color .2s, transform .2s, font-size .2s, background-color .2s;
+}
+
+input{
+    border: none;
+    outline: none;
+}
+
+
+.search-box{
+    position: relative;
+    border: 2px var(--text-muted) solid;
+    border: none;
+}
+.dividing-line{
+    height: 2px;
+    background-color: black;
+}
+.search-box input{
+    padding: 20px 12px 10px 12px;
+    font-size: 18px;
+}
+
+.search-box input::placeholder{
+    visibility: hidden;
+}
+
+.search-box input:focus{
+    outline: none;
+}
+.search-box input:focus::placeholder{
+    visibility: visible;
+}
+
+
+.label-text{
+    position: absolute;
+    background-color: rgb(0, 0, 0, 0);
+    transform: translate(13.5px, -37.5px);
+    font-size: 18px;
+    color: var(--text-muted);
+}
+
+
+.search-box:has(input:focus) .dividing-line{
+    background-color: var(--primary-light);
+}
+
+.search-box:has(input:focus) .label-text{
+    transform: translate(13.5px, -50px);
+    color: var(--primary-light);
+    font-size: 14px;
+}
+.search-box:has(input:valid) .label-text{
+    transform: translate(13.5px, -50px);
+    font-size: 14px;
+}
+
+
+
+
+.nav-options{
+    position: absolute;
+    z-index: 5;
+    background-color: var(--secondary-light);
+    padding: 10px 0;
+    width: var(--input-width);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.5);
+}
+.nav-option{
+    display: flex;
+    padding: 10px 10px;
+    background-color: var(--secondary-light);
+}
+.selected{
+    filter: brightness(80%);
+}

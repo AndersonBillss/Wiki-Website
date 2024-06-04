@@ -1,0 +1,77 @@
+
+:root{
+    --primary-color: #00770c;
+    --primary-light: #02da17;
+    --primary-dark: #005208;
+
+    --secondary-color: #6c757d;
+    --secondary-light: #cfd8e1;
+    --secondary-dark: #495057;
+    
+    --background-color: #ffffff;
+    --background-dark: #f8f9fa;
+    
+    --text-color: #333333;
+    --text-light: #ffffff;
+    --text-muted: #6c757d;
+}
+
+*{
+    color: var(--text-color);
+}
+a{
+    color: #36c;
+    text-decoration: none;
+}
+a:visited{
+  color:#795cb2
+}
+a:active{
+    color: #edab00;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+
+html{
+    background-color: var(--background-color);
+    font-family: "Roboto", sans-serif;
+}
+
+*[color=default]{
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+*[color=primary]{
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+}
+*[color=secondary]{
+    background-color: var(--secondary-light);
+    color: var(--text-light);
+}
+
+.hidden{
+    visibility: hidden;
+    display: none;
+}
+
+.button:hover{
+    filter: brightness(.9);
+    cursor: pointer;
+}
+
+.button:active{
+    filter: brightness(1.1);
+}
+
+app-standard-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+*[contenteditable="true"]:focus{
+    outline: none;
+}

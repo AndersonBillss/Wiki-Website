@@ -1,0 +1,29 @@
+.edit.button{
+    padding: 15px;
+    background-color: var(--primary-light);
+}
+
+.edit-toolbar{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 25px;
+    padding-left: 25px;
+    background-color: var(--primary-dark);
+}
+
+.edit-tools{
+    display: flex;
+    align-items: center;
+    height: 150px;
+}
+.edit-tools * {
+    display: flex;
+    align-items: center;
+    margin: auto 5px;
+}
+
+
+.tool{
+    display: flex;
+    align-items: center;
+}

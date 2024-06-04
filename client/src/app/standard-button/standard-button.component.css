@@ -1,0 +1,8 @@
+.standard.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    align-self: center;
+    padding: 5px 10px;
+}

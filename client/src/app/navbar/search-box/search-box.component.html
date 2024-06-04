@@ -1,0 +1,35 @@
+<div (click)="focus()" class="search-box" color="secondary">
+
+    <form novalidate >
+        <input 
+        #inputRef 
+        required 
+        placeholder="{{placeholder || ''}}" 
+        type="text"
+        [ngModel]="value" 
+        (ngModelChange)="onValueChange($event)"  
+        [ngModelOptions]="{ standalone: true }"
+        >
+    </form>
+
+    <div class="label-text" color="default">
+        {{label || ''}}
+    </div>
+    <div class="dividing-line">
+    </div>
+
+    <div>
+
+        <div #optionListRef class="nav-options hidden" *ngIf="options">
+            <div 
+            *ngFor="let option of filteredOptions; let i = index"
+            class="nav-option button {{i === selectedOptionIndex?'selected':''}}" 
+            (click)="setValue(option)"
+            >
+                {{option}}
+            </div>
+        </div>
+
+    </div>
+
+</div>
