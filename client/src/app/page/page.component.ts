@@ -33,7 +33,9 @@ import { HttpClientModule } from '@angular/common/http';
 export class PageComponent implements OnInit {
   @ViewChild('elementsContainer') elementsContainer!: ElementRef;
 
+  isLoading: boolean = true
   pageContents: any[] = []
+  pageRegistered: boolean | null = null
   title: string = ""
 
   snackbar: any = {success: true, msg: '', hidden: true}
@@ -46,19 +48,30 @@ export class PageComponent implements OnInit {
     private route: ActivatedRoute
   ){ }
 
+
   toggleEditMode(){
     if(this.editMode){
       this.editMode = false
-      this.pageContentService.savePageContents(this.title, this.pageContents).subscribe(data => {
-        this.snackbar = data
-      })
-      this.snackbar.hidden = false
-      setTimeout(() => {
-        this.snackbar.hidden = true
-      },3000)
+      this.savePageContents()
     } else {
       this.editMode = true
     }
+  }
+  savePageContents(){
+
+    this.pageContentService.savePageContents(this.title, this.pageContents).subscribe(data => {
+      this.snackbar = data
+    })
+    this.snackbar.hidden = false
+    setTimeout(() => {
+      this.snackbar.hidden = true
+    },3000)
+    this.pageContentService.getPageContents(this.title).subscribe((data: any) => {
+      if(data){
+        this.pageContents = data.contents
+        this.pageRegistered = data.registered
+      }
+    })
   }
 
   //create new element
@@ -118,18 +131,17 @@ export class PageComponent implements OnInit {
 
   ngOnInit(): void {
 		this.title = this.route.snapshot.params["title"];
-    this.pageContentService.getPageContents(this.title).subscribe((data) => {
+    this.pageContentService.getPageContents(this.title).subscribe((data: any) => {
       if(data){
-        this.pageContents = data
+        this.pageContents = data.contents
+        this.pageRegistered = data.registered
       }
     })
-
   }
 
+
   test(){
-    this.pageContentService.test().subscribe(data => {
-      console.log(data)
-    })
+
   }
 
 

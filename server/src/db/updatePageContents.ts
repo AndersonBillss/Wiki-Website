@@ -1,14 +1,10 @@
 import PageContents from './models/pageContents';
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 export default async function updatePageContents(newContents: any){
-    const { title, contents } = newContents
+    const { title } = newContents
     try {
         await PageContents.deleteMany({ title }); // Clear existing contents for this title
-/*         const pageContents = contents.map((content: any) => new PageContents({ ...content, title }));
- */        await PageContents.insertMany(/* pageContents */newContents);
+        await PageContents.insertMany(newContents);
         
         return(
             {

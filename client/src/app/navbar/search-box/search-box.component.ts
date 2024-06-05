@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef,  ViewChild, Input, Output, EventEmitter, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ElementRef,  ViewChild, Input, Output, EventEmitter, OnInit, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   ],
   styleUrl: './search-box.component.css'
 })
-export class SearchBoxComponent implements AfterViewInit, OnInit{
+export class SearchBoxComponent implements AfterViewInit, OnInit, OnChanges{
 
   @Input() label?: string | '';
   @Input() placeholder?: string | null;
@@ -108,5 +108,16 @@ export class SearchBoxComponent implements AfterViewInit, OnInit{
 
     this.value = newValue
     this.valueChange.emit(newValue);
+  }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['options'] && changes['options'].currentValue) {
+      // Handle changes to options here
+      this.options = changes['options'].currentValue
+      if(this.options){
+        this.filteredOptions = this.options
+      }
+    }
   }
 }

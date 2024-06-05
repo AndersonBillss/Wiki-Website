@@ -16,9 +16,17 @@
     align-items: center;
 }
 
+.page-title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .page-top h1{
     padding: 5px 50px 5px 5px;
     border-bottom: 3px var(--primary-dark) solid;
+}
+.page-registered{
+    color: gray;
 }
 .edit.button{
     padding: 15px;

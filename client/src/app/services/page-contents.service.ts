@@ -11,6 +11,12 @@ export class PageContentsService {
 
   constructor(private http: HttpClient) { }
 
+  getPageList(){
+    const url: string = `${this.apiUrl}/api/pageList`
+    const res = this.http.get<any>(url)
+    return res
+  }
+
   getPageContents(title: string){
     const url: string = `${this.apiUrl}/api/getPageContents?title=${title}`
     const res = this.http.get<any[]>(url)
@@ -18,7 +24,6 @@ export class PageContentsService {
   }
 
   savePageContents(title: string, contents: any[]){
-
     const url: string = `${this.apiUrl}/api/updatePageContents`
     const res = this.http.post(url, {
       title: title,
@@ -27,10 +32,5 @@ export class PageContentsService {
     return res
   }
 
-  test(){
-    const url: string = `${this.apiUrl}/api/test`
-    const res = this.http.get<string>(url)
-    return res
-  }
 
 }
