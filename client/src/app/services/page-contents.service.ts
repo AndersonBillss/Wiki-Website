@@ -1,15 +1,18 @@
-import { Injectable, NgModule } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class PageContentsService {
-  private apiUrl: string = 'http://localhost:3000'
+  private apiUrl: string = environment.apiUrl
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    console.log(environment.production)
+   }
 
   getPageList(){
     const url: string = `${this.apiUrl}/api/pageList`
@@ -30,6 +33,12 @@ export class PageContentsService {
       contents: contents
     })
     return res
+  }
+
+  deletePage(title: string){
+    console.log('this.deletePage')
+    const url: string = `${this.apiUrl}/api/deletePage?title=${title}`
+    this.http.delete(url).subscribe()
   }
 
 

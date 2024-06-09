@@ -21,13 +21,17 @@ id="edit-toolbar"
             </div>
         </div>
 
+        <div *ngIf="pageRegistered" class="edit button" (click)="deletePage()">
+            Delete page
+        </div>
+
         <div class="edit button" (click)="pageRegistered?toggleEditMode():savePageContents()">
             {{!pageRegistered?"register":editMode?"save":"edit"}}
         </div>
     </div>
 
 
-    <div #elementsContainer class="elementsContainer" (ngClass)="editMode?'editMode':''">
+    <div *ngIf="pageRegistered" #elementsContainer class="elementsContainer" (ngClass)="editMode?'editMode':''">
         <div *ngFor="let element of pageContents; let i=index" class="element">
             <div *ngIf="editMode" class="elementType">
                 {{element.type}}

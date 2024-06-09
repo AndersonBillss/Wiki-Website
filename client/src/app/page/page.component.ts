@@ -57,21 +57,26 @@ export class PageComponent implements OnInit {
       this.editMode = true
     }
   }
-  savePageContents(){
 
+  savePageContents(){
     this.pageContentService.savePageContents(this.title, this.pageContents).subscribe(data => {
       this.snackbar = data
+      this.pageContentService.getPageContents(this.title).subscribe((data: any) => {
+        if(data){
+          this.pageContents = data.contents
+          this.pageRegistered = data.registered
+        }
+      })
     })
     this.snackbar.hidden = false
     setTimeout(() => {
       this.snackbar.hidden = true
     },3000)
-    this.pageContentService.getPageContents(this.title).subscribe((data: any) => {
-      if(data){
-        this.pageContents = data.contents
-        this.pageRegistered = data.registered
-      }
-    })
+
+  }
+
+  deletePage(){
+    this.pageContentService.deletePage(this.title)
   }
 
   //create new element
