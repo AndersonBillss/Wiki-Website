@@ -18,6 +18,7 @@ export class SearchBoxComponent implements AfterViewInit, OnInit, OnChanges{
   @Input() placeholder?: string | null;
   @Input() options?: string[] | null;
   @Input() value!: string;
+  @Input() optionSelectFunction?: any;
 
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
 
@@ -105,8 +106,10 @@ export class SearchBoxComponent implements AfterViewInit, OnInit, OnChanges{
   }
 
   setValue(newValue: string){
-
     this.value = newValue
+    if(this.optionSelectFunction){
+      this.optionSelectFunction(newValue)
+    }
     this.valueChange.emit(newValue);
   }
 

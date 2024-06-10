@@ -99,3 +99,40 @@
     color: black;
     background-color: red;
 }
+
+.pop-up{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(135, 135, 135, 0.455);
+    z-index: 7;
+}
+
+.diologue-text{
+    max-width: 30vw;
+    flex-wrap: wrap;
+}
+
+.pop-up-card{
+    background-color: var(--background-color);
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.card.button{
+    color: var(--background-color);
+    background-color: var(--primary-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.diologue-options{
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+}

@@ -1,7 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { SearchBoxComponent } from './search-box/search-box.component';
-import { Observable, of } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+
+import { Router } from '@angular/router';
 
 import { PageContentsService } from '../services/page-contents.service';
 
@@ -19,13 +20,20 @@ export class NavbarComponent implements OnInit {
   searchTerm: string = ''
   navOptions: string[] = []
 
-  constructor( private pageContentsService: PageContentsService){
+  constructor( 
+    private pageContentsService: PageContentsService,
+    private router: Router
+  ){
   }
 
   ngOnInit(): void {
     this.pageContentsService.getPageList().subscribe((data) => {
       this.navOptions = data
     })
+  }
+
+  navigateToPage(pageName: string){
+    this.router.navigate([`/page/${pageName}`])
   }
 
 }

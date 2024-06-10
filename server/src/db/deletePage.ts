@@ -24,7 +24,7 @@ export default async function deletePage(title: string){
         return {
             status: 500,
             data: {
-                success: true,
+                success: false,
                 msg: 'internal server error'
             }
         }

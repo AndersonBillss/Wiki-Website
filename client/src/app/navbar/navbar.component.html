@@ -3,6 +3,7 @@
     [label]="'label'" 
     [placeholder]="'placeholder'" 
     [options]="navOptions"
+    [optionSelectFunction]="navigateToPage.bind(this)"
     [(value)]="searchTerm">
     </app-search-box>
 </div>

@@ -10,7 +10,7 @@ id="edit-toolbar"
 >
 </app-edit-toolbar>
 
-<div class="page" [ngClass]="editMode?'editMode':'viewMode'">
+<div *ngIf="!isLoading" class="page" [ngClass]="editMode?'editMode':'viewMode'">
     <div class="page-top">
         <div class="page-title">
             <h1>
@@ -21,7 +21,7 @@ id="edit-toolbar"
             </div>
         </div>
 
-        <div *ngIf="pageRegistered" class="edit button" (click)="deletePage()">
+        <div *ngIf="pageRegistered" class="edit button" (click)="setDiologue('Are you sure you want to delete this page?', deletePage.bind(this))">
             Delete page
         </div>
 
@@ -65,10 +65,32 @@ id="edit-toolbar"
     </button>
 </div>
 
+
+<div *ngIf="isLoading">
+    loading...
+</div>
+
+
 <div class="snackbar" ngClass="{{snackbar.hidden?'fade-out':'fade-in'}} {{snackbar.success?'success':'failure'}}">
     <div class="msg">
         {{snackbar.msg}}
     </div>
     <div class="gradient">
+    </div>
+</div>
+
+<div class="pop-up" *ngIf="diologue.open">
+    <div class="pop-up-card">
+        <h3 class="diologue-text">
+            {{diologue.text}}
+        </h3>
+        <div class="diologue-options">
+            <div class="card button" (click)="diologue.declineFunction()">
+                Decline
+            </div>
+            <div class="card button" (click)="diologue.confirmFunction()">
+                Confirm
+            </div>
+        </div>
     </div>
 </div>

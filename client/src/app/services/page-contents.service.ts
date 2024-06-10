@@ -10,9 +10,7 @@ import { environment } from '../../environments/environment';
 export class PageContentsService {
   private apiUrl: string = environment.apiUrl
 
-  constructor(private http: HttpClient) {
-    console.log(environment.production)
-   }
+  constructor(private http: HttpClient) { }
 
   getPageList(){
     const url: string = `${this.apiUrl}/api/pageList`
@@ -36,10 +34,9 @@ export class PageContentsService {
   }
 
   deletePage(title: string){
-    console.log('this.deletePage')
     const url: string = `${this.apiUrl}/api/deletePage?title=${title}`
-    this.http.delete(url).subscribe()
+    const res = this.http.delete(url)
+    return(res)
   }
-
 
 }

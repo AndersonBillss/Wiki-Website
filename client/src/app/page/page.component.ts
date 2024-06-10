@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { PageContentsService } from '../services/page-contents.service';
-import { encodePageContent, parsePageContent } from '../functions/pageContentFunctions';
 import { CommonModule } from '@angular/common';
 import { EditToolbarComponent } from '../edit-toolbar/edit-toolbar.component';
 import { HeaderComponent } from './elements/header/header.component';
@@ -10,6 +9,9 @@ import { ParagraphComponent } from './elements/paragraph/paragraph.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 
+
+import { Router, NavigationEnd, Event } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 
 
@@ -36,6 +38,17 @@ export class PageComponent implements OnInit {
   isLoading: boolean = true
   pageContents: any[] = []
   pageRegistered: boolean | null = null
+
+  diologue: any = {
+    text: '',
+    open: false,
+    declineFunction: () => {
+      this.diologue.open = false
+    },
+    confirmFunction: () => {}
+  }
+
+
   title: string = ""
 
   snackbar: any = {success: true, msg: '', hidden: true}
@@ -45,7 +58,8 @@ export class PageComponent implements OnInit {
 
   constructor( 
     private pageContentService: PageContentsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ){ }
 
 
@@ -59,14 +73,14 @@ export class PageComponent implements OnInit {
   }
 
   savePageContents(){
-    this.pageContentService.savePageContents(this.title, this.pageContents).subscribe(data => {
-      this.snackbar = data
-      this.pageContentService.getPageContents(this.title).subscribe((data: any) => {
-        if(data){
-          this.pageContents = data.contents
-          this.pageRegistered = data.registered
-        }
-      })
+    this.isLoading = true
+    this.pageContentService.savePageContents(this.title, this.pageContents).subscribe((data: any) => {
+      this.snackbar = {
+        success: data.success,
+        msg: data.msg
+      }
+      this.pageContents = data.updatedContents.data.contents
+      this.isLoading = false
     })
     this.snackbar.hidden = false
     setTimeout(() => {
@@ -76,7 +90,19 @@ export class PageComponent implements OnInit {
   }
 
   deletePage(){
-    this.pageContentService.deletePage(this.title)
+    this.isLoading = true
+    this.editMode = false
+    this.pageContentService.deletePage(this.title).subscribe((data: any) => {
+      this.snackbar = data
+      if(data.success){
+        this.pageRegistered = false
+      }
+      this.isLoading = false
+    })
+    this.snackbar.hidden = false
+    setTimeout(() => {
+      this.snackbar.hidden = true
+    },3000)
   }
 
   //create new element
@@ -133,17 +159,41 @@ export class PageComponent implements OnInit {
   }
 
 
+  setDiologue(text: string, confirmFunction: any){
+    this.diologue = {
+      text: text,
+      open: true,
+      declineFunction: this.diologue.declineFunction,
+      confirmFunction: () => {
+        confirmFunction()
+        this.diologue.open = false
+      }
+    }
+  }
 
   ngOnInit(): void {
-		this.title = this.route.snapshot.params["title"];
+    this.loadData()
+
+    this.router.events.pipe(
+      filter((event: Event) => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.loadData()
+    });
+
+  }
+  loadData(){
+    this.isLoading = true
+
+    this.title = this.route.snapshot.params["title"];
     this.pageContentService.getPageContents(this.title).subscribe((data: any) => {
       if(data){
         this.pageContents = data.contents
         this.pageRegistered = data.registered
+        this.isLoading = false
       }
     })
   }
-
+  
 
   test(){
 
