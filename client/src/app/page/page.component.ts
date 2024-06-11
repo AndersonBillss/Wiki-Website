@@ -39,6 +39,8 @@ export class PageComponent implements OnInit {
   pageContents: any[] = []
   pageRegistered: boolean | null = null
 
+  pageList: string[] | null = null
+
   diologue: any = {
     text: '',
     open: false,
@@ -80,7 +82,13 @@ export class PageComponent implements OnInit {
         msg: data.msg
       }
       this.pageContents = data.updatedContents.data.contents
+      this.pageRegistered = true
+
+      this.pageList = data.updatedContents.data.pageList
+      console.log('pageList', this.pageList)
+
       this.isLoading = false
+
     })
     this.snackbar.hidden = false
     setTimeout(() => {
@@ -93,12 +101,19 @@ export class PageComponent implements OnInit {
     this.isLoading = true
     this.editMode = false
     this.pageContentService.deletePage(this.title).subscribe((data: any) => {
-      this.snackbar = data
+      this.snackbar = {
+        success: data.success,
+        msg: data.msg
+      }
       if(data.success){
         this.pageRegistered = false
       }
+      this.pageList = data.pageList
+      console.log('pageList', this.pageList)
       this.isLoading = false
     })
+
+
     this.snackbar.hidden = false
     setTimeout(() => {
       this.snackbar.hidden = true
@@ -189,6 +204,7 @@ export class PageComponent implements OnInit {
       if(data){
         this.pageContents = data.contents
         this.pageRegistered = data.registered
+        this.pageList = data.pageList
         this.isLoading = false
       }
     })

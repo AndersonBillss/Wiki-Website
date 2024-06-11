@@ -1,14 +1,18 @@
 import PageContents from "./models/pageContents";
+import getPageList from "./getPageList";
 
 export default async function deletePage(title: string){
     try{
         const res = await PageContents.deleteMany({ title })
+        const pageList = await getPageList()
+
         if(res.deletedCount === 0){
             return{
                 status: 200,
                 data: {
                     success: true,
-                    msg: 'no page to delete'
+                    msg: 'no page to delete',
+                    pageList: pageList
                 }
             }
         } else {
@@ -16,7 +20,8 @@ export default async function deletePage(title: string){
                 status: 200,
                 data: {
                     success: true,
-                    msg: 'page deleted succesfully'
+                    msg: 'page deleted succesfully',
+                    pageList: pageList.data
                 }
             }
         }

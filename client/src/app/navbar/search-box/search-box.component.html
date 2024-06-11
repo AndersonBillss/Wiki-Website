@@ -20,11 +20,11 @@
 
     <div>
 
-        <div #optionListRef class="nav-options hidden" *ngIf="options">
+        <div #optionListRef class="nav-options hidden">
             <div 
             *ngFor="let option of filteredOptions; let i = index"
             class="nav-option button {{i === selectedOptionIndex?'selected':''}}" 
-            (click)="setValue(option)"
+            (click)="handleItemClick(option)"
             >
                 {{option}}
             </div>

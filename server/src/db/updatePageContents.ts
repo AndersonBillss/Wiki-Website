@@ -24,12 +24,11 @@ export default async function updatePageContents(newContents: any){
         await PageContents.insertMany(newContents);
 
         const newPageContents = await getPageContents(title)
-        console.log(newPageContents)
         if(`${newPageContents.status}`[0] !== '2'){
             return(
                 {
                     status: 500,
-                    data: { success: true, msg: 'error saving contents', updatedContents: newPageContents }
+                    data: { success: false, msg: 'error saving contents', updatedContents: newPageContents }
                 }
             );
         }

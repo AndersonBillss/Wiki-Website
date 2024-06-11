@@ -1,8 +1,10 @@
 import PageContents from "./models/pageContents";
+import getPageList from "./getPageList"
 
 export default async function getPageContents(title: string){
     try{
         const queryResult =  await PageContents.findOne({ title })
+        const pageList = await getPageList()
         
         if(queryResult){
             const contents = queryResult.contents
@@ -10,7 +12,8 @@ export default async function getPageContents(title: string){
                 status: 200,
                 data: {
                     registered: true,
-                    contents: contents
+                    contents: contents,
+                    pageList: pageList.data
                 }
             }
         } else {
@@ -27,7 +30,8 @@ export default async function getPageContents(title: string){
                             type: "Paragraph",
                             text: "Begin editing this page"
                         }
-                    ]
+                    ],
+                    pageList: pageList.data
                 }
             }
         }

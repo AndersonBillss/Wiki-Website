@@ -1,4 +1,8 @@
-<app-navbar *ngIf="!editMode"></app-navbar>
+<app-navbar 
+[pageList]="pageList"
+*ngIf="!editMode"
+>
+</app-navbar>
 
 <div *ngIf="editMode" id="toolbar-margin">
 </div>

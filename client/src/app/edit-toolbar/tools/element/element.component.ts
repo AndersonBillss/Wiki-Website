@@ -21,7 +21,10 @@ export class ElementComponent {
   ]
 
   changeElement(type: string){
-    const parent = this.elementsContainer;
+    const parent = this.elementsContainer.nativeElement;
+    if(!parent){
+      return
+    }
 
     const focusedElement = document.activeElement;
     let index = -1;
@@ -48,7 +51,6 @@ export class ElementComponent {
         }
       });
       
-    } else {
     }
   }
 }
