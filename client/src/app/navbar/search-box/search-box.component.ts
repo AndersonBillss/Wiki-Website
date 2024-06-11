@@ -81,7 +81,6 @@ export class SearchBoxComponent implements AfterViewInit, OnInit, OnChanges{
       // Handle changes to options here
       this.options = changes['options'].currentValue
       if(this.options){
-        console.log("search box options:",this.options)
         this.filteredOptions = this.options
 
       }
