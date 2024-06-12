@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { Router, NavigationEnd, Event } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { MatIcon } from '@angular/material/icon';
 
 
 
@@ -22,6 +23,7 @@ import { filter } from 'rxjs/operators';
   imports: [
     ParagraphComponent,
     HeaderComponent,
+    MatIcon,
 
     EditToolbarComponent,
     NavbarComponent,
