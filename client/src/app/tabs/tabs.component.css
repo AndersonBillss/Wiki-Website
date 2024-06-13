@@ -1,0 +1,32 @@
+.tabs{
+    justify-self: end;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    background-color: var(--primary-dark);
+}
+.tab{
+    display: flex;
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    align-items: center;
+    padding: 5px 10px;
+}
+.tab:hover{
+    cursor: pointer;
+    filter: brightness(95%)
+}
+.tab:active{
+    filter: brightness(105%);
+}
+.tab *{
+    color: var(--background-dark);
+}
+.text{
+    display: flex;
+    align-content: center;
+}
+
+.selected{
+    background-color: var(--primary-light);
+}

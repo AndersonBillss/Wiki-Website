@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { PageContentsService } from '../services/page-contents.service';
 import { CommonModule } from '@angular/common';
@@ -31,6 +31,7 @@ import { IconComponent } from '../icon/icon.component';
 
     EditToolbarComponent,
     NavbarComponent,
+    RouterModule,
 
     HttpClientModule,
 

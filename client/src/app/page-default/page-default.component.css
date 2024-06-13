@@ -1,0 +1,25 @@
+.pagelist-container{
+    display: flex;
+    justify-content: center;
+
+}
+.pagelist{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.page-option{
+    margin: 15px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    background-color: var(--primary-color);
+    color: var(--background-dark);
+}
+.page-option:hover{
+    filter: brightness(95%);
+    cursor: pointer;
+}
+.page-option:active{
+    filter: brightness(105%);
+    cursor: pointer;
+}

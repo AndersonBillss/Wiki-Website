@@ -32,7 +32,6 @@ export class NavbarComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log(this.pageList)
     if(this.pageList === undefined){
       console.log('no page list')
       this.pageContentsService.getPageList().subscribe((data) => {

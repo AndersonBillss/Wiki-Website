@@ -5,13 +5,16 @@ import { parsePageContent } from './functions/pageContentFunctions';
 import { MatIconModule } from '@angular/material/icon';
 import { MatIcon } from '@angular/material/icon';
 
+import { TabsComponent } from './tabs/tabs.component';
+
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
     MatIcon,
-    MatIconModule
+    MatIconModule,
+    TabsComponent
   ],
   providers: [
   ],

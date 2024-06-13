@@ -39,7 +39,6 @@ export class IconComponent implements OnInit, OnChanges {
 
 
   updateColor() {
-    console.log('updated color')
     const computedStyle = getComputedStyle(this.elRef.nativeElement);
     this.color = computedStyle.getPropertyValue('color');
   }

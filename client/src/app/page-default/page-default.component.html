@@ -1,1 +1,13 @@
-<p>page-default works!</p>
+<app-navbar [pageList]="pages"></app-navbar>
+<div class="pagelist-container">
+    <div class="pagelist">
+        <div 
+        class="page-option" 
+        *ngFor="let page of pages" 
+        routerLink="/page/{{page}}"
+        >
+            {{page | titlecase}}
+        </div>
+    </div>
+
+</div>

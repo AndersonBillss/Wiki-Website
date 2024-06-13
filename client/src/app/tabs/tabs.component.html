@@ -1,0 +1,29 @@
+<div class="tabs">
+    <div
+    class="tab"
+    [routerLink]="'/home'"
+    [class]="selectedPage==='home'?'selected':''"
+    >
+        <app-icon [class]="selectedPage==='home'?'icon-selected':''" icon="home"></app-icon>
+        <div class="text" >Home</div>
+
+    </div>
+
+    <div
+    class="tab"
+    [routerLink]="'/page'"
+    [class]="selectedPage==='page'?'selected':''"
+    >
+        <app-icon [class]="selectedPage==='page'?'icon-selected':''"  icon="page"></app-icon>
+        <div class="text">Page</div>
+    </div>
+
+    <div
+    class="tab"
+    [routerLink]="'/images'"
+    [class]="selectedPage==='images'?'selected':''"
+    >
+        <app-icon [class]="selectedPage==='images'?'icon-selected':''"  icon="image"></app-icon>
+        <div class="text">Images</div>
+    </div>
+</div>

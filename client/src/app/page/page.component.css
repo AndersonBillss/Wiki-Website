@@ -9,6 +9,22 @@
     margin: 15px;
     padding: 15px;
 }
+.title-top{
+    display: flex;
+    align-items: center;
+}
+.title-top .icon{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--background-dark);
+    border-radius: 50%;
+    margin: 10px;
+}
+
 
 
 .page-top{

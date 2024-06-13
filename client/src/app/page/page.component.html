@@ -17,9 +17,13 @@ id="edit-toolbar"
 <div *ngIf="!isLoading" class="page" [ngClass]="editMode?'editMode':'viewMode'">
     <div class="page-top">
         <div class="page-title">
-            <h1>
-                {{title | titlecase}}
-            </h1>
+            <div class="title-top">
+                <app-icon class="icon button" [icon]="'home'" routerLink="/page"></app-icon>
+                <h1>
+                    {{title | titlecase}}
+                </h1>
+            </div>
+
             <div class="page-registered" *ngIf="pageRegistered !== null">
                 • {{pageRegistered?'Registered Page':'Unregistered page'}}
             </div>
