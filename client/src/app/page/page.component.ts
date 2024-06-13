@@ -14,6 +14,9 @@ import { Router, NavigationEnd, Event } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MatIcon } from '@angular/material/icon';
 
+import { IconComponent } from '../icon/icon.component';
+
+
 
 
 @Component({
@@ -24,6 +27,7 @@ import { MatIcon } from '@angular/material/icon';
     ParagraphComponent,
     HeaderComponent,
     MatIcon,
+    IconComponent,
 
     EditToolbarComponent,
     NavbarComponent,
@@ -213,9 +217,7 @@ export class PageComponent implements OnInit {
   }
   
 
-  test(){
-
-  }
+  test(){ }
 
 
 }
