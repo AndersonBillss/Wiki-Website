@@ -35,7 +35,6 @@ export class TabsComponent  implements OnInit{
       } else {
         this.selectedPage = route
       }
-      console.log(this.selectedPage)
     });
   }
 

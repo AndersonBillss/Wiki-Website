@@ -39,9 +39,7 @@ export class SearchBoxComponent implements AfterViewInit, OnInit, OnChanges{
       this.inputElement.nativeElement.focus();
     }); 
 
-    if(this.options !== undefined){
       this.addListeners()
-    }
   }
 
 
@@ -93,25 +91,28 @@ export class SearchBoxComponent implements AfterViewInit, OnInit, OnChanges{
     document.documentElement.style.setProperty('--input-width', `${inputWidth}px`)
     const optionListHtml = this.optionListElement.nativeElement
 
-    optionListHtml.addEventListener('mousedown', () => {
-      this.isClickingOnOptions = true;
-    });
-    
-    optionListHtml.addEventListener('mouseup', () => {
-      this.isClickingOnOptions = false;
-    });
+    if(this.options !== undefined){
+      optionListHtml.addEventListener('mousedown', () => {
+        this.isClickingOnOptions = true;
+      });
+      
+      optionListHtml.addEventListener('mouseup', () => {
+        this.isClickingOnOptions = false;
+      });
+  
+      // add/remove optionsListHtml on focus/blur
+      this.inputElement.nativeElement.addEventListener('focus', () => {
+        if(optionListHtml.classList.contains('hidden')){
+          optionListHtml.classList.remove('hidden')
+        }
+      });
+      this.inputElement.nativeElement.addEventListener('blur', () => {
+        if(!optionListHtml.classList.contains('hidden') && !this.isClickingOnOptions){
+          optionListHtml.classList.add('hidden')
+        }      
+      });
+    }
 
-    // add/remove optionsListHtml on focus/blur
-    this.inputElement.nativeElement.addEventListener('focus', () => {
-      if(optionListHtml.classList.contains('hidden')){
-        optionListHtml.classList.remove('hidden')
-      }
-    });
-    this.inputElement.nativeElement.addEventListener('blur', () => {
-      if(!optionListHtml.classList.contains('hidden') && !this.isClickingOnOptions){
-        optionListHtml.classList.add('hidden')
-      }      
-    });
 
     this.inputElement.nativeElement.addEventListener('keydown', (e: any) => {
       if(e.key === 'ArrowUp' && this.filteredOptions){

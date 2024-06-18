@@ -33,7 +33,6 @@ export class NavbarComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     if(this.pageList === undefined){
-      console.log('no page list')
       this.pageContentsService.getPageList().subscribe((data) => {
         this.searchOptions = data
       })
