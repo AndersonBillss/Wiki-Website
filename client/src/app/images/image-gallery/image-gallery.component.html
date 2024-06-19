@@ -1,2 +1,47 @@
-<app-navbar></app-navbar>
-<app-image-upload></app-image-upload>
+<div class="image-gallery-top">
+    <div class="top-left">
+        <div routerLink="/images" class="icon button">
+            <app-icon icon="back"></app-icon>
+        </div>
+        <h1>
+            {{selectedGallery | titlecase}}
+        </h1>
+    </div>
+
+    <div>
+        <div (click)="openImageUpload()" class="icon button">
+            <app-icon icon="plus"></app-icon>
+        </div>
+    </div>
+</div>
+
+<div class="image-gallery-search">
+
+    <app-search-box
+    label="title"
+    >
+    </app-search-box>
+
+
+    <app-search-box
+    label="tags"
+    >
+    </app-search-box>
+
+</div>
+
+<app-image-upload
+[(isVisible)]="addingNewImage"
+[submitFuntion]="addImage.bind(this)"
+>
+</app-image-upload>
+
+
+<div class="image-list">
+    <div class="image" *ngFor="let image of images">
+        <img src="image.src">
+        <div>
+        {{image.title | titlecase}}
+        </div>
+    </div>
+</div>

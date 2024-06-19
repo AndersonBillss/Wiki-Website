@@ -47,17 +47,17 @@
 .image-tags{
     display: flex;
     align-items: center;
-    padding: 10px 20px;
+    padding-left: 10px;
     background-color: var(--primary-light);
     color: var(--background-dark);
     border-radius: 15px;
-    margin: 5px 10px;
+    margin: 5px;
 }
-.delete.button *{
+.icon.button *{
     color: var(--background-dark);
     background-color: var(--primary-light);
 }
-.delete.button{
+.icon.button{
     background-color: var(--primary-light);
     display: flex;
     width: 40px;
@@ -70,4 +70,12 @@
 
 .disabled{
     background-color: var(--secondary-color);
+}
+
+.back.icon.button{
+    justify-self: left;
+    background-color: var(--primary-color);
+}
+.back.icon.button *{
+    background-color: var(--primary-color);
 }

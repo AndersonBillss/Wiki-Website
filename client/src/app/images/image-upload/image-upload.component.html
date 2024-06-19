@@ -1,8 +1,11 @@
-<div class="file-preview pop-up">
+<div *ngIf="isVisible" class="file-preview pop-up">
         <div class="pop-up-card imgInput-card">
 
-            <div class="scrollable-section">
+            <div class="back icon button" (click)="close()">
+                <app-icon icon="close"></app-icon>
+            </div>
 
+            <div class="scrollable-section">
 
                 <label for="file-upload" class="imgInput button">
                     <input id="file-upload" class="hidden" type="file" (change)="onFileSelected($event)">
@@ -15,12 +18,14 @@
 
                 <div class="flex" *ngIf="imgTitle !== null">
                     <app-search-box [optionSelectFunction]="addTag.bind(this)" [label]="'Add tags'" [(value)]="imgTagName"></app-search-box>
-                    <app-icon class="imgInput button" icon="plus" (click)="addTag(imgTagName)"></app-icon>
+                    <div class="icon button">
+                        <app-icon icon="plus" (click)="addTag(imgTagName)"></app-icon>
+                    </div>
                 </div>
                 <div class="image-tag-container">
                     <div class="image-tags" *ngFor="let tag of imageTags; let i = index">
                         {{tag | titlecase}} 
-                        <div class="delete button" (click)="removeTag(i)">
+                        <div class="icon button" (click)="removeTag(i)">
                             <app-icon icon="delete"></app-icon>
                         </div>
                     </div>
@@ -30,6 +35,7 @@
                 *ngIf="imgTitle !== null" 
                 class="imgInput" 
                 [ngClass]="!imgTitle?'disabled':'button'"
+                (click)="imgTitle?submit():''"
                 >
                     Submit
                 </div>

@@ -1,0 +1,63 @@
+.icon.button{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    margin: 15px;
+}
+.icon.button app-icon{
+    color: var(--background-dark);
+}
+.image-gallery-top{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--background-dark);
+    border-bottom: 3px var(--primary-color) solid;
+    align-items: center;
+}
+.top-left{
+    display: flex;
+    align-items: center;
+}
+.image-gallery-search{
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    display: flex;
+}
+
+
+
+
+.image-list{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.image{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--background-dark);
+}
+.image img{
+    height: 100px;
+    width: auto;
+}
+
+@media(max-width: 400px){
+    .image{
+        padding: 5px;
+        margin: 5px;
+    }
+    .image img{
+        height: 50px;
+        width: auto;
+    }
+}

@@ -1,4 +1,4 @@
-import PageContents from "./models/pageContents";
+import PageContents from "../models/pageContents";
 
 export default async function getPageList(){
     try{

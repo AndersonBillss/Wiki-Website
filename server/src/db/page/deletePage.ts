@@ -1,4 +1,4 @@
-import PageContents from "./models/pageContents";
+import PageContents from "../models/pageContents";
 import getPageList from "./getPageList";
 
 export default async function deletePage(title: string){

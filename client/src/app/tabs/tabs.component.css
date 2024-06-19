@@ -10,7 +10,7 @@
     background-color: var(--primary-color);
     border-radius: 15px;
     align-items: center;
-    padding: 5px 10px;
+    padding: 10px;
 }
 .tab:hover{
     cursor: pointer;
@@ -29,4 +29,18 @@
 
 .selected{
     background-color: var(--primary-light);
+}
+
+@media (max-width: 350px){
+    .text{
+        display: none;
+    }
+    .tab{
+        padding: 10px 20px;
+    }
+}
+@media (max-width: 250px){
+    .tab{
+        padding: 5px 10px;
+    }
 }

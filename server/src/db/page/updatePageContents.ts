@@ -1,8 +1,9 @@
-import PageContents from './models/pageContents';
+import PageContents from '../models/pageContents';
 import getPageContents from './getPageContents'
 
 export default async function updatePageContents(newContents: any){
-    const { title } = newContents
+    const { titleInput } = newContents
+    const title = titleInput.toLowerCase()
     try {
         if(!title){
             return(
