@@ -6,7 +6,9 @@ interface IConceptContent extends Document {
 }
 
 const ConceptContentSchema: Schema = new Schema({
-  src: { type: String, required: true },
+  highResSrc: { type: String, required: true },
+  medResSrc: { type: String, required: true },
+  lowResSrc: { type: String, required: true },
   title: { type: String, required: true },
   tags: { type: Array, required: true }
 });

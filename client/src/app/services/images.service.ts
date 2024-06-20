@@ -15,13 +15,15 @@ export class ImagesService {
   ) { }
 
   getImages(pageName: string){
-    
+    const url = `${this.apiUrl}/api/getImages?pageName=${pageName}`
+    const res = this.http.get<any>(url)
+    return res
   }
   uploadImage(pageName: string, image: any){
     const formData = new FormData();
     formData.append('src', image.src);
     formData.append('title', image.title);
-    formData.append('tags', JSON.stringify(image.tags));
+    formData.append('tags', image.tags);
 
     const url: string = `${this.apiUrl}/api/uploadImage?pageName=${pageName}`
     const res = this.http.post<any>(url, formData)

@@ -39,7 +39,7 @@
 
 <div class="image-list">
     <div class="image" *ngFor="let image of images">
-        <img src="image.src">
+        <img src="data:image/png;base64,{{image.lowResSrc}}">
         <div>
         {{image.title | titlecase}}
         </div>

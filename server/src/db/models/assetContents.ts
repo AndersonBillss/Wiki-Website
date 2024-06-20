@@ -6,7 +6,8 @@ interface IAssetContent extends Document {
 }
 
 const AssetContentSchema: Schema = new Schema({
-  src: { type: String, required: true },
+  highResSrc: { type: String, required: true },
+  lowResSrc: { type: String, required: true },
   title: { type: String, required: true },
   tags: { type: Array, required: true }
 });

@@ -40,13 +40,17 @@ export class ImageGalleryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       this.setUrl()
     });
     this.setUrl()
+
+
+    this.imagesService.getImages(this.selectedGallery).subscribe(data => {
+      this.images = data.images
+    })
   }
 
   setUrl(){

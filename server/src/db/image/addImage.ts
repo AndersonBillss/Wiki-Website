@@ -26,36 +26,55 @@ export default async function addImage(pageName: string, newContents: any) {
         };
     }
 
-    const mimeType = matches[1];
     const base64Data = matches[2];
     const imageData = Buffer.from(base64Data, 'base64');
-    const fileExtension = mimeType.split('/')[1];
 
-    const outputPath = path.join(__dirname, 'uploads', `cached.png`);
-
-
-    // Ensure the uploads directory exists
-    const uploadsDir = path.join(__dirname, 'uploads');
-    if (!fs.existsSync(uploadsDir)) {
-        fs.mkdirSync(uploadsDir);
-    }
 
     try {
-        // Convert image to PNG
-        await sharp(imageData)
-            .png()
-            .toFile(outputPath);
+        const metadata = await sharp(imageData).metadata();
+        const originalWidth = metadata.width;
+        const originalHeight = metadata.height;
+        let widthToHeight: number = 0
+        if(originalHeight && originalWidth){
+            widthToHeight = originalWidth / originalHeight
+        } else {
+            return({
+                    status: 400,
+                    data: {
+                        msg: 'image has no height or no width'
+                    }
+                }
+            )
+        }
 
-        const convertedFile = outputPath;
+        // Convert image to PNG
+        const highResolutionPng = sharp(imageData)
+            .png()    
+
+        const highResolutionBuffer = await highResolutionPng.toBuffer()
+        const highResolutionBase64ConvertedImage = highResolutionBuffer.toString('base64');
+
+        const medResResizeHeight = 600
+        const medResResizeWidth = Math.floor(medResResizeHeight * widthToHeight)
+        const medResolutionBuffer = await highResolutionPng.resize(medResResizeWidth, medResResizeHeight).toBuffer()
+        const medResolutionBase64ConvertedImage = medResolutionBuffer.toString('base64')
+
+        const lowResResizeHeight = 200
+        const lowResResizeWidth = Math.floor(lowResResizeHeight * widthToHeight)
+        const lowResolutionBuffer = await highResolutionPng.resize(lowResResizeWidth, lowResResizeHeight).toBuffer()
+        const lowResolutionBase64ConvertedImage = lowResolutionBuffer.toString('base64')
+
         const imgObject = {
-            src: /* Buffer.from(convertedFile).toString('base64') */convertedFile,
+            highResSrc: highResolutionBase64ConvertedImage,
+            medResSrc: medResolutionBase64ConvertedImage,
+            lowResSrc: lowResolutionBase64ConvertedImage,
             title: newContents.title.toLowerCase(),
             tags: newContents.tags
         }
 
 
 
-        let saveResult
+        let saveResult: any
         if(pageName === 'assets'){
             try {
                 const title = imgObject.title
@@ -67,11 +86,11 @@ export default async function addImage(pageName: string, newContents: any) {
                         data: { msg: "Image with title already exists" }
                     }
                 } else {
-                    await AssetContent.insertMany(newContents);
+                    await AssetContent.insertMany(imgObject);
                     saveResult = {
                         status: 200,
                         data: {
-                            msg: 'Successfully uploaded file'
+                            msg: 'Successfully uploaded file',
                         }
                     };
                 }
@@ -98,7 +117,7 @@ export default async function addImage(pageName: string, newContents: any) {
                         data: { msg: "Image with title already exists" }
                     }
                 } else {
-                    await ConceptContent.insertMany(newContents);
+                    await ConceptContent.insertMany(imgObject);
                     saveResult = {
                         status: 200,
                         data: {
