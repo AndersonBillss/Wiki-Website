@@ -1,8 +1,8 @@
 import AssetContent from '../models/assetContents';
 import ConceptContent from '../models/conceptContents';
 import sharp from 'sharp';
-import path from 'path';
-import fs from 'fs';
+
+import getImages from './getImages';
 
 export default async function addImage(pageName: string, newContents: any) {
     const base64Image = newContents.src;
@@ -79,18 +79,24 @@ export default async function addImage(pageName: string, newContents: any) {
             try {
                 const title = imgObject.title
     
-                const imageWithSameTitle = await AssetContent.findOne({ title }); // Clear existing contents for this title
+                const imageWithSameTitle = await AssetContent.findOne({ title });
                 if(imageWithSameTitle){
                     saveResult = {
                         status: 200,
-                        data: { msg: "Image with title already exists" }
+                        data: { 
+                            msg: "Image with title already exists" ,
+                            success: true
+                        }
                     }
                 } else {
                     await AssetContent.insertMany(imgObject);
+                    const updatedImages = await getImages('assets')
                     saveResult = {
                         status: 200,
                         data: {
                             msg: 'Successfully uploaded file',
+                            images: updatedImages.data.images,
+                            success: true
                         }
                     };
                 }
@@ -100,7 +106,10 @@ export default async function addImage(pageName: string, newContents: any) {
                 saveResult = (
                     {
                         status: 500,
-                        data: { msg: 'Error saving contents' }
+                        data: { 
+                            msg: 'Error saving contents' ,
+                            success: false
+                        }
                     }
                 );
             }
@@ -110,18 +119,24 @@ export default async function addImage(pageName: string, newContents: any) {
             try {
                 const title = imgObject.title
     
-                const imageWithSameTitle = await ConceptContent.findOne({ title }); // Clear existing contents for this title
+                const imageWithSameTitle = await ConceptContent.findOne({ title });
                 if(imageWithSameTitle){
                     saveResult = {
                         status: 200,
-                        data: { msg: "Image with title already exists" }
+                        data: { 
+                            msg: "Image with title already exists" ,
+                            success: true
+                        }
                     }
                 } else {
                     await ConceptContent.insertMany(imgObject);
+                    const updatedImages = await getImages('concept')
                     saveResult = {
                         status: 200,
                         data: {
-                            msg: 'Successfully uploaded file'
+                            msg: 'Successfully uploaded file',
+                            images: updatedImages.data.images,
+                            success: true
                         }
                     };
                 }
@@ -131,14 +146,20 @@ export default async function addImage(pageName: string, newContents: any) {
                 saveResult = (
                     {
                         status: 500,
-                        data: { msg: 'Error saving contents' }
+                        data: { 
+                            msg: 'Error saving contents',
+                            success: false
+                        },
                     }
                 );
             }
         } else {
             saveResult = {
                     status: 400,
-                    data: { msg: 'Specified page does not exist' }
+                    data: { 
+                        msg: 'Specified page does not exist',
+                        success: false
+                    },
                 }
         
         }
@@ -153,7 +174,8 @@ export default async function addImage(pageName: string, newContents: any) {
         return {
             status: 500,
             data: {
-                msg: 'Error processing image.'
+                msg: 'Error processing image.',
+                success: false
             }
         };
     }

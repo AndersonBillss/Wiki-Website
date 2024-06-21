@@ -106,3 +106,41 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     text-align: center;
     color: red;
 }
+
+
+.fade-out{
+    opacity: 0;
+    transition: opacity 1s;
+}
+.fade-in{
+    opacity: 1;
+    transition: opacity .5s;
+}
+.snackbar{
+    display: flex;
+    position: fixed;
+    text-align: left;
+    position: fixed;
+    bottom: calc(68.38px + 15px);
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    z-index: 3;
+}
+.snackbar * {
+    flex-grow: 1;
+    padding: 10px 20px;
+}
+.snackbar.success .gradient{
+    background: linear-gradient(to right, lime, var(--background-color));
+}
+.snackbar.success .msg{
+    background-color: lime;
+}
+.snackbar.failure .gradient{
+    background: linear-gradient(to right, red, var(--background-color));;
+}
+.snackbar.failure .msg{
+    color: black;
+    background-color: red;
+}

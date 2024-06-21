@@ -9,6 +9,7 @@ import { ImageUploadComponent } from '../image-upload/image-upload.component';
 import { CommonModule } from '@angular/common';
 import { IconComponent } from '../../icon/icon.component';
 import { SearchBoxComponent } from '../../navbar/search-box/search-box.component';
+import { LoadingComponent } from '../../loading/loading.component';
 
 
 @Component({
@@ -22,6 +23,7 @@ import { SearchBoxComponent } from '../../navbar/search-box/search-box.component
     ImageUploadComponent,
     IconComponent,
     SearchBoxComponent,
+    LoadingComponent
   ],
   templateUrl: './image-gallery.component.html',
   styleUrl: './image-gallery.component.css'
@@ -31,7 +33,14 @@ export class ImageGalleryComponent implements OnInit {
   selectedGallery: string = ''
   images: any = []
 
+  snackbar: any = {
+    success: true,
+    hidden: true,
+    msg: ''
+  }
+
   addingNewImage: boolean = false
+  isLoading: boolean = true
 
   
   constructor(
@@ -50,6 +59,7 @@ export class ImageGalleryComponent implements OnInit {
 
     this.imagesService.getImages(this.selectedGallery).subscribe(data => {
       this.images = data.images
+      this.isLoading = false
     })
   }
 
@@ -69,10 +79,28 @@ export class ImageGalleryComponent implements OnInit {
 
 
 
-
   addImage(image: any){
+    this.isLoading = true
     this.imagesService.uploadImage(this.selectedGallery, image).subscribe(data => {
-      console.log(data)
+      if(data.images){
+        this.images = data.images
+      }
+      this.openSnackBar(data)
+      this.isLoading = false
     })
   }
+
+
+  openSnackBar(apiRes: any){
+    this.snackbar = {
+      success: apiRes.success,
+      msg: apiRes.msg,
+      hidden: false
+    }
+    setTimeout(() => {
+      this.snackbar.hidden = true
+    },3000)
+  }
+
+
 }

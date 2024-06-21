@@ -1,3 +1,4 @@
+
 <div class="image-gallery-top">
     <div class="top-left">
         <div routerLink="/images" class="icon button">
@@ -14,34 +15,55 @@
         </div>
     </div>
 </div>
-
-<div class="image-gallery-search">
-
-    <app-search-box
-    label="title"
+<div class="page" *ngIf="!isLoading">
+    
+    <div class="image-gallery-search">
+    
+        <app-search-box
+        label="title"
+        >
+        </app-search-box>
+    
+    
+        <app-search-box
+        label="tags"
+        >
+        </app-search-box>
+    
+    </div>
+    
+    <app-image-upload
+    [(isVisible)]="addingNewImage"
+    [submitFuntion]="addImage.bind(this)"
     >
-    </app-search-box>
-
-
-    <app-search-box
-    label="tags"
-    >
-    </app-search-box>
+    </app-image-upload>
+    
+    
+    <div class="image-list">
+        <div class="image" *ngFor="let image of images" routerLink="{{image._id}}">
+            <img src="data:image/png;base64,{{image.lowResSrc}}">
+            <div>
+            {{image.title | titlecase}}
+            </div>
+        </div>
+    </div>
 
 </div>
 
-<app-image-upload
-[(isVisible)]="addingNewImage"
-[submitFuntion]="addImage.bind(this)"
+<div *ngIf="isLoading">
+    <app-loading></app-loading>
+</div>
+
+
+<div 
+*ngIf="snackbar.msg" 
+class="snackbar" 
+ngClass="{{snackbar.hidden?'fade-out':'fade-in'}} 
+{{snackbar.success?'success':'failure'}}"
 >
-</app-image-upload>
-
-
-<div class="image-list">
-    <div class="image" *ngFor="let image of images">
-        <img src="data:image/png;base64,{{image.lowResSrc}}">
-        <div>
-        {{image.title | titlecase}}
-        </div>
+    <div class="msg">
+        {{snackbar.msg}}
+    </div>
+    <div class="gradient">
     </div>
 </div>

@@ -1,0 +1,36 @@
+<div class="page" *ngIf="!isLoading">
+    <div class="page-top">
+        <div class="icon button">
+            <app-icon icon="back"></app-icon>
+        </div>
+
+        <h1>{{img.title}}</h1>
+
+        <div class="icon button">
+            <app-icon icon="edit"></app-icon>
+        </div>
+    </div>
+
+    <img class="img" src="data:image/png;base64,{{img.highResSrc}}">
+    <div>
+        <div *ngFor="let tag of img.tags">
+            {{tag}}
+        </div>
+    </div>
+</div>
+<div *ngIf="isLoading">
+    <app-loading></app-loading>
+</div>
+
+<div 
+*ngIf="snackbar.msg" 
+class="snackbar" 
+ngClass="{{snackbar.hidden?'fade-out':'fade-in'}} 
+{{snackbar.success?'success':'failure'}}"
+>
+    <div class="msg">
+        {{snackbar.msg}}
+    </div>
+    <div class="gradient">
+    </div>
+</div>

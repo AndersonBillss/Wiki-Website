@@ -76,7 +76,12 @@ id="edit-toolbar"
 </div>
 
 
-<div class="snackbar" ngClass="{{snackbar.hidden?'fade-out':'fade-in'}} {{snackbar.success?'success':'failure'}}">
+<div 
+*ngIf="snackbar.msg" 
+class="snackbar" 
+ngClass="{{snackbar.hidden?'fade-out':'fade-in'}} 
+{{snackbar.success?'success':'failure'}}"
+>
     <div class="msg">
         {{snackbar.msg}}
     </div>

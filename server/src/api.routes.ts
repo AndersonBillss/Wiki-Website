@@ -14,6 +14,7 @@ import deletePage from './db/page/deletePage';
 //image
 import addImage from './db/image/addImage';
 import getImages from './db/image/getImages';
+import getImage from './db/image/getImage';
 
 
 // Configure multer for file storage
@@ -79,6 +80,23 @@ apiRouter.get('/getImages', async(req, res) => {
         })
     } else {
         const result = await getImages(page)
+        res.status(result.status).send(result.data)
+    }
+})
+
+apiRouter.get('/getImage', async(req, res) => {
+    const page = req.query.pageName
+    const id = req.query.id
+    if(typeof(page) !== 'string'){
+        res.status(400).send({
+            msg: 'pageName must be a string'
+        })
+    } else if(typeof(id) !== 'string'){
+        res.status(400).send({
+            msg: 'id must be a string'
+        })
+    }else {
+        const result = await getImage(page, id)
         res.status(result.status).send(result.data)
     }
 })

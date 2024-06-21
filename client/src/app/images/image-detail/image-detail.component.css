@@ -1,0 +1,31 @@
+.icon.button{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    margin: 15px;
+}
+.icon.button *{
+    color: var(--background-dark);
+}
+.page-top{
+    display: flex;
+    width: 100vw;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--background-dark);
+    border-bottom: 3px var(--primary-color) solid;
+}
+
+.img{
+    width: 75vw;
+}
+
+.page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

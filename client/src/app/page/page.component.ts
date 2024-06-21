@@ -84,23 +84,13 @@ export class PageComponent implements OnInit {
   savePageContents(){
     this.isLoading = true
     this.pageContentService.savePageContents(this.title, this.pageContents).subscribe((data: any) => {
-      this.snackbar = {
-        success: data.success,
-        msg: data.msg
-      }
       this.pageContents = data.updatedContents.data.contents
       this.pageRegistered = true
 
       this.pageList = data.updatedContents.data.pageList
-      console.log('pageList', this.pageList)
-
       this.isLoading = false
-
+      this.openSnackBar(data)
     })
-    this.snackbar.hidden = false
-    setTimeout(() => {
-      this.snackbar.hidden = true
-    },3000)
 
   }
 
@@ -108,23 +98,13 @@ export class PageComponent implements OnInit {
     this.isLoading = true
     this.editMode = false
     this.pageContentService.deletePage(this.title).subscribe((data: any) => {
-      this.snackbar = {
-        success: data.success,
-        msg: data.msg
-      }
       if(data.success){
         this.pageRegistered = false
       }
       this.pageList = data.pageList
-      console.log('pageList', this.pageList)
       this.isLoading = false
+      this.openSnackBar(data)
     })
-
-
-    this.snackbar.hidden = false
-    setTimeout(() => {
-      this.snackbar.hidden = true
-    },3000)
   }
 
   //create new element
@@ -216,6 +196,19 @@ export class PageComponent implements OnInit {
       }
     })
   }
+
+
+  openSnackBar(apiRes: any){
+    this.snackbar = {
+      success: apiRes.success,
+      msg: apiRes.msg,
+      hidden: false
+    }
+    setTimeout(() => {
+      this.snackbar.hidden = true
+    },3000)
+  }
+
 
 
 }
