@@ -1,7 +1,8 @@
+import { httpResponse } from '../../models';
 import PageContents from '../models/pageContents';
 import getPageContents from './getPageContents'
 
-export default async function updatePageContents(newContents: any){
+export default async function updatePageContents(newContents: any): Promise<httpResponse>{
     const title = newContents.title.toLowerCase()
     try {
         if(!title){
@@ -20,7 +21,9 @@ export default async function updatePageContents(newContents: any){
                 }
             );
         }
-        await PageContents.deleteMany({ title }); // Clear existing contents for this title
+        await PageContents.deleteMany({
+            title: { $regex: new RegExp(`^${title}$`, 'i') }
+        }); // Clear existing contents for this title
         await PageContents.insertMany(newContents);
 
         const newPageContents = await getPageContents(title)

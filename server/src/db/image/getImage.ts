@@ -1,7 +1,8 @@
+import { httpResponse } from '../../models';
 import AssetContent from '../models/assetContents';
 import ConceptContent from '../models/conceptContents';
 
-export default async function getImage(pageName: string, _id: string) {
+export default async function getImage(pageName: string, _id: string): Promise<httpResponse> {
     let image: any
     if(pageName === "assets"){
         image = await ConceptContent.findOne({ _id }).select('highResSrc title tags');

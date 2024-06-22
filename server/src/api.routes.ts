@@ -15,6 +15,8 @@ import deletePage from './db/page/deletePage';
 import addImage from './db/image/addImage';
 import getImages from './db/image/getImages';
 import getImage from './db/image/getImage';
+//models
+import { httpResponse } from './models';
 
 
 // Configure multer for file storage
@@ -55,7 +57,7 @@ apiRouter.post('/updatePageContents', async(req, res) => {
 })
 apiRouter.delete('/deletePage', async(req, res) => {
     const title = req.query.title
-    let result
+    let result: httpResponse
     if(typeof(title) === 'string'){
         result = await deletePage(title)
     } else {

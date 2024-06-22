@@ -1,7 +1,8 @@
+import { httpResponse } from "../../models";
 import PageContents from "../models/pageContents";
 import getPageList from "./getPageList";
 
-export default async function deletePage(title: string){
+export default async function deletePage(title: string): Promise<httpResponse>{
     try{
         const res = await PageContents.deleteMany({ title })
         const pageList = await getPageList()

@@ -18,7 +18,7 @@
 
                 <div class="flex" *ngIf="imgTitle !== null">
                     <app-search-box [optionSelectFunction]="addTag.bind(this)" [label]="'Add tags'" [(value)]="imgTagName"></app-search-box>
-                    <div class="icon button">
+                    <div class="mt icon button">
                         <app-icon icon="plus" (click)="addTag(imgTagName)"></app-icon>
                     </div>
                 </div>

@@ -40,7 +40,7 @@
     
     
     <div class="image-list">
-        <div class="image" *ngFor="let image of images" routerLink="{{image._id}}">
+        <div class="image button" *ngFor="let image of images" routerLink="{{image._id}}">
             <img src="data:image/png;base64,{{image.lowResSrc}}">
             <div>
             {{image.title | titlecase}}

@@ -1,7 +1,8 @@
+import { httpResponse } from '../../models';
 import AssetContent from '../models/assetContents';
 import ConceptContent from '../models/conceptContents';
 
-export default async function getImages(pageName: string) {
+export default async function getImages(pageName: string): Promise<httpResponse> {
     try{
         let images: any
         if(pageName === "assets"){

@@ -24,15 +24,22 @@ export class ImagesService {
     const res = this.http.get<any>(url)
     return res
   }
+  updateImage(pageName: string, image: any){
+    const requestObject = {
+      _id: image._id,
+      title: image.title,
+      tags: image.tags,
+    }
+    const url: string = `${this.apiUrl}/api/`
+  }
   uploadImage(pageName: string, image: any){
     const formData = new FormData();
     formData.append('src', image.src);
     formData.append('title', image.title);
-    formData.append('tags', image.tags);
+    formData.append('tags', JSON.stringify(image.tags));
 
     const url: string = `${this.apiUrl}/api/uploadImage?pageName=${pageName}`
     const res = this.http.post<any>(url, formData)
-    console.log(res)
     return res
   }
 }

@@ -1,20 +1,37 @@
 <div class="page" *ngIf="!isLoading">
     <div class="page-top">
-        <div class="icon button">
+        <div (click)="goBack()" class="icon button">
             <app-icon icon="back"></app-icon>
         </div>
 
-        <h1>{{img.title}}</h1>
+        <h1>{{img.title | titlecase}}</h1>
 
-        <div class="icon button">
-            <app-icon icon="edit"></app-icon>
+        <div (click)="toggleEditMode()" class="icon button">
+            <app-icon *ngIf="!editMode" icon="edit"></app-icon>
+            <app-icon *ngIf="editMode" icon="check"></app-icon>
         </div>
     </div>
 
+    <app-search-box *ngIf="editMode" [(value)]="img.title"></app-search-box>
+
     <img class="img" src="data:image/png;base64,{{img.highResSrc}}">
-    <div>
-        <div *ngFor="let tag of img.tags">
-            {{tag}}
+
+    <app-search-box *ngIf="editMode" [(value)]="newTagName" [optionSelectFunction]="addTag.bind(this)"></app-search-box>
+    <div *ngIf="editMode" class="icon button" (click)="addTag(newTagName)">
+        <app-icon icon="plus"></app-icon>
+    </div>
+    <div class="errMsg">
+        {{tagErrMsg}}
+    </div>
+
+    <div class="img-tags">
+        <div class="tag" *ngFor="let tag of img.tags">
+            <div class="tag-text">
+                {{tag | titlecase}}
+            </div>
+            <div *ngIf="editMode" class="delete icon button">
+                <app-icon icon="delete"></app-icon>
+            </div>
         </div>
     </div>
 </div>

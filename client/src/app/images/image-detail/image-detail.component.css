@@ -1,3 +1,7 @@
+.page{
+    margin-bottom: 15px;
+}
+
 .icon.button{
     width: 35px;
     height: 35px;
@@ -11,6 +15,11 @@
 .icon.button *{
     color: var(--background-dark);
 }
+.delete.icon.button{
+    margin: 0;
+    background-color: var(--primary-light);
+}
+
 .page-top{
     display: flex;
     width: 100vw;
@@ -22,10 +31,33 @@
 
 .img{
     width: 75vw;
+    margin-top: 15px;
+}
+.tag{
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    background-color: var(--primary-light);
+    color: var(--background-dark);
+    border-radius: 15px;
+    margin: 5px;
+}
+.tag-text{
+    color: var(--background-dark);
+    padding: 10px 0;
+}
+.img-tags{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .page{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.errMsg{
+    color: red;
 }

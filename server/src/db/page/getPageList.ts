@@ -1,6 +1,7 @@
+import { httpResponse } from "../../models";
 import PageContents from "../models/pageContents";
 
-export default async function getPageList(){
+export default async function getPageList(): Promise<httpResponse>{
     try{
         const uniqueTitles = await PageContents.distinct('title')
         return {

@@ -58,7 +58,9 @@ export class ImageGalleryComponent implements OnInit {
 
 
     this.imagesService.getImages(this.selectedGallery).subscribe(data => {
-      this.images = data.images
+      if(data.images){
+        this.images = data.images
+      }
       this.isLoading = false
     })
   }
@@ -81,13 +83,22 @@ export class ImageGalleryComponent implements OnInit {
 
   addImage(image: any){
     this.isLoading = true
-    this.imagesService.uploadImage(this.selectedGallery, image).subscribe(data => {
-      if(data.images){
-        this.images = data.images
+    this.imagesService.uploadImage(this.selectedGallery, image).subscribe(
+      data => {
+        console.log(data)
+        this.openSnackBar(data)
+        this.isLoading = false
+
+        if(data.images){
+          this.images = data.images
+        }
+      },
+      error => {
+        this.openSnackBar(error.error);
+        this.isLoading = false;
       }
-      this.openSnackBar(data)
-      this.isLoading = false
-    })
+    )
+
   }
 
 

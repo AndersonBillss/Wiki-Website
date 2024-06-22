@@ -1,83 +1,38 @@
 import AssetContent from '../models/assetContents';
 import ConceptContent from '../models/conceptContents';
+import getImageObject from '../../utils/getImageObject';
 import sharp from 'sharp';
 
 import getImages from './getImages';
+import { httpResponse } from '../../models';
 
-export default async function addImage(pageName: string, newContents: any) {
-    const base64Image = newContents.src;
+export default async function addImage(pageName: string, newContents: any): Promise<httpResponse>{
+    newContents.tags = JSON.parse(newContents.tags)
 
-    if (!base64Image) {
-        return {
+
+    if(new Set(newContents.tags).size !== newContents.tags.length){
+        return{
             status: 400,
             data: {
-                msg:'No file uploaded.'
+                success: false,
+                msg: 'Img tags cannot have duplicates'
             }
-        };
+        }
+    
     }
-
-    const matches = base64Image.match(/^data:(image\/[a-zA-Z]+);base64,(.+)$/);
-    if (!matches || matches.length !== 3) {
-        return {
-            status: 400,
-            data: {
-                msg: 'Invalid base64 image format.'
-            }
-        };
-    }
-
-    const base64Data = matches[2];
-    const imageData = Buffer.from(base64Data, 'base64');
 
 
     try {
-        const metadata = await sharp(imageData).metadata();
-        const originalWidth = metadata.width;
-        const originalHeight = metadata.height;
-        let widthToHeight: number = 0
-        if(originalHeight && originalWidth){
-            widthToHeight = originalWidth / originalHeight
-        } else {
-            return({
-                    status: 400,
-                    data: {
-                        msg: 'image has no height or no width'
-                    }
-                }
-            )
+      const imgObjectData = await getImageObject(newContents)
+        if(!imgObjectData.data.success){
+            return imgObjectData
         }
-
-        // Convert image to PNG
-        const highResolutionPng = sharp(imageData)
-            .png()    
-
-        const highResolutionBuffer = await highResolutionPng.toBuffer()
-        const highResolutionBase64ConvertedImage = highResolutionBuffer.toString('base64');
-
-        const medResResizeHeight = 600
-        const medResResizeWidth = Math.floor(medResResizeHeight * widthToHeight)
-        const medResolutionBuffer = await highResolutionPng.resize(medResResizeWidth, medResResizeHeight).toBuffer()
-        const medResolutionBase64ConvertedImage = medResolutionBuffer.toString('base64')
-
-        const lowResResizeHeight = 200
-        const lowResResizeWidth = Math.floor(lowResResizeHeight * widthToHeight)
-        const lowResolutionBuffer = await highResolutionPng.resize(lowResResizeWidth, lowResResizeHeight).toBuffer()
-        const lowResolutionBase64ConvertedImage = lowResolutionBuffer.toString('base64')
-
-        const imgObject = {
-            highResSrc: highResolutionBase64ConvertedImage,
-            medResSrc: medResolutionBase64ConvertedImage,
-            lowResSrc: lowResolutionBase64ConvertedImage,
-            title: newContents.title.toLowerCase(),
-            tags: newContents.tags
-        }
-
-
+        const imgObject = imgObjectData.data.img
 
         let saveResult: any
         if(pageName === 'assets'){
-            try {
-                const title = imgObject.title
+            try{
+                const title = imgObject!.title
     
                 const imageWithSameTitle = await AssetContent.findOne({ title });
                 if(imageWithSameTitle){
@@ -117,7 +72,7 @@ export default async function addImage(pageName: string, newContents: any) {
 
         } else if(pageName === 'concept'){
             try {
-                const title = imgObject.title
+                const title = imgObject!.title
     
                 const imageWithSameTitle = await ConceptContent.findOne({ title });
                 if(imageWithSameTitle){

@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 
 import { LoadingComponent } from '../../loading/loading.component';
 import { IconComponent } from '../../icon/icon.component';
+import { Location } from '@angular/common';
+import { SearchBoxComponent } from '../../navbar/search-box/search-box.component';
 
 @Component({
   selector: 'app-image-detail',
@@ -14,12 +16,17 @@ import { IconComponent } from '../../icon/icon.component';
     CommonModule,
 
     IconComponent,
-    LoadingComponent
+    LoadingComponent,
+    SearchBoxComponent
   ],
   templateUrl: './image-detail.component.html',
   styleUrl: './image-detail.component.css'
 })
 export class ImageDetailComponent implements OnInit{
+  editMode: boolean = false
+  newTagName: string = ''
+  tagErrMsg: string = ''
+
   pageName: string = ''
   imgId: string = ''
   isLoading: boolean = true
@@ -32,7 +39,8 @@ export class ImageDetailComponent implements OnInit{
 
   constructor(
     private imagesService: ImagesService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ){ }
 
   ngOnInit(): void {
@@ -44,11 +52,22 @@ export class ImageDetailComponent implements OnInit{
     this.setRouteData()
 
     this.imagesService.getImage(this.pageName, this.imgId).subscribe(data => {
-      console.log(data)
       this.img = data.image
       this.isLoading = false
     })
 
+  }
+
+  goBack(){
+    this.location.back();
+  }
+
+  toggleEditMode(){
+    if(this.editMode){
+      this.editImage()
+    } else {
+      this.editMode = true
+    }
   }
 
 
@@ -56,6 +75,7 @@ export class ImageDetailComponent implements OnInit{
     const routeName = '/images'
     let route = this.router.url;
     const routeEndpoint = route.slice(routeName.length, route.length).trim()
+
 
     if(routeEndpoint !== ''){
       const routeEndpointWithouSlash = routeEndpoint.slice(1,routeEndpoint.length)
@@ -77,5 +97,24 @@ export class ImageDetailComponent implements OnInit{
     setTimeout(() => {
       this.snackbar.hidden = true
     },3000)
+  }
+
+  addTag(newTag: string){
+    const tagName = newTag.toLowerCase().trim()
+    if(!tagName){
+      this.tagErrMsg = "Tag must have a name before you add it"
+    } else
+    if(this.img.tags.indexOf(tagName) !== -1){
+      this.tagErrMsg = "Cannot have duplicate tag names"
+    } else {
+      this.img.tags.push(tagName)
+      this.tagErrMsg = ""
+      this.newTagName = ""
+    }
+  }
+
+  editImage(){
+    this.imagesService.updateImage(this.pageName, this.img)
+    this.editMode = false
   }
 }

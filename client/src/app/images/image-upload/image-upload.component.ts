@@ -36,7 +36,7 @@ export class ImageUploadComponent {
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
       if(!this.isImage(this.selectedFile.name)){
-        this.errorMsg = "Image must be in one of the following formats: jpeg, jpg, gif, png, heic";
+        this.errorMsg = "Image must be in one of the following formats: jpeg, jpg, gif, png, heic, or webp";
         return;
       }
       this.previewFile(this.selectedFile);
@@ -55,7 +55,7 @@ export class ImageUploadComponent {
 
   isImage(filePath: string | null): boolean {
     if(filePath){
-      return filePath.match(/\.(jpeg|jpg|gif|png|heic)$/) != null;
+      return filePath.match(/\.(jpeg|jpg|gif|png|heic|webp)$/) != null;
     } else {
       return false;
     }
