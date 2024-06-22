@@ -25,11 +25,11 @@
     </div>
 
     <div class="img-tags">
-        <div class="tag" *ngFor="let tag of img.tags">
+        <div class="tag" *ngFor="let tag of img.tags; let i = index">
             <div class="tag-text">
                 {{tag | titlecase}}
             </div>
-            <div *ngIf="editMode" class="delete icon button">
+            <div *ngIf="editMode" (click)="removeTag(i)" class="delete icon button">
                 <app-icon icon="delete"></app-icon>
             </div>
         </div>

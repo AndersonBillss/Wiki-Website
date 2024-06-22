@@ -112,9 +112,21 @@ export class ImageDetailComponent implements OnInit{
       this.newTagName = ""
     }
   }
+  removeTag(index: number){
+    this.img.tags.splice(index,1)
+  }
 
   editImage(){
-    this.imagesService.updateImage(this.pageName, this.img)
-    this.editMode = false
+    this.isLoading = true
+    this.imagesService.updateImage(this.pageName, this.img).subscribe(data => {
+      console.log(data)
+      this.img = data.image
+      this.editMode = false
+      this.openSnackBar(data)
+      if(data.success){
+        this.isLoading = false
+      }
+    })
   }
+  
 }

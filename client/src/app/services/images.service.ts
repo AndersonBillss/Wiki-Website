@@ -30,7 +30,10 @@ export class ImagesService {
       title: image.title,
       tags: image.tags,
     }
-    const url: string = `${this.apiUrl}/api/`
+
+    const url: string = `${this.apiUrl}/api/updateImage?pageName=${pageName}`
+    const res = this.http.post<any>(url, requestObject)
+    return res
   }
   uploadImage(pageName: string, image: any){
     const formData = new FormData();

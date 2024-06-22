@@ -12,6 +12,7 @@ input{
     position: relative;
     border: 2px var(--text-muted) solid;
     border: none;
+    color: var(--text-color);
 }
 .dividing-line{
     height: 2px;
