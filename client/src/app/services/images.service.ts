@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
 import { environment } from '../../environments/environment';
+import { UrlTree } from '@angular/router';
 
 
 @Injectable({
@@ -24,13 +25,19 @@ export class ImagesService {
     const res = this.http.get<any>(url)
     return res
   }
+  getImageList(pageName?: string){
+    const query = pageName?`?pageName=${pageName}`:''
+    const url = `${this.apiUrl}/api/imageList${query}`
+    const res = this.http.get<any>(url)
+    return res
+  }
+
   updateImage(pageName: string, image: any){
     const requestObject = {
       _id: image._id,
       title: image.title,
       tags: image.tags,
     }
-
     const url: string = `${this.apiUrl}/api/updateImage?pageName=${pageName}`
     const res = this.http.post<any>(url, requestObject)
     return res
@@ -43,6 +50,13 @@ export class ImagesService {
 
     const url: string = `${this.apiUrl}/api/uploadImage?pageName=${pageName}`
     const res = this.http.post<any>(url, formData)
+    return res
+  }
+
+  getTagList(pageName?: string){
+    const query = pageName?`?pageName=${pageName}`:''
+    const url = `${this.apiUrl}/api/getTags${query}`
+    const res = this.http.get(url)
     return res
   }
 }

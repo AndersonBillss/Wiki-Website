@@ -37,7 +37,6 @@ a:hover{
 html{
     background-color: var(--background-color);
     font-family: "Roboto", sans-serif;
-    min-height: 100vh;
 }
 
 *[color=default]{
@@ -77,8 +76,11 @@ app-standard-button{
     outline: none;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { 
+    height: 100%;
+    overflow: auto;
+ }
+body {font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .pop-up{
     position: fixed;
@@ -118,7 +120,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .snackbar{
     display: flex;
-    position: fixed;
     text-align: left;
     position: fixed;
     bottom: calc(68.38px + 15px);

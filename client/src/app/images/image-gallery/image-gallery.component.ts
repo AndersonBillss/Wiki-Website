@@ -10,6 +10,10 @@ import { CommonModule } from '@angular/common';
 import { IconComponent } from '../../icon/icon.component';
 import { SearchBoxComponent } from '../../navbar/search-box/search-box.component';
 import { LoadingComponent } from '../../loading/loading.component';
+import getTags from '../../utils/getTags';
+import filterImages from '../../utils/filterImages';
+
+import { getCachedImageTags, getCachedSearchTerm, setCachedImageTags, setCachedSearchTerm } from '../../utils/cached';
 
 
 @Component({
@@ -31,7 +35,12 @@ import { LoadingComponent } from '../../loading/loading.component';
 export class ImageGalleryComponent implements OnInit {
   newImg: File | null = null
   selectedGallery: string = ''
-  images: any = []
+  images: any[] = []
+  tags: any[] = []
+
+  filterTags: any[] = []
+  filterString: string = ""
+  filteredImages: any[] = []
 
   snackbar: any = {
     success: true,
@@ -56,10 +65,15 @@ export class ImageGalleryComponent implements OnInit {
     });
     this.setUrl()
 
+    this.filterTags = getCachedImageTags(this.selectedGallery)
+    this.filterString = getCachedSearchTerm(this.selectedGallery)
+
 
     this.imagesService.getImages(this.selectedGallery).subscribe(data => {
       if(data.images){
         this.images = data.images
+        this.filteredImages = data.images
+        this.tags = getTags(data.images)
       }
       this.isLoading = false
     })
@@ -91,6 +105,8 @@ export class ImageGalleryComponent implements OnInit {
 
         if(data.images){
           this.images = data.images
+          this.tags = getTags(data.images)
+          this.searchImages()
         }
       },
       error => {
@@ -113,5 +129,32 @@ export class ImageGalleryComponent implements OnInit {
     },3000)
   }
 
+
+  addTagFilter(tagName: string){
+    tagName = tagName.trim().toLowerCase()
+    let isValidFilter = true
+    if(tagName){
+      this.filterTags.forEach(filterTag => {
+        if(filterTag === tagName){
+          isValidFilter = false
+        }
+      })
+      if(isValidFilter){
+        this.filterTags.push(tagName)
+      }
+    }
+    this.searchImages()
+  }
+
+  removeFilterTag(index: number){
+    this.filterTags.splice(index,1)
+    this.searchImages()
+  }
+
+  searchImages(string?: string){
+    this.filteredImages = filterImages(this.images,this.filterString,this.filterTags)
+    setCachedImageTags(this.selectedGallery,this.filterTags)
+    setCachedSearchTerm(this.selectedGallery,this.filterString)
+  }
 
 }

@@ -20,16 +20,29 @@
     <div class="image-gallery-search">
     
         <app-search-box
+        [(value)]="filterString"
         label="title"
+        [optionSelectFunction]="searchImages.bind(this)"
+        (valueChange)="searchImages()"
         >
         </app-search-box>
     
     
         <app-search-box
         label="tags"
+        [options]="tags"
+        [optionSelectFunction]="addTagFilter.bind(this)"
         >
         </app-search-box>
     
+    </div>
+    <div class="image-tags">
+        <div class="image-tag" *ngFor="let tag of filterTags; let i = index">
+            {{tag | titlecase}} 
+            <div class="light icon button" (click)="removeFilterTag(i)">
+                <app-icon icon="delete"></app-icon>
+            </div>
+        </div>
     </div>
     
     <app-image-upload
@@ -40,7 +53,7 @@
     
     
     <div class="image-list">
-        <div class="image button" *ngFor="let image of images" routerLink="{{image._id}}">
+        <div class="image button" *ngFor="let image of filteredImages" routerLink="{{image._id}}">
             <img src="data:image/png;base64,{{image.lowResSrc}}">
             <div>
             {{image.title | titlecase}}

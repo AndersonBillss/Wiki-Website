@@ -17,6 +17,9 @@ import getImages from './db/image/getImages';
 import getImage from './db/image/getImage';
 //models
 import { httpResponse } from './models';
+import updateImage from './db/image/updateImage';
+import getImageList from './db/image/getImageList';
+import getTagList from './db/image/getTagList';
 
 
 // Configure multer for file storage
@@ -102,6 +105,21 @@ apiRouter.get('/getImage', async(req, res) => {
         res.status(result.status).send(result.data)
     }
 })
+apiRouter.get('/imageList', async(req, res) => {
+    const pageName = `${req.query.pageName}`
+    const result = await getImageList(pageName)
+    res.send(result)
+})
+apiRouter.get('/imageList', async(req, res) => {
+    const pageName = `${req.query.pageName}`
+    const result = await getImageList(pageName)
+    res.send(result)
+})
+apiRouter.get('/getTags', async(req, res) => {
+    const pageName = `${req.query.pageName}`
+    const result = await getTagList(pageName)
+    res.send(result)
+})
 
 apiRouter.post('/uploadImage', upload.single('image'), async(req, res) => {
     const page = req.query.pageName
@@ -112,6 +130,18 @@ apiRouter.post('/uploadImage', upload.single('image'), async(req, res) => {
     } else {
         const file = req.body;
         const result = await addImage(page, file)
+        res.status(result.status).send(result.data)
+    }
+})
+apiRouter.post('/updateImage', async(req, res) => {
+    const page = req.query.pageName
+    if(typeof(page) !== 'string'){
+        res.status(400).send({
+            msg: 'pageName must be a string'
+        })
+    } else {
+        const file = req.body;
+        const result = await updateImage(page, file)
         res.status(result.status).send(result.data)
     }
 })

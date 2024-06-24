@@ -51,6 +51,24 @@
     width: auto;
 }
 
+.image-tags{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.image-tag{
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    background-color: var(--primary-light);
+    color: var(--background-dark);
+    border-radius: 15px;
+    margin: 5px;
+}
+.light.icon.button{
+    background-color: (var(--primary-light));
+}
+
 @media(max-width: 400px){
     .image{
         padding: 5px;

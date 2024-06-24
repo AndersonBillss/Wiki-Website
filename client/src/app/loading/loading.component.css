@@ -1,0 +1,8 @@
+.loading{
+    display: flex;
+    justify-content: center;
+}
+.loading canvas{
+    height: 100px;
+    width: auto;
+}

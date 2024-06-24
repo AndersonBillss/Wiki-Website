@@ -119,12 +119,11 @@ export class ImageDetailComponent implements OnInit{
   editImage(){
     this.isLoading = true
     this.imagesService.updateImage(this.pageName, this.img).subscribe(data => {
-      console.log(data)
       this.img = data.image
-      this.editMode = false
+      this.isLoading = false
       this.openSnackBar(data)
       if(data.success){
-        this.isLoading = false
+        this.editMode = false
       }
     })
   }
