@@ -2,9 +2,6 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { RouterOutlet } from '@angular/router';
 import { parsePageContent } from './functions/pageContentFunctions';
 
-import { MatIconModule } from '@angular/material/icon';
-import { MatIcon } from '@angular/material/icon';
-
 import { TabsComponent } from './tabs/tabs.component';
 
 @Component({
@@ -12,8 +9,6 @@ import { TabsComponent } from './tabs/tabs.component';
   standalone: true,
   imports: [
     RouterOutlet,
-    MatIcon,
-    MatIconModule,
     TabsComponent
   ],
   providers: [

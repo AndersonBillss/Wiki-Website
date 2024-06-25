@@ -76,10 +76,6 @@ app-standard-button{
     outline: none;
 }
 
-html, body { 
-    height: 100%;
-    overflow: auto;
- }
 body {font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .pop-up{
