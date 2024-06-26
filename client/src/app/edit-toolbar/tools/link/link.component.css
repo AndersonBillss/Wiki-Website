@@ -1,9 +1,21 @@
+.linkContainer{
+    display: flex;
+    align-items: center;
+}
+.linkButtonsContainer{
+    margin-left: 15px;
+
+}
+
 .edit.button{
     padding: 15px;
     background-color: var(--primary-light);
+    color: var(--background-dark)
 }
-.linkComponent{
+.linkButtons{
     display: flex;
     flex-direction: column;
     align-self: center;
+    border-radius: 15px;
+    overflow: hidden;
 }

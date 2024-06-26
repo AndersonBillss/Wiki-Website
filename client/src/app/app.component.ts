@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { parsePageContent } from './functions/pageContentFunctions';
+import { parsePageContent } from './utils/pageContentFunctions';
 
 import { TabsComponent } from './tabs/tabs.component';
 

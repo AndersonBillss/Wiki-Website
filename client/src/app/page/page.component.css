@@ -48,6 +48,8 @@
 .edit.button{
     padding: 15px;
     background-color: var(--primary-light);
+    color: var(--background-dark);
+    border-radius: 15px;
 }
 
 

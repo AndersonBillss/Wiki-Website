@@ -1,0 +1,37 @@
+<div class="ImageElement">
+
+
+    <div class="image-container" >
+        <img class="image"
+        [routerLink]="selectedImageLocation._id?
+        ['/images', selectedImageLocation.pageName, selectedImageLocation._id]
+        :null"
+        *ngIf="imageUrl"
+        >
+    
+        <div class="image" *ngIf="!imageUrl">
+            <app-icon icon="image" size="200px"></app-icon>
+        </div>
+    
+        <div class="edit image icon button" (click)="openImageSelect()">
+            <app-icon icon="edit"></app-icon>
+        </div>
+    </div>
+    
+    
+    
+    <p *ngIf="editMode" [innerHtml]="data.text" contentEditable="true" (blur)="cacheChanges($event)" (keydown)="keyDownHandler($event)">
+    </p>
+    
+    <p [innerHtml]="data.text" *ngIf="!editMode">
+    </p>
+
+
+</div>
+
+
+<app-image-select
+*ngIf="selectComponentOpen"
+[(isVisible)]="selectComponentOpen"
+[(selectedImageLocation)]="selectedImageLocation"
+></app-image-select>

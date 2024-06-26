@@ -99,7 +99,6 @@ export class ImageGalleryComponent implements OnInit {
     this.isLoading = true
     this.imagesService.uploadImage(this.selectedGallery, image).subscribe(
       data => {
-        console.log(data)
         this.openSnackBar(data)
         this.isLoading = false
 

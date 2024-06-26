@@ -1,11 +1,16 @@
-<div class="linkComponent">
-    <input [(ngModel)]="newLink">
+<div class="linkContainer">
+    <app-search-box [(value)]="newLink"></app-search-box>
 
-    <div class="edit button" (mousedown)="addLink()">
-        Create Link
-    </div>
-    <div class="edit button" (mousedown)="removeLink()">
-        Remove Link
-    </div>
+    <div class="linkButtonsContainer">
+        <div class="linkButtons">
 
+            <div class="edit button" (mousedown)="addLink()">
+                Create Link
+            </div>
+            <div class="edit button" (mousedown)="removeLink()">
+                Remove Link
+            </div>
+
+        </div>
+    </div>
 </div>

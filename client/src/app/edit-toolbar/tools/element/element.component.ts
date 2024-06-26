@@ -17,7 +17,8 @@ export class ElementComponent {
 
   elementTypes: string[] = [
     "Paragraph",
-    "Header"
+    "Header",
+    "Image"
   ]
 
   changeElement(type: string){

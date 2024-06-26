@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class IconComponent implements OnInit, OnChanges {
   @Input() icon!: string;
+  @Input() size?: string;
   color: string = 'rgb(0,0,0)';
   private observer: MutationObserver;
 
@@ -34,11 +35,8 @@ export class IconComponent implements OnInit, OnChanges {
     this.updateColor();
   }
 
-  
 
-
-
-  updateColor() {
+  updateColor(){
     const computedStyle = getComputedStyle(this.elRef.nativeElement);
     this.color = computedStyle.getPropertyValue('color');
   }

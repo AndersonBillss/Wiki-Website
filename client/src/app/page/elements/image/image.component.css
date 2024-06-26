@@ -1,0 +1,41 @@
+.ImageElement{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+.image{
+    width: 200px;
+    height: auto;
+    background-color: var(--background-dark);
+    justify-content: center;
+    margin: 15px;
+}
+
+.icon.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+.icon.button * {
+    color: var(--background-dark);
+}
+.image-container{
+    position: relative
+}
+.edit.image.icon.button{
+    position: absolute;
+    top: -10px;
+    left: -10px;
+}
+
+
+p{
+    text-align: left;
+    text-wrap: wrap;
+    margin: 0;
+    padding: 10px 5px;
+}

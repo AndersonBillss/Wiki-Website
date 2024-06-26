@@ -1,0 +1,86 @@
+.pop-up-card{
+    padding: 15px; 
+}
+
+.pop-up-card-contents{
+    height: 80vh;
+    width: 80vw;
+    overflow-y: scroll;
+}
+
+.page-select{
+    display: flex;
+    justify-content: space-evenly;
+}
+.page-option{
+    padding: 20px;
+    border-radius: 15px;
+    background-color: var(--primary-light);
+    color: var(--background-dark)
+}
+.images{
+    margin: 15px auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.selected{
+    background-color: var(--primary-color);
+}
+.image{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--background-dark);
+    margin: 5px;
+}
+
+img{
+    height: 100px;
+    width: auto;
+}
+.icon.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+.icon.button *{
+    color: var(--background-dark);
+}
+
+.search-box-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.search-box-container *{
+    margin: auto 15px;
+}
+
+.tags{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 15px;
+}
+.tag{
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 15px;
+    color: var(--background-dark);
+    background-color: var(--primary-light);
+    margin: 5px;
+}
+
+
+.delete.icon.button {
+    margin-left: 15px;
+    background-color: var(--primary-light);
+}

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { SearchBoxComponent } from '../../../navbar/search-box/search-box.component';
 
 @Component({
   selector: 'app-link',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    SearchBoxComponent
   ],
   templateUrl: './link.component.html',
   styleUrl: './link.component.css'

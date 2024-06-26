@@ -15,6 +15,7 @@ import { filter } from 'rxjs/operators';
 
 import { IconComponent } from '../icon/icon.component';
 import { LoadingComponent } from '../loading/loading.component';
+import { ImageComponent } from './elements/image/image.component';
 
 
 
@@ -26,6 +27,7 @@ import { LoadingComponent } from '../loading/loading.component';
   imports: [
     ParagraphComponent,
     HeaderComponent,
+    ImageComponent,
     IconComponent,
 
     EditToolbarComponent,

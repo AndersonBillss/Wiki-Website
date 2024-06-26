@@ -1,0 +1,62 @@
+<div class="pop-up">
+    <div class="pop-up-card">
+        <div class="close icon button" (click)="close()">
+            <app-icon icon="close"></app-icon>
+        </div>
+
+        <div class="pop-up-card-contents">
+
+            <div class="page-select">
+                <div 
+                [ngClass]="selectedGallery==='concept'?'selected':''"
+                class="page-option button"
+                (click)="selectGallery('concept')"
+                >Concept</div>
+
+                <div 
+                [ngClass]="selectedGallery==='assets'?'selected':''"
+                class="page-option button"
+                (click)="selectGallery('assets')"
+                >Assets</div>
+            </div>
+
+            <div class="search-box-container">
+                <app-search-box
+                [(value)]="filterString"
+                label="title"
+                [optionSelectFunction]="searchImages.bind(this)"
+                (valueChange)="searchImages()"
+                >
+                </app-search-box>
+            
+                <app-search-box
+                label="tags"
+                [options]="tags"
+                [optionSelectFunction]="addTagFilter.bind(this)"
+                >
+                </app-search-box>
+            </div>
+            <div class="tags">
+                <div class="tag" *ngFor="let tag of filterTags; let i=index">
+                    {{tag | titlecase}}
+                    <div (click)="removeFilterTag(i)" class="delete icon button">
+                        <app-icon icon="delete"></app-icon>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-select" *ngIf="selectedGallery && !isLoading">
+                <div class="images">
+                    <div class="image button" 
+                    *ngFor="let image of filteredImages"
+                    (click)="selectImage(image._id)"
+                    >
+                        <img src="data:image/png;base64,{{image.lowResSrc}}">
+                        {{image.title | titlecase}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
