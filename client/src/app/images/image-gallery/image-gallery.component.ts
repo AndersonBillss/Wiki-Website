@@ -13,7 +13,7 @@ import { LoadingComponent } from '../../loading/loading.component';
 import getTags from '../../utils/getTags';
 import filterImages from '../../utils/filterImages';
 
-import { getCachedImageTags, getCachedSearchTerm, setCachedImageTags, setCachedSearchTerm } from '../../utils/cached';
+import { getCachedImageTags, getCachedSearchTerm, setCachedImageTags, setCachedSearchTerm } from '../../utils/cachedImageSearch';
 
 
 @Component({

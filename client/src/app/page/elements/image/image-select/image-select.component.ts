@@ -32,8 +32,7 @@ export class ImageSelectComponent {
   @Input() isVisible!: boolean;
   @Output() isVisibleChange = new EventEmitter<boolean>();
 
-  @Input() selectedImageLocation!: any;
-  @Output() selectedImageLocationChange = new EventEmitter<string>()
+  @Input() selectFuntion!: any
 
   newImg: File | null = null
   selectedGallery: string = ''
@@ -124,11 +123,7 @@ export class ImageSelectComponent {
 
 
   selectImage(id: string){
-    this.selectedImageLocation = {
-      _id: id,
-      pageName: this.selectedGallery
-    }
-    this.selectedImageLocationChange.emit(this.selectedImageLocation)
+    this.selectFuntion({_id: id, pageName: this.selectedGallery})
     this.isVisible = false
     this.isVisibleChange.emit(this.isVisible)
   }

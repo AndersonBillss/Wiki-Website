@@ -1,37 +1,44 @@
-<div class="ImageElement">
 
 
-    <div class="image-container" >
-        <img class="image"
-        [routerLink]="selectedImageLocation._id?
-        ['/images', selectedImageLocation.pageName, selectedImageLocation._id]
-        :null"
-        *ngIf="imageUrl"
-        >
-    
-        <div class="image" *ngIf="!imageUrl">
-            <app-icon icon="image" size="200px"></app-icon>
-        </div>
-    
-        <div class="edit image icon button" (click)="openImageSelect()">
-            <app-icon icon="edit"></app-icon>
-        </div>
+<div class="image-container" >
+    @if(isLoading){
+        <app-loading class="image"></app-loading>
+    } @else{
+
+        @if(imageUrl){
+            <img class="image"
+            [routerLink]="data.imageLocation._id?
+            ['/images', data.imageLocation.pageName, data.imageLocation._id]
+            :null"
+            src="data:image/png;base64,{{imageUrl}}"
+            >
+        } @else {
+            <div class="image" *ngIf="!imageUrl">
+                <app-icon icon="image" size="200px"></app-icon>
+            </div>
+        }
+
+    }
+
+
+    <div *ngIf="editMode" class="edit image icon button" (click)="openImageSelect()">
+        <app-icon icon="edit"></app-icon>
     </div>
-    
-    
-    
-    <p *ngIf="editMode" [innerHtml]="data.text" contentEditable="true" (blur)="cacheChanges($event)" (keydown)="keyDownHandler($event)">
-    </p>
-    
-    <p [innerHtml]="data.text" *ngIf="!editMode">
-    </p>
-
-
 </div>
+
+
+
+<p *ngIf="editMode" [innerHtml]="data.text" contentEditable="true" (blur)="cacheChanges($event)" (keydown)="keyDownHandler($event)">
+</p>
+
+<p [innerHtml]="data.text" *ngIf="!editMode">
+</p>
+
+
 
 
 <app-image-select
 *ngIf="selectComponentOpen"
 [(isVisible)]="selectComponentOpen"
-[(selectedImageLocation)]="selectedImageLocation"
+[selectFuntion]="selectImage.bind(this)"
 ></app-image-select>

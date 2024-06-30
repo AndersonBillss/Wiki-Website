@@ -20,6 +20,7 @@ import { httpResponse } from './models';
 import updateImage from './db/image/updateImage';
 import getImageList from './db/image/getImageList';
 import getTagList from './db/image/getTagList';
+import getImageArray from './db/image/getImageArray';
 
 
 // Configure multer for file storage
@@ -54,7 +55,6 @@ apiRouter.get('/getPageContents', async(req, res) => {
     res.status(result.status).json(result.data)
 })
 apiRouter.post('/updatePageContents', async(req, res) => {
-
     const response = await updatePageContents(req.body)
     res.status(response.status).json(response.data)
 })
@@ -101,7 +101,14 @@ apiRouter.get('/getImage', async(req, res) => {
             msg: 'id must be a string'
         })
     }else {
-        const result = await getImage(page, id)
+        let result: httpResponse
+        const resolution = req.query.resolution
+        if(resolution === "med"){
+            result = await getImageArray([{pageName: page, _id: id}])
+            result.data.images = result.data.images[0]
+        } else {
+            result = await getImage(page, id)
+        }
         res.status(result.status).send(result.data)
     }
 })

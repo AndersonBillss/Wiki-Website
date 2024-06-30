@@ -10,12 +10,16 @@ import { Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
   ],
   styleUrls: ['./paragraph.component.css']
 })
-export class ParagraphComponent{
+export class ParagraphComponent implements OnInit{
   @Input() editMode!: boolean;
   @Input() data!: any;
   @Output() dataChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() enterPressed: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteElement: EventEmitter<void> = new EventEmitter<void>();
+
+  ngOnInit(): void {
+    this.data.type = "Paragraph"
+  }
 
   cacheChanges(event: any) {
     const newValue = event.target.innerHTML;

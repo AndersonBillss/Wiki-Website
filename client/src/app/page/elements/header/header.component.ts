@@ -10,12 +10,16 @@ import { Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
   ],
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Input() editMode!: boolean;
   @Input() data!: any;
   @Output() dataChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() enterPressed: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteElement: EventEmitter<void> = new EventEmitter<void>();
+
+  ngOnInit(): void {
+    this.data.type = "Header"
+  }
 
   cacheChanges(event: any) {
     const newValue = event.target.innerHTML;

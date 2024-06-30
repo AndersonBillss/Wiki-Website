@@ -4,6 +4,27 @@ import getPageContents from './getPageContents'
 
 export default async function updatePageContents(newContents: any): Promise<httpResponse>{
     const title = newContents.title.toLowerCase()
+    newContents.contents = newContents.contents.map((item: any) => {
+        if(item.type === 'Header'){
+            return{
+                type: item.type,
+                text: item.text
+            }
+        } else if(item.type === 'Paragraph'){
+            return{
+                type: item.type,
+                text: item.text
+            }
+        } else if(item.type === 'Image'){
+            return{
+                type: item.type,
+                text: item.text,
+                imageLocation: item.imageLocation
+            }
+        }
+        return item
+    })
+
     try {
         if(!title){
             return(

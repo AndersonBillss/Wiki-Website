@@ -16,6 +16,7 @@ import { filter } from 'rxjs/operators';
 import { IconComponent } from '../icon/icon.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { ImageComponent } from './elements/image/image.component';
+import { CachedImagesService } from '../services/cachedImages.service';
 
 
 
@@ -70,7 +71,8 @@ export class PageComponent implements OnInit {
   constructor( 
     private pageContentService: PageContentsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cachedImagesService: CachedImagesService
   ){ }
 
 
@@ -194,6 +196,7 @@ export class PageComponent implements OnInit {
         this.pageContents = data.contents
         this.pageRegistered = data.registered
         this.pageList = data.pageList
+        this.cachedImagesService.setCachedImages(data.images)
         this.isLoading = false
       }
     })
@@ -212,5 +215,8 @@ export class PageComponent implements OnInit {
   }
 
 
+  test(){
+    console.log(this.pageContents)
+  }
 
 }
