@@ -4,9 +4,47 @@
     color: var(--background-dark);
     border-radius: 15px;
 }
+.edit.button * {
+    color: var(--background-dark);
+}
 .elementTypes{
     display: flex;
 }
 .elementTypes *{
     margin: auto 15px;
+}
+
+.short-text{
+    display: none;
+}
+
+.icon{
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+
+@media(max-width: 500px){
+    .elementTypes{
+        margin-bottom: 15px;
+    }
+    .edit.button{
+        padding: 5px;
+        margin: auto 5px;
+    }
+}
+
+@media(max-width: 350px){
+    .full-text{
+        display: none;
+    }
+    .short-text{
+        display: contents;
+    }
+
+    .edit.button{
+        padding: 15px;
+        margin: auto 5px;
+    }
 }

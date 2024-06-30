@@ -29,6 +29,7 @@
 
 .page-top{
     display: flex;
+    flex-wrap: wrap-reverse;
     justify-content: space-between;
     align-items: center;
 }
@@ -107,3 +108,29 @@
     padding: 15px;
 }
 
+.edit-buttons{
+    display: flex;
+}
+.edit-buttons *{
+    margin: auto 10px;
+}
+
+
+@media(max-width: 850px){
+    .page{
+        margin: 5px;
+        padding: 5px;
+    }
+}
+@media(max-width: 600px){
+    .page{
+        margin: 5px;
+        padding: 5px;
+    }
+    .element{
+        margin: 10px 0;
+    }
+    p{
+        margin: 0;
+    }
+}

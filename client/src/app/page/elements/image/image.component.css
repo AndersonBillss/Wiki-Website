@@ -1,15 +1,18 @@
-.ImageElement{
-    display: flex;
-    flex-wrap: wrap;
-    margin: 10px;
-}
+
 .image{
-    width: 200px;
-    height: auto;
+    height: 200px;
+    width: auto;
+    max-width: 45vw;
     background-color: var(--background-dark);
     justify-content: center;
-    margin: 15px;
+    align-self: center;
 }
+@media (min-width: 45vw) {
+    .image {
+        height: auto;
+    }
+}
+
 
 .icon.button{
     display: flex;
@@ -24,7 +27,8 @@
     color: var(--background-dark);
 }
 .image-container{
-    position: relative
+    display: flex;
+    position: relative;
 }
 .edit.image.icon.button{
     position: absolute;
@@ -38,5 +42,36 @@ p{
     text-align: left;
     text-wrap: wrap;
     margin: 0;
-    padding: 10px 5px;
+    padding: 5px 10px;
+}
+
+
+.image-element{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+@media(max-width: 600px){
+    .image-element{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+
+    .image{
+        margin-top: 15px;
+        width: auto;
+        height: 200px;
+        max-width: 80vw;
+    }
+    @media (min-width: 80vw) {
+        .image {
+            height: auto;
+        }
+    }
+
+    
 }

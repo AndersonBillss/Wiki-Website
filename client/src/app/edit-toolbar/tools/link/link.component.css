@@ -1,5 +1,6 @@
 .linkContainer{
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 .linkButtonsContainer{
@@ -12,10 +13,46 @@
     background-color: var(--primary-light);
     color: var(--background-dark)
 }
+.edit.button *{
+    color: var(--background-dark)
+}
 .linkButtons{
     display: flex;
     flex-direction: column;
     align-self: center;
     border-radius: 15px;
     overflow: hidden;
+}
+
+.button-icon{
+    display: none;
+}
+
+@media(max-width: 450px){
+    .button-text{
+        display: none;
+    }
+    .button-icon{
+        display: contents;
+    }
+    .edit.button{
+        padding: 5px;
+    }
+    .linkContainer{
+        margin-bottom: 10px;
+    }
+    
+}
+@media(max-width: 350px){
+    .edit.button{
+        padding: 5px;
+    }
+    .linkContainer{
+        margin-bottom: 5px;
+        flex-direction: column;
+    }
+    .linkButtons{
+        display: flex;
+        flex-direction: row;
+    }
 }

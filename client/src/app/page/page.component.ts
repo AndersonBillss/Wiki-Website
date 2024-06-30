@@ -65,9 +65,9 @@ export class PageComponent implements OnInit {
 
   snackbar: any = {success: true, msg: '', hidden: true}
 
-
   editMode: boolean = false
 
+  
   constructor( 
     private pageContentService: PageContentsService,
     private route: ActivatedRoute,

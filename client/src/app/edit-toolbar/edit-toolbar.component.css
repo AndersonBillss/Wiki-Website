@@ -29,3 +29,22 @@
     display: flex;
     align-items: center;
 }
+
+@media(max-width: 650px){
+    .edit-toolbar{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .edit-tools{
+        display: flex;
+        align-items: center;
+        height: 50px;
+        margin: 5px;
+    }
+
+    .edit-toolbar{
+        align-items: center;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+}

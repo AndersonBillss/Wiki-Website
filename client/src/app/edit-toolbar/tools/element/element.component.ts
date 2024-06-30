@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { IconComponent } from '../../../icon/icon.component';
 
 @Component({
   selector: 'app-element',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    IconComponent
   ],
   templateUrl: './element.component.html',
   styleUrl: './element.component.css'

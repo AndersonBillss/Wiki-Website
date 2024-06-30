@@ -1,5 +1,16 @@
 <div class="elementTypes">
     <div class="edit button" *ngFor="let type of elementTypes" (mousedown)="changeElement(type)">
-        {{type}}
+        <div class="full-text">{{type}}</div>
+        <div class="short-text">
+            @if(type === "Image"){
+                <app-icon class="icon" icon="image"></app-icon>
+            }
+            @if(type === "Header"){
+                H
+            }
+            @if(type === "Paragraph"){
+                p
+            }
+        </div>
     </div>
 </div>
