@@ -72,7 +72,7 @@ export class ImageGalleryComponent implements OnInit {
     this.imagesService.getImages(this.selectedGallery).subscribe(data => {
       if(data.images){
         this.images = data.images
-        this.filteredImages = data.images
+        this.filteredImages = filterImages(this.images,this.filterString,this.filterTags)
         this.tags = getTags(data.images)
       }
       this.isLoading = false

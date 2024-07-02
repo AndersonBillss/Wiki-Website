@@ -30,6 +30,9 @@ export class ImageDetailComponent implements OnInit{
   pageName: string = ''
   imgId: string = ''
   isLoading: boolean = true
+
+  tags: any[] = []
+
   img: any = {}
   snackbar: any = {
     success: true,
@@ -61,6 +64,8 @@ export class ImageDetailComponent implements OnInit{
 
     this.imagesService.getImage(this.pageName, this.imgId).subscribe(data => {
       this.img = data.image
+      console.log(data)
+      this.tags = data.tags
       this.isLoading = false
     })
 

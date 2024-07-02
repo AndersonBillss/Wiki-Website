@@ -8,7 +8,7 @@
 
             @if(imageUrl){
                 <img class="image"
-                [routerLink]="data.imageLocation._id?
+                [routerLink]="data.imageLocation._id && !editMode?
                 ['/images', data.imageLocation.pageName, data.imageLocation._id]
                 :null"
                 src="data:image/png;base64,{{imageUrl}}"

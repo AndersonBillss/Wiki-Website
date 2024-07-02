@@ -22,7 +22,13 @@
 
     <img class="img" src="data:image/png;base64,{{img.highResSrc}}">
 
-    <app-search-box *ngIf="editMode" [(value)]="newTagName" [optionSelectFunction]="addTag.bind(this)"></app-search-box>
+    <app-search-box 
+    *ngIf="editMode" 
+    [(value)]="newTagName" 
+    [optionSelectFunction]="addTag.bind(this)"
+    [options]="tags"
+    ></app-search-box>
+
     <div *ngIf="editMode" class="icon button" (click)="addTag(newTagName)">
         <app-icon icon="plus"></app-icon>
     </div>

@@ -14,19 +14,18 @@ export default async function getTagList(pageName?: string | undefined): Promise
         }
 
         let tagList: any[] = []
-        if(!pageName || pageName === "concept"){
-            const assetList: any[] = await AssetContent.find({}).select('tags')
-            assetList.forEach(assetTags => {
-                tagList.concat(assetTags)
-            })
-        }
         if(!pageName || pageName === "assets"){
-            const conceptList: any[] = await ConceptContent.find({}).select('title')
-            conceptList.forEach(conceptTags => {
-                tagList.concat(conceptTags)
+            const assetList: any[] = await AssetContent.find({}).select('tags')
+            assetList.forEach(assetImg => {
+                tagList = tagList.concat(assetImg.tags)
             })
         }
-
+        if(!pageName || pageName === "concept"){
+            const conceptList: any[] = await ConceptContent.find({}).select('tags')
+            conceptList.forEach(conceptImg => {
+                tagList = tagList.concat(conceptImg.tags)
+            })
+        }
         const uniqueTags = [... new Set(tagList)]
 
         return{
