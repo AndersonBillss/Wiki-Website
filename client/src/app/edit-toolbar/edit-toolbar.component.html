@@ -1,7 +1,12 @@
 <div class="edit-toolbar">
 
     <div class="edit-tools">
-        <div class="edit button" *ngFor="let tool of tools; let i = index" (click)="selectTool(i)">
+        <div 
+        class="edit button" 
+        *ngFor="let tool of tools; let i = index" 
+        (click)="selectTool(i)"
+        ngClass="{{i === selectedToolIndex?'selected':''}}"
+        >
             {{tool}}
         </div>
     </div>

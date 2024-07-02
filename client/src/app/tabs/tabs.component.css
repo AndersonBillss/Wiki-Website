@@ -2,12 +2,12 @@
     justify-self: end;
     display: flex;
     justify-content: space-around;
-    padding: 15px;
+    padding: 15px 0;
     background-color: var(--primary-dark);
 }
 .tab{
     display: flex;
-    background-color: var(--primary-color);
+    background-color: var(--primary-light);
     border-radius: 15px;
     align-items: center;
     padding: 10px;
@@ -28,7 +28,7 @@
 }
 
 .selected{
-    background-color: var(--primary-light);
+    background-color: var(--primary-color);
 }
 
 @media (max-width: 350px){

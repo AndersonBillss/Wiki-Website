@@ -92,6 +92,7 @@ body {font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .pop-up-card{
+    justify-content: center;
     background-color: var(--background-color);
     padding: 15px;
     border-radius: 15px;
@@ -141,3 +142,4 @@ body {font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: black;
     background-color: red;
 }
+

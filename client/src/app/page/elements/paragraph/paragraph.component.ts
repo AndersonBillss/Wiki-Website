@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import { parsePageContent, encodePageContent } from '../../../utils/pageContentFunctions';
 
 @Component({
   selector: 'app-paragraph',
@@ -17,13 +18,16 @@ export class ParagraphComponent implements OnInit{
   @Output() enterPressed: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteElement: EventEmitter<void> = new EventEmitter<void>();
 
+  innerHtml: string | undefined = ''
+
   ngOnInit(): void {
     this.data.type = "Paragraph"
+    this.innerHtml = parsePageContent(this.data.text)
   }
 
   cacheChanges(event: any) {
     const newValue = event.target.innerHTML;
-    this.data.text = newValue
+    this.data.text = encodePageContent(newValue)
     this.dataChange.emit(this.data);
   }
 

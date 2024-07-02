@@ -23,6 +23,7 @@
     align-items: center;
 }
 .image-gallery-search{
+    margin-top: 10px;
     flex-wrap: wrap;
     justify-content: space-evenly;
     display: flex;

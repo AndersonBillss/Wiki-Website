@@ -2,12 +2,12 @@
 .image{
     height: 200px;
     width: auto;
-    max-width: 45vw;
+    max-width: 40vw;
     background-color: var(--background-dark);
     justify-content: center;
     align-self: center;
 }
-@media (min-width: 45vw) {
+@media (min-width: 40vw) {
     .image {
         height: auto;
     }
@@ -38,11 +38,14 @@
 
 
 p{
-    display: flex;
+    box-sizing: border-box;
+    width: auto;
+    align-self: flex-start;
     text-align: left;
     text-wrap: wrap;
     margin: 0;
-    padding: 5px 10px;
+    padding: 10px 5px;
+    width: 100%;
 }
 
 
@@ -52,9 +55,8 @@ p{
     justify-content: space-between;
 }
 
-@media(max-width: 600px){
+@media(max-width: 700px){
     .image-element{
-        display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;

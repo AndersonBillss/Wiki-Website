@@ -5,6 +5,7 @@ import { IconComponent } from '../../../icon/icon.component';
 import { RouterModule } from '@angular/router';
 import { CachedImagesService } from '../../../services/cachedImages.service';
 import { LoadingComponent } from '../../../loading/loading.component';
+import { parsePageContent, encodePageContent } from '../../../utils/pageContentFunctions';
 
 @Component({
   selector: 'app-image',
@@ -31,6 +32,8 @@ export class ImageComponent implements OnInit{
   imageUrl: string = ''
   isLoading: boolean = true
 
+  innerHtml: string | undefined = ''
+
   constructor(private cachedImagesService: CachedImagesService){ }
 
   ngOnInit(): void {
@@ -45,12 +48,14 @@ export class ImageComponent implements OnInit{
 
     this.imageUrl = this.cachedImagesService.getCachedImage(this.data.imageLocation._id)
     this.isLoading = false
+
+    this.innerHtml = parsePageContent(this.data.text)
   }
 
 
   cacheChanges(event: any) {
     const newValue = event.target.innerHTML;
-    this.data.text = newValue
+    this.data.text = encodePageContent(newValue)
     this.dataChange.emit(this.data);
   }
 

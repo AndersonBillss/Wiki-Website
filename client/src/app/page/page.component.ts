@@ -214,9 +214,4 @@ export class PageComponent implements OnInit {
     },3000)
   }
 
-
-  test(){
-    console.log(this.pageContents)
-  }
-
 }

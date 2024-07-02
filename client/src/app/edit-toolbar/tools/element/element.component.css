@@ -9,6 +9,7 @@
 }
 .elementTypes{
     display: flex;
+    margin: 10px auto;
 }
 .elementTypes *{
     margin: auto 15px;

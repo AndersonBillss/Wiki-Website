@@ -4,6 +4,9 @@
     color: var(--background-dark);
     border-radius: 15px;
 }
+.edit.button.selected{
+    background-color: var(--primary-color);
+}
 
 .edit-toolbar{
     display: flex;
@@ -29,6 +32,8 @@
     display: flex;
     align-items: center;
 }
+
+
 
 @media(max-width: 650px){
     .edit-toolbar{

@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 10px auto;
 }
 .linkButtonsContainer{
     margin-left: 15px;
@@ -28,7 +29,7 @@
     display: none;
 }
 
-@media(max-width: 450px){
+@media(max-width: 550px){
     .button-text{
         display: none;
     }

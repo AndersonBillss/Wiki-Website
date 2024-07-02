@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import { parsePageContent, encodePageContent } from '../../../utils/pageContentFunctions';
 
 @Component({
   selector: 'app-header',
@@ -17,8 +18,11 @@ export class HeaderComponent implements OnInit {
   @Output() enterPressed: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteElement: EventEmitter<void> = new EventEmitter<void>();
 
+  innerHtml: string | undefined = ''
+
   ngOnInit(): void {
     this.data.type = "Header"
+    this.innerHtml = parsePageContent(this.data.text)
   }
 
   cacheChanges(event: any) {

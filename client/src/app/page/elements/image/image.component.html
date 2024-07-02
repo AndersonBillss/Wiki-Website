@@ -28,10 +28,10 @@
 
 
 
-    <p *ngIf="editMode" [innerHtml]="data.text" contentEditable="true" (blur)="cacheChanges($event)" (keydown)="keyDownHandler($event)">
+    <p *ngIf="editMode" [innerHtml]="innerHtml" contentEditable="true" (blur)="cacheChanges($event)" (keydown)="keyDownHandler($event)">
     </p>
 
-    <p [innerHtml]="data.text" *ngIf="!editMode">
+    <p [innerHtml]="innerHtml" *ngIf="!editMode">
     </p>
 
 </div>
