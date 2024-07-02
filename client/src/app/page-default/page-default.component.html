@@ -1,5 +1,5 @@
 <app-navbar [pageList]="pages"></app-navbar>
-<div class="pagelist-container">
+<div class="pagelist-container" *ngIf="!isLoading">
     <div class="pagelist">
         <div 
         class="page-option" 
@@ -9,5 +9,6 @@
             {{page | titlecase}}
         </div>
     </div>
-
 </div>
+
+<app-loading *ngIf="isLoading"></app-loading>

@@ -4,6 +4,7 @@ import { PageContentsService } from '../services/page-contents.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-page-default',
@@ -11,7 +12,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     NavbarComponent,
     CommonModule,
-    RouterModule
+    RouterModule,
+    LoadingComponent
   ],
   templateUrl: './page-default.component.html',
   styleUrl: './page-default.component.css'
@@ -19,10 +21,12 @@ import { RouterModule } from '@angular/router';
 export class PageDefaultComponent implements OnInit{
   constructor(private pageContentService: PageContentsService){}
   pages: string[] | null = null
+  isLoading: boolean = true;
 
   ngOnInit(): void {
     this.pageContentService.getPageList().subscribe(data => {
       this.pages = data
+      this.isLoading = false
     })
   }
 

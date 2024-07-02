@@ -22,13 +22,18 @@
     <div>
 
         <div #optionListRef class="nav-options hidden">
-            <div 
-            *ngFor="let option of filteredOptions; let i = index"
-            class="nav-option button {{i === selectedOptionIndex?'selected':''}}" 
-            (click)="handleItemClick(option)"
-            >
-                {{option}}
+            <div class="overflow-scroll">
+
+                <div 
+                *ngFor="let option of filteredOptions; let i = index"
+                class="nav-option button {{i === selectedOptionIndex?'selected':''}}" 
+                (click)="handleItemClick(option)"
+                >
+                    {{option}}
+                </div>
+
             </div>
+
         </div>
 
     </div>

@@ -192,7 +192,7 @@ export class PageComponent implements OnInit {
 
     this.title = this.route.snapshot.params["title"];
     this.pageContentService.getPageContents(this.title).subscribe((data: any) => {
-      if(data){
+        if(data){
         this.pageContents = data.contents
         this.pageRegistered = data.registered
         this.pageList = data.pageList
@@ -200,6 +200,7 @@ export class PageComponent implements OnInit {
         this.isLoading = false
       }
     })
+
   }
 
 
@@ -214,4 +215,9 @@ export class PageComponent implements OnInit {
     },3000)
   }
 
+  test(){
+    console.log(this.isLoading)
+  }
+
 }
+
