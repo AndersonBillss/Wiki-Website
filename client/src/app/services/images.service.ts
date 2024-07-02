@@ -59,4 +59,10 @@ export class ImagesService {
     const res = this.http.get(url)
     return res
   }
+
+  deleteImage(pageName: string, _id: string){
+    const url = `${this.apiUrl}/api/deleteImage?pageName=${pageName}&id=${_id}`
+    const res = this.http.delete(url)
+    return res
+  }
 }

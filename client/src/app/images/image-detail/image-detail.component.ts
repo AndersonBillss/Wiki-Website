@@ -36,6 +36,14 @@ export class ImageDetailComponent implements OnInit{
     hidden: true,
     msg: ''
   }
+  diologue: any = {
+    text: '',
+    open: false,
+    declineFunction: () => {
+      this.diologue.open = false
+    },
+    confirmFunction: () => {}
+  }
 
   constructor(
     private imagesService: ImagesService,
@@ -125,6 +133,24 @@ export class ImageDetailComponent implements OnInit{
       if(data.success){
         this.editMode = false
       }
+    })
+  }
+
+  openDiologue(text: string, confirmFunction: any){
+    this.diologue = {
+      text: text,
+      open: true,
+      declineFunction: this.diologue.declineFunction,
+      confirmFunction: () => {
+        confirmFunction()
+        this.diologue.open = false
+      }
+    }
+  }
+
+  deleteImage(){
+    this.imagesService.deleteImage(this.pageName, this.imgId).subscribe(() => {
+      this.location.back()
     })
   }
   

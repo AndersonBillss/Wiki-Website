@@ -21,6 +21,7 @@ import updateImage from './db/image/updateImage';
 import getImageList from './db/image/getImageList';
 import getTagList from './db/image/getTagList';
 import getImageArray from './db/image/getImageArray';
+import deleteImage from './db/image/deleteImage';
 
 
 // Configure multer for file storage
@@ -151,6 +152,13 @@ apiRouter.post('/updateImage', async(req, res) => {
         const result = await updateImage(page, file)
         res.status(result.status).send(result.data)
     }
+})
+
+apiRouter.delete('/deleteImage', async(req, res) => {
+    const pageName = `${req.query.pageName}`
+    const id = `${req.query.id}`
+    const result = await deleteImage(pageName, id)
+    res.status(result.status).send(result.data)
 })
 
 export default apiRouter

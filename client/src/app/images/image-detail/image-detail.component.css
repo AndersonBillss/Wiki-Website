@@ -61,3 +61,36 @@
 .errMsg{
     color: red;
 }
+
+h1{
+    display: flex;
+    align-items: center;
+}
+
+
+.diologue-text{
+    min-width: 30vw;
+    max-width: 50vw;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.card.button{
+    color: var(--background-color);
+    background-color: var(--primary-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.diologue-options{
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+}
+
+.edit.button{
+    padding: 15px;
+    background-color: var(--primary-light);
+    color: var(--background-dark);
+    border-radius: 15px;
+}

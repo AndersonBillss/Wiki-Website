@@ -5,7 +5,7 @@ import ConceptContent from '../models/conceptContents';
 export default async function getImage(pageName: string, _id: string, resolution?: string): Promise<httpResponse> {
     let image: any
     if(pageName === "assets"){
-        image = await ConceptContent.findOne({ _id }).select('highResSrc title tags');
+        image = await AssetContent.findOne({ _id }).select('highResSrc title tags');
     }
     if(pageName === "concept"){
         image = await ConceptContent.findOne({ _id }).select('highResSrc title tags');

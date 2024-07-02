@@ -1,10 +1,15 @@
 <div class="page" *ngIf="!isLoading">
     <div class="page-top">
-        <div (click)="goBack()" class="icon button">
+        <div *ngIf="!editMode" (click)="goBack()" class="icon button">
             <app-icon icon="back"></app-icon>
         </div>
+        <div *ngIf="editMode" (click)="openDiologue('Are you sure you want to delete this image', deleteImage.bind(this))" class="icon button">
+            <app-icon icon="delete"></app-icon>
+        </div>
 
-        <h1>{{img.title | titlecase}}</h1>
+        <h1>
+            {{img.title | titlecase}}
+        </h1>
 
         <div (click)="toggleEditMode()" class="icon button">
             <app-icon *ngIf="!editMode" icon="edit"></app-icon>
@@ -12,6 +17,7 @@
         </div>
     </div>
 
+    
     <app-search-box *ngIf="editMode" [(value)]="img.title"></app-search-box>
 
     <img class="img" src="data:image/png;base64,{{img.highResSrc}}">
@@ -49,5 +55,22 @@ ngClass="{{snackbar.hidden?'fade-out':'fade-in'}}
         {{snackbar.msg}}
     </div>
     <div class="gradient">
+    </div>
+</div>
+
+
+<div class="pop-up" *ngIf="diologue.open">
+    <div class="pop-up-card">
+        <h3 class="diologue-text">
+            {{diologue.text}}
+        </h3>
+        <div class="diologue-options">
+            <div class="card button" (click)="diologue.declineFunction()">
+                Decline
+            </div>
+            <div class="card button" (click)="diologue.confirmFunction()">
+                Confirm
+            </div>
+        </div>
     </div>
 </div>
