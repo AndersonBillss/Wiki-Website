@@ -64,7 +64,6 @@ export class ImageDetailComponent implements OnInit{
 
     this.imagesService.getImage(this.pageName, this.imgId).subscribe(data => {
       this.img = data.image
-      console.log(data)
       this.tags = data.tags
       this.isLoading = false
     })

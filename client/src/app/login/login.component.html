@@ -1,1 +1,12 @@
-<p>login works!</p>
+<div class="loginPage">
+    <h1>Log in to the Wiki Site</h1>
+    <div>Please do not send sensitive data through this site</div>
+
+    <h3 class="subtitle">Enter In Your Username</h3>
+    <app-search-box class="userName-input" [(value)]="username"></app-search-box>
+    <div class="button" (click)="logIn()">Log In</div>
+
+    <h2> - OR - </h2>
+
+    <div [routerLink]="'/signUp'" class="button">Create an account</div>
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IconComponent } from '../icon/icon.component';
 import { RouterModule, Router, ActivatedRoute, NavigationEnd  } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -9,13 +10,15 @@ import { filter } from 'rxjs/operators';
   standalone: true,
   imports: [
     IconComponent,
-    RouterModule
+    RouterModule,
+    CommonModule
   ],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.css'
 })
 export class TabsComponent  implements OnInit{
   selectedPage: string = '';
+  viewTabs: boolean = true
 
   constructor(
     private router: Router,
@@ -35,7 +38,11 @@ export class TabsComponent  implements OnInit{
       } else {
         this.selectedPage = route
       }
+
+      const isLoginPage = this.selectedPage==="login"||this.selectedPage==="signUp"
+      this.viewTabs=!isLoginPage
     });
+
   }
 
 }

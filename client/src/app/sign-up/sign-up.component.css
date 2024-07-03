@@ -1,0 +1,28 @@
+
+.icon.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    width: 35px;
+    height: 35px;
+    border-radius: 35px;
+}
+.icon.button *{
+    color: var(--background-dark);
+}
+
+
+.sign-up-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signUp.button{
+    background-color: var(--primary-color);
+    color: var(--background-dark);
+    padding: 15px 10px;
+    border-radius: 15px;
+    margin-top: 15px;
+}

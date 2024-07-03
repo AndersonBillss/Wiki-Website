@@ -22,6 +22,8 @@ import getImageList from './db/image/getImageList';
 import getTagList from './db/image/getTagList';
 import getImageArray from './db/image/getImageArray';
 import deleteImage from './db/image/deleteImage';
+import signUp from './db/user/signUp';
+import logIn from './db/user/logIn';
 
 
 // Configure multer for file storage
@@ -158,6 +160,18 @@ apiRouter.delete('/deleteImage', async(req, res) => {
     const pageName = `${req.query.pageName}`
     const id = `${req.query.id}`
     const result = await deleteImage(pageName, id)
+    res.status(result.status).send(result.data)
+})
+
+
+apiRouter.post('/logIn', async(req, res) => {
+    const userName = req.body.userName
+    const result = await logIn(userName)
+    res.status(result.status).send(result.data)
+})
+apiRouter.post('/signUp', async(req, res) => {
+    const userName = req.body.userName
+    const result = await signUp(userName)
     res.status(result.status).send(result.data)
 })
 

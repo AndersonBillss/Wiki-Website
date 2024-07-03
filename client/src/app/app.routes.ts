@@ -8,11 +8,14 @@ import { ImageGalleryComponent } from './images/image-gallery/image-gallery.comp
 import { ImageDetailComponent } from './images/image-detail/image-detail.component';
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { IMAGE_CONFIG } from '@angular/common';
+import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 export const routes: Routes = [
     {path: "", redirectTo: "home", pathMatch: 'full'},
     {path: "home", component: HomeComponent},
+    {path: "login", component: LoginComponent},
+    {path: "signUp", component: SignUpComponent},
     {path: "page/:title", component: PageComponent},
     {path: "page", component: PageDefaultComponent},
     {path: "images", component: ImagesComponent},
