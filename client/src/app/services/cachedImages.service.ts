@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -7,12 +7,15 @@ import { environment } from '../../environments/environment';
 })
 
 export class CachedImagesService {
-
-
     cachedImages: any[] = []
     private apiUrl: string = environment.apiUrl
-    constructor(private http: HttpClient){
+    token: string | null = localStorage.getItem('token')
+    authHeaders: HttpHeaders;
 
+    constructor(private http: HttpClient){
+        this.authHeaders = new HttpHeaders({
+            'Authorization': `Bearer ${this.token}`
+          });
     }
     
     setCachedImages(imageArray: any[]){
@@ -38,7 +41,7 @@ export class CachedImagesService {
         let imageResponse = { medResSrc: '', _id: '' };
     
         try {
-            const res = await this.http.get<any>(url).toPromise();
+            const res = await this.http.get<any>(url, {headers: this.authHeaders}).toPromise();
             imageResponse = res.images;
             this.cachedImages.push(imageResponse);
         } catch (error) {

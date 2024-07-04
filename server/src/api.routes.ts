@@ -17,6 +17,8 @@ import getImages from './db/image/getImages';
 import getImage from './db/image/getImage';
 //models
 import { httpResponse } from './models';
+
+
 import updateImage from './db/image/updateImage';
 import getImageList from './db/image/getImageList';
 import getTagList from './db/image/getTagList';
@@ -24,6 +26,8 @@ import getImageArray from './db/image/getImageArray';
 import deleteImage from './db/image/deleteImage';
 import signUp from './db/user/signUp';
 import logIn from './db/user/logIn';
+import { verifyToken } from './middleware/jwt';
+
 
 
 // Configure multer for file storage
@@ -48,20 +52,20 @@ const apiRouter = express.Router()
 apiRouter.use(bodyParser.json({ limit: '50mb' }));
 apiRouter.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-apiRouter.get('/pageList', async(req, res) => {
+apiRouter.get('/pageList', verifyToken, async(req, res) => {
     const result = await getPageList()
     res.status(result.status).json(result.data)
 })
-apiRouter.get('/getPageContents', async(req, res) => {
+apiRouter.get('/getPageContents', verifyToken, async(req, res) => {
     const title = req.query.title
     const result = await getPageContents(`${title}`)
     res.status(result.status).json(result.data)
 })
-apiRouter.post('/updatePageContents', async(req, res) => {
+apiRouter.post('/updatePageContents', verifyToken, async(req, res) => {
     const response = await updatePageContents(req.body)
     res.status(response.status).json(response.data)
 })
-apiRouter.delete('/deletePage', async(req, res) => {
+apiRouter.delete('/deletePage', verifyToken, async(req, res) => {
     const title = req.query.title
     let result: httpResponse
     if(typeof(title) === 'string'){
@@ -80,7 +84,7 @@ apiRouter.delete('/deletePage', async(req, res) => {
 })
 
 
-apiRouter.get('/getImages', async(req, res) => {
+apiRouter.get('/getImages', verifyToken, async(req, res) => {
     const page = req.query.pageName
     if(typeof(page) !== 'string'){
         res.status(400).send({
@@ -92,7 +96,7 @@ apiRouter.get('/getImages', async(req, res) => {
     }
 })
 
-apiRouter.get('/getImage', async(req, res) => {
+apiRouter.get('/getImage', verifyToken, async(req, res) => {
     const page = req.query.pageName
     const id = req.query.id
     if(typeof(page) !== 'string'){
@@ -115,23 +119,23 @@ apiRouter.get('/getImage', async(req, res) => {
         res.status(result.status).send(result.data)
     }
 })
-apiRouter.get('/imageList', async(req, res) => {
+apiRouter.get('/imageList', verifyToken, async(req, res) => {
     const pageName = `${req.query.pageName}`
     const result = await getImageList(pageName)
     res.send(result)
 })
-apiRouter.get('/imageList', async(req, res) => {
+apiRouter.get('/imageList', verifyToken, async(req, res) => {
     const pageName = `${req.query.pageName}`
     const result = await getImageList(pageName)
     res.send(result)
 })
-apiRouter.get('/getTags', async(req, res) => {
+apiRouter.get('/getTags', verifyToken, async(req, res) => {
     const pageName = `${req.query.pageName}`
     const result = await getTagList(pageName)
     res.send(result)
 })
 
-apiRouter.post('/uploadImage', upload.single('image'), async(req, res) => {
+apiRouter.post('/uploadImage', verifyToken, upload.single('image'), async(req, res) => {
     const page = req.query.pageName
     if(typeof(page) !== 'string'){
         res.status(400).send({
@@ -143,7 +147,7 @@ apiRouter.post('/uploadImage', upload.single('image'), async(req, res) => {
         res.status(result.status).send(result.data)
     }
 })
-apiRouter.post('/updateImage', async(req, res) => {
+apiRouter.post('/updateImage', verifyToken, async(req, res) => {
     const page = req.query.pageName
     if(typeof(page) !== 'string'){
         res.status(400).send({
@@ -156,7 +160,7 @@ apiRouter.post('/updateImage', async(req, res) => {
     }
 })
 
-apiRouter.delete('/deleteImage', async(req, res) => {
+apiRouter.delete('/deleteImage', verifyToken, async(req, res) => {
     const pageName = `${req.query.pageName}`
     const id = `${req.query.id}`
     const result = await deleteImage(pageName, id)

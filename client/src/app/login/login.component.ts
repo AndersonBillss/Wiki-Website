@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { SearchBoxComponent } from '../navbar/search-box/search-box.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
 
@@ -19,12 +19,28 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent {
   username: string = ''
+  errorMsg: string = ''
 
-  constructor(private authService: AuthService){ }
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ){ }
 
   logIn(){
-    this.authService.logIn(this.username).subscribe(data => {
-      console.log(data)
-    })
+    this.authService.logIn(this.username).subscribe((data: any) => {
+        if(data.success){
+          this.errorMsg = ''
+          localStorage.setItem("token",data.token)
+          this.router.navigate(['/home'])
+        } else {
+          this.errorMsg = data.msg
+        }
+      },
+      (error: any) => {
+        console.error('TEST LOG Error:', error.error.msg);
+        this.errorMsg = error.error.msg
+      }
+    )
   }
 }

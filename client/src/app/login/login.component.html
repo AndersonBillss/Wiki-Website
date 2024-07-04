@@ -4,6 +4,7 @@
 
     <h3 class="subtitle">Enter In Your Username</h3>
     <app-search-box class="userName-input" [(value)]="username"></app-search-box>
+    <div class="error">{{errorMsg}}</div>
     <div class="button" (click)="logIn()">Log In</div>
 
     <h2> - OR - </h2>
