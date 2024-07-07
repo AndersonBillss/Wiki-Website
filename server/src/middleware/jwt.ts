@@ -10,15 +10,8 @@ export function generateToken(_id: string, userName: string){
         _id: _id,
         userName: userName
     }
-    const token = jwt.sign(jwtPayload, secretKey, {expiresIn: 2000})
+    const token = jwt.sign(jwtPayload, secretKey)
     return token
-}
-
-
-
-interface JwtPayload {
-    userId: string;
-    email: string;
 }
 
 
