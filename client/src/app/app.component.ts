@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+
 import { RouterOutlet } from '@angular/router';
-import { parsePageContent } from './utils/pageContentFunctions';
 
 import { TabsComponent } from './tabs/tabs.component';
+
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,6 @@ import { TabsComponent } from './tabs/tabs.component';
   imports: [
     RouterOutlet,
     TabsComponent
-  ],
-  providers: [
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -28,3 +27,5 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
   }
 }
+
+

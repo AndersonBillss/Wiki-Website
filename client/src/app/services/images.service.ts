@@ -21,16 +21,26 @@ export class ImagesService {
   }
 
   getImages(pageName: string){
+    this.authHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    });
     const url = `${this.apiUrl}/api/getImages?pageName=${pageName}`
     const res = this.http.get<any>(url, {headers: this.authHeaders})
     return res
   }
   getImage(pageName: string, imageId: string){
+    this.authHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    });
     const url = `${this.apiUrl}/api/getImage?pageName=${pageName}&id=${imageId}`
     const res = this.http.get<any>(url, {headers: this.authHeaders})
     return res
   }
+  
   getImageList(pageName?: string){
+    this.authHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    });
     const query = pageName?`?pageName=${pageName}`:''
     const url = `${this.apiUrl}/api/imageList${query}`
     const res = this.http.get<any>(url, {headers: this.authHeaders})
@@ -38,6 +48,9 @@ export class ImagesService {
   }
 
   updateImage(pageName: string, image: any){
+    this.authHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    });
     const requestObject = {
       _id: image._id,
       title: image.title,
@@ -48,6 +61,9 @@ export class ImagesService {
     return res
   }
   uploadImage(pageName: string, image: any){
+    this.authHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    });
     const formData = new FormData();
     formData.append('src', image.src);
     formData.append('title', image.title);
@@ -59,6 +75,9 @@ export class ImagesService {
   }
 
   getTagList(pageName?: string){
+    this.authHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    });
     const query = pageName?`?pageName=${pageName}`:''
     const url = `${this.apiUrl}/api/getTags${query}`
     const res = this.http.get(url, {headers: this.authHeaders})
@@ -66,6 +85,9 @@ export class ImagesService {
   }
 
   deleteImage(pageName: string, _id: string){
+    this.authHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    });
     const url = `${this.apiUrl}/api/deleteImage?pageName=${pageName}&id=${_id}`
     const res = this.http.delete(url, {headers: this.authHeaders})
     return res

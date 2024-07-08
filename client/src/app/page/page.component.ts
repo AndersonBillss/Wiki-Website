@@ -179,13 +179,6 @@ export class PageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData()
-
-    this.router.events.pipe(
-      filter((event: Event) => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.loadData()
-    });
-
   }
   loadData(){
     this.isLoading = true
@@ -217,6 +210,12 @@ export class PageComponent implements OnInit {
 
   test(){
     console.log(this.isLoading)
+  }
+
+  navigateToPage(pageName: string){
+    this.router.navigate([`/page/${pageName}`]).then(() => {
+      this.loadData()
+    })
   }
 
 }

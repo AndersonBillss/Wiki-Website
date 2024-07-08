@@ -20,6 +20,7 @@ import { PageContentsService } from '../services/page-contents.service';
 })
 export class NavbarComponent implements OnInit, OnChanges {
   @Input() pageList?: string[] | null
+  @Input() pageSelectFunction: any
 
   searchOptions: string[] | null = []
 
@@ -42,7 +43,7 @@ export class NavbarComponent implements OnInit, OnChanges {
   }
 
   navigateToPage(pageName: string){
-    this.router.navigate([`/page/${pageName}`])
+    this.pageSelectFunction(pageName)
   }
 
   ngOnChanges(changes: SimpleChanges): void {

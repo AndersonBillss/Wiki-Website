@@ -1,5 +1,6 @@
 <app-navbar 
 [pageList]="pageList"
+[pageSelectFunction]="navigateToPage.bind(this)"
 *ngIf="!editMode"
 >
 </app-navbar>
@@ -36,7 +37,7 @@ id="edit-toolbar"
             </div>
     
             <div class="edit button" (click)="pageRegistered?toggleEditMode():savePageContents()">
-                {{!pageRegistered?"register":editMode?"Save page":"Edit page    "}}
+                {{!pageRegistered?"register":editMode?"Save page":"Edit page"}}
             </div>
         </div>
 

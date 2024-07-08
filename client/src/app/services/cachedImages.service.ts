@@ -41,6 +41,9 @@ export class CachedImagesService {
         let imageResponse = { medResSrc: '', _id: '' };
     
         try {
+            this.authHeaders = new HttpHeaders({
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            });
             const res = await this.http.get<any>(url, {headers: this.authHeaders}).toPromise();
             imageResponse = res.images;
             this.cachedImages.push(imageResponse);
