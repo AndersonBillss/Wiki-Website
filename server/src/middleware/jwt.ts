@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv'
+import { httpResponse } from '../models';
 dotenv.config()
 
 const secretKey = process.env.JWT_SECRET || "Test secret key"
@@ -28,4 +29,17 @@ export function verifyToken(req: Request, res: Response, next: NextFunction){
         }
         next();
     });
+}
+
+export function getUserName(req: Request): string | undefined | null{
+    const authorization = req.headers['authorization'];
+    let token: string | undefined = undefined
+    let userName: string | undefined | null = undefined
+    if(authorization){
+        token = authorization.split(' ')[1]
+        const decoded: any = jwt.decode(token)
+        userName = decoded?.userName
+    }
+
+    return userName
 }

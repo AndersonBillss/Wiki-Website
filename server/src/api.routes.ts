@@ -26,7 +26,7 @@ import getImageArray from './db/image/getImageArray';
 import deleteImage from './db/image/deleteImage';
 import signUp from './db/user/signUp';
 import logIn from './db/user/logIn';
-import { verifyToken } from './middleware/jwt';
+import { getUserName, verifyToken } from './middleware/jwt';
 
 
 
@@ -166,6 +166,21 @@ apiRouter.delete('/deleteImage', verifyToken, async(req, res) => {
     const result = await deleteImage(pageName, id)
     res.status(result.status).send(result.data)
 })
+apiRouter.get('/getUserInfo', verifyToken, async(req, res) => {
+    const userName = getUserName(req)
+    if(userName){
+        res.status(200).send({
+            success: true,
+            msg: 'User data retrieved successfully',
+            userName: userName
+        })
+    } else {
+        res.status(400).send({
+            success: true,
+            msg: 'Username does not exist in token',
+        })
+    }
+})
 
 
 apiRouter.post('/logIn', async(req, res) => {
@@ -178,5 +193,7 @@ apiRouter.post('/signUp', async(req, res) => {
     const result = await signUp(userName)
     res.status(result.status).send(result.data)
 })
+
+
 
 export default apiRouter

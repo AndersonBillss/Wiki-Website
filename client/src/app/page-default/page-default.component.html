@@ -1,4 +1,4 @@
-<app-navbar [pageList]="pages"></app-navbar>
+<app-navbar [pageList]="pages" [pageSelectFunction]="navigateToPage.bind(this)"></app-navbar>
 <div class="pagelist-container" *ngIf="!isLoading">
     <div class="pagelist">
         <div 

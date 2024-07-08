@@ -1,7 +1,7 @@
 h1{
     display: flex;
     text-align: left;
-    border-bottom: 1px var(--primary-dark) solid;
+    border-bottom: 2px var(--primary-dark) solid;
     margin: 0;
     padding: 5px;
     text-wrap: wrap;

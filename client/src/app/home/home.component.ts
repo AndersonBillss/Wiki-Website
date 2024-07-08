@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,9 +9,19 @@ import { Router } from '@angular/router';
   imports: [],
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  userName: string = ''
 
-  constructor(private router: Router){ }
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ){ }
+
+  ngOnInit(): void {
+    this.userService.getUserInfo().subscribe((res: any) => {
+      this.userName = res.userName
+    })
+  }
 
 
   logout(){

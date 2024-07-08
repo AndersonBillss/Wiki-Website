@@ -3,6 +3,9 @@
     flex-direction: column;
     align-items: center;
 }
+.loginPage *{
+    text-align: center;
+}
 
 .subtitle{
     border-bottom: 3px var(--primary-color) solid;

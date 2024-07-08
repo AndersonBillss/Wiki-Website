@@ -1,8 +1,36 @@
 <div class="icon button" (click)="goBack()">
     <app-icon icon="back"></app-icon>
 </div>
-<div class="sign-up-page">
+
+<div 
+*ngIf="!logInSuccess"
+class="sign-up-page"
+>
     <h2>Enter in your user name</h2>
     <app-search-box [(value)]="userName"></app-search-box>
     <div class="signUp button" (click)="signUp()">Sign Up</div>
+</div>
+
+<div
+*ngIf="logInSuccess"
+class="sign-up-page"
+>
+    <h2>You have successfully signed up, {{userName}}!</h2>
+    <div class="signUp button" routerLink="/login">Log into your new account!</div>
+    
+</div>
+
+
+
+<div 
+*ngIf="snackbar.msg" 
+class="snackbar" 
+ngClass="{{snackbar.hidden?'fade-out':'fade-in'}} 
+{{snackbar.success?'success':'failure'}}"
+>
+    <div class="msg">
+        {{snackbar.msg}}
+    </div>
+    <div class="gradient">
+    </div>
 </div>

@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LoadingComponent } from '../loading/loading.component';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-page-default',
   standalone: true,
@@ -19,7 +21,10 @@ import { LoadingComponent } from '../loading/loading.component';
   styleUrl: './page-default.component.css'
 })
 export class PageDefaultComponent implements OnInit{
-  constructor(private pageContentService: PageContentsService){}
+  constructor(
+    private pageContentService: PageContentsService,
+    private router: Router
+  ){}
   pages: string[] | null = null
   isLoading: boolean = true;
 
@@ -30,4 +35,7 @@ export class PageDefaultComponent implements OnInit{
     })
   }
 
+  navigateToPage(pageName: any){
+    this.router.navigate([`/page/${pageName}`])
+  }
 }
