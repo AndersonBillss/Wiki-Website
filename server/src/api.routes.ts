@@ -27,6 +27,11 @@ import deleteImage from './db/image/deleteImage';
 import signUp from './db/user/signUp';
 import logIn from './db/user/logIn';
 import { getUserName, verifyToken } from './middleware/jwt';
+import { tracker } from './utils/editSessions/tracker';
+
+
+//controllers
+import startEditing from './controllers/editingController';
 
 
 
@@ -65,6 +70,10 @@ apiRouter.post('/updatePageContents', verifyToken, async(req, res) => {
     const response = await updatePageContents(req.body)
     res.status(response.status).json(response.data)
 })
+apiRouter.get('/startEditing', verifyToken, async(req, res) => {
+    startEditing(req,res)
+})
+
 apiRouter.delete('/deletePage', verifyToken, async(req, res) => {
     const title = req.query.title
     let result: httpResponse
@@ -118,11 +127,6 @@ apiRouter.get('/getImage', verifyToken, async(req, res) => {
         }
         res.status(result.status).send(result.data)
     }
-})
-apiRouter.get('/imageList', verifyToken, async(req, res) => {
-    const pageName = `${req.query.pageName}`
-    const result = await getImageList(pageName)
-    res.send(result)
 })
 apiRouter.get('/imageList', verifyToken, async(req, res) => {
     const pageName = `${req.query.pageName}`
