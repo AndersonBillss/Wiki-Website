@@ -2,28 +2,30 @@
 <div class="image-element">
 
     <div class="image-container" >
-        @if(isLoading){
-            <app-loading class="image"></app-loading>
-        } @else{
-
-            @if(imageUrl){
-                <img class="image"
-                [routerLink]="data.imageLocation._id && !editMode?
-                ['/images', data.imageLocation.pageName, data.imageLocation._id]
-                :null"
-                src="data:image/png;base64,{{imageUrl}}"
-                >
-            } @else {
-                <div class="image" *ngIf="!imageUrl">
-                    <app-icon icon="image" size="200px"></app-icon>
-                </div>
+        <div class="relative-container">
+            @if(isLoading){
+                <app-loading class="image"></app-loading>
+            } @else{
+    
+                @if(imageUrl){
+                    <img class="image"
+                    [routerLink]="data.imageLocation._id && !editMode?
+                    ['/images', data.imageLocation.pageName, data.imageLocation._id]
+                    :null"
+                    src="data:image/png;base64,{{imageUrl}}"
+                    >
+                } @else {
+                    <div class="image" *ngIf="!imageUrl">
+                        <app-icon icon="image" size="200px"></app-icon>
+                    </div>
+                }
+    
             }
-
-        }
-
-        <div *ngIf="editMode" class="edit image icon button" (click)="openImageSelect()">
-            <app-icon icon="edit"></app-icon>
+            <div *ngIf="editMode" class="edit image icon button" (click)="openImageSelect()">
+                <app-icon icon="edit"></app-icon>
+            </div>
         </div>
+
     </div>
 
 

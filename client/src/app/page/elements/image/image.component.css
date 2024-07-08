@@ -55,6 +55,15 @@ p{
     justify-content: space-between;
 }
 
+.relative-container{
+    align-self: center;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+}
+
+
+
 @media(max-width: 700px){
     .image-element{
         flex-direction: column;
