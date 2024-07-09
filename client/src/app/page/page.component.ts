@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { PageContentsService } from '../services/page-contents.service';
@@ -10,8 +10,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 
 
-import { Router, NavigationEnd, Event } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import { IconComponent } from '../icon/icon.component';
 import { LoadingComponent } from '../loading/loading.component';
@@ -42,7 +41,7 @@ import { CachedImagesService } from '../services/cachedImages.service';
   ],
   styleUrl: './page.component.css'
 })
-export class PageComponent implements OnInit {
+export class PageComponent implements OnInit, OnDestroy {
   @ViewChild('elementsContainer') elementsContainer!: ElementRef;
 
   isLoading: boolean = true
@@ -188,12 +187,15 @@ export class PageComponent implements OnInit {
   ngOnInit(): void {
     this.loadData()
   }
+  ngOnDestroy(): void {
+    this.savePageContents()
+  }
   loadData(){
     this.isLoading = true
 
     this.title = this.route.snapshot.params["title"];
     this.pageContentService.getPageContents(this.title).subscribe((data: any) => {
-        if(data){
+      if(data){
         this.pageContents = data.contents
         this.pageRegistered = data.registered
         this.pageList = data.pageList

@@ -70,4 +70,12 @@ export class PageContentsService {
     return(res)
   }
 
+
+  stopEditing(){
+    this.authHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    });
+    const url: string = `${this.apiUrl}/api/stopEditing`
+    this.http.get(url, {headers: this.authHeaders}).subscribe()
+  }
 }

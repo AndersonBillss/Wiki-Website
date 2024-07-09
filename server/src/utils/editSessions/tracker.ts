@@ -3,6 +3,7 @@ export const tracker = {
     editingSessions: [] as editSession[],
 
     addEditSession(userName: string, pageName: string){
+        this.removeEditSession(userName)
         this.editingSessions.push({ pageName: pageName, userName: userName })
     },
     removeEditSession(userName: string){

@@ -16,7 +16,6 @@ id="edit-toolbar"
 </app-edit-toolbar>
 
 <div class="page" [ngClass]="editMode?'editMode':'viewMode'">
-    {{currentEditor}}
 
     <div class="page-top">
         <div class="page-title">
@@ -32,14 +31,18 @@ id="edit-toolbar"
             </div>
         </div>
 
-        <div class="edit-buttons" *ngIf="!isLoading">
+        <div class="edit-buttons" *ngIf="!isLoading && !currentEditor">
             <div *ngIf="pageRegistered" class="edit button" (click)="setDiologue('Are you sure you want to delete this page?', deletePage.bind(this))">
                 Delete page
             </div>
     
+
             <div class="edit button" (click)="pageRegistered?toggleEditMode():savePageContents()">
                 {{!pageRegistered?"register":editMode?"Save page":"Edit page"}}
             </div>
+        </div>
+        <div *ngIf="currentEditor">
+            {{currentEditor}} is editing this page
         </div>
 
     </div>

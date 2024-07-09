@@ -23,15 +23,7 @@ export default function handleStartEditing(req: any, res: any){
         return
     }
     const currentSession = tracker.findWhoIsEditing(pageName)
-    if(currentSession === userName){
-        res.status(200).send(
-            {
-                success: true,
-                msg: `You are already editing this page`
-            }
-        )
-        return
-    }
+
     if(typeof(currentSession) === 'string' && currentSession !== userName){
         res.status(409).send(
             {

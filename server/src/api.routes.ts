@@ -18,6 +18,7 @@ apiRouter.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
     import handlePageList from './controllers/pageListController';
     import handleGetPageContents from './controllers/pageContentsController';
     import handleStartEditing from './controllers/startEditingController';
+    import handleStopEditing from './controllers/endEditingController';
     import handleUpdatePageContents from './controllers/updatePageContentsController';
     import handleDeletePage from './controllers/deletePageController';
 
@@ -37,6 +38,7 @@ apiRouter.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 apiRouter.get('/pageList', verifyToken, async(req, res) => { handlePageList(req, res) })
 apiRouter.get('/getPageContents', verifyToken, async(req, res) => { handleGetPageContents(req, res) })
 apiRouter.get('/startEditing', verifyToken, async(req, res) => { handleStartEditing(req,res) })
+apiRouter.get('/stopEditing', verifyToken, async(req, res) => { handleStopEditing(req,res) })
 apiRouter.post('/updatePageContents', verifyToken, async(req, res) => { handleUpdatePageContents(req, res) })
 apiRouter.delete('/deletePage', verifyToken, async(req, res) => { handleDeletePage(req, res) })
 
