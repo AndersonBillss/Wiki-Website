@@ -3,6 +3,11 @@ import { tracker } from "../utils/editSessions/tracker"
 
 export default function handleStartEditing(req: any, res: any){
     const userName = getUserName(req)
+
+    if(userName){
+        tracker.removeEditSession(userName)
+    }
+    
     const pageName = req.query.pageName
     if(!userName){
         res.status(400).send(
