@@ -1,7 +1,7 @@
 import { getUserName } from "../middleware/jwt"
 import { tracker } from "../utils/editSessions/tracker"
 
-export default function startEditing(req: any, res: any){
+export default function handleStartEditing(req: any, res: any){
     const userName = getUserName(req)
     const pageName = req.query.pageName
     if(!userName){

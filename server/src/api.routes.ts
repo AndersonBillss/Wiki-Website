@@ -1,203 +1,56 @@
 //imported modules
 import express from 'express';
 import bodyParser from 'body-parser';
-import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
 
-//code from other files
-//page
-import updatePageContents from './db/page/updatePageContents';
-import getPageContents from './db/page/getPageContents';
-import getPageList from './db/page/getPageList';
-import deletePage from './db/page/deletePage';
-//image
-import addImage from './db/image/addImage';
-import getImages from './db/image/getImages';
-import getImage from './db/image/getImage';
-//models
-import { httpResponse } from './models';
-
-
-import updateImage from './db/image/updateImage';
-import getImageList from './db/image/getImageList';
-import getTagList from './db/image/getTagList';
-import getImageArray from './db/image/getImageArray';
-import deleteImage from './db/image/deleteImage';
-import signUp from './db/user/signUp';
-import logIn from './db/user/logIn';
-import { getUserName, verifyToken } from './middleware/jwt';
-import { tracker } from './utils/editSessions/tracker';
-
-
-//controllers
-import startEditing from './controllers/editingController';
-
-
-
-// Configure multer for file storage
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      const uploadPath = path.join(__dirname, 'uploads');
-      if (!fs.existsSync(uploadPath)) {
-        fs.mkdirSync(uploadPath);
-      }
-      cb(null, uploadPath);
-    },
-    filename: (req, file, cb) => {
-      cb(null, `cached`);
-    }
-  });
-  
-  const upload = multer({ storage });
-
-
-
+// Configure express
 const apiRouter = express.Router()
 apiRouter.use(bodyParser.json({ limit: '50mb' }));
 apiRouter.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-apiRouter.get('/pageList', verifyToken, async(req, res) => {
-    const result = await getPageList()
-    res.status(result.status).json(result.data)
-})
-apiRouter.get('/getPageContents', verifyToken, async(req, res) => {
-    const title = req.query.title
-    const result = await getPageContents(`${title}`)
-    res.status(result.status).json(result.data)
-})
-apiRouter.post('/updatePageContents', verifyToken, async(req, res) => {
-    const response = await updatePageContents(req.body)
-    res.status(response.status).json(response.data)
-})
-apiRouter.get('/startEditing', verifyToken, async(req, res) => {
-    startEditing(req,res)
-})
-
-apiRouter.delete('/deletePage', verifyToken, async(req, res) => {
-    const title = req.query.title
-    let result: httpResponse
-    if(typeof(title) === 'string'){
-        result = await deletePage(title)
-    } else {
-        result = {
-            status: 400,
-            data: {
-                success: false,
-                msg: 'page name is not a string'
-            }
-        }
-    }
-
-    res.status(result.status).json(result.data)
-})
 
 
-apiRouter.get('/getImages', verifyToken, async(req, res) => {
-    const page = req.query.pageName
-    if(typeof(page) !== 'string'){
-        res.status(400).send({
-            msg: 'pageName must be a string'
-        })
-    } else {
-        const result = await getImages(page)
-        res.status(result.status).send(result.data)
-    }
-})
+//code from other files
+    //utils
+    import { upload } from './utils/multer';
+    //middleware
+    import { verifyToken } from './middleware/jwt';
+    //controllers
+    import handlePageList from './controllers/pageListController';
+    import handleGetPageContents from './controllers/pageContentsController';
+    import handleUpdatePageContents from './controllers/updatePageContentsController';
+    import handleStartEditing from './controllers/startEditingController';
+    import handleDeletePage from './controllers/deletePageController';
 
-apiRouter.get('/getImage', verifyToken, async(req, res) => {
-    const page = req.query.pageName
-    const id = req.query.id
-    if(typeof(page) !== 'string'){
-        res.status(400).send({
-            msg: 'pageName must be a string'
-        })
-    } else if(typeof(id) !== 'string'){
-        res.status(400).send({
-            msg: 'id must be a string'
-        })
-    }else {
-        let result: httpResponse
-        const resolution = req.query.resolution
-        if(resolution === "med"){
-            result = await getImageArray([{pageName: page, _id: id}])
-            result.data.images = result.data.images[0]
-        } else {
-            result = await getImage(page, id)
-        }
-        res.status(result.status).send(result.data)
-    }
-})
-apiRouter.get('/imageList', verifyToken, async(req, res) => {
-    const pageName = `${req.query.pageName}`
-    const result = await getImageList(pageName)
-    res.send(result)
-})
-apiRouter.get('/getTags', verifyToken, async(req, res) => {
-    const pageName = `${req.query.pageName}`
-    const result = await getTagList(pageName)
-    res.send(result)
-})
+    import handleGetImages from './controllers/getImagesController';
+    import handleGetImage from './controllers/getImageController';
+    import handleImageList from './controllers/imageListController';
+    import handleGetTags from './controllers/getTagsController';
+    import handleUploadImage from './controllers/uploadImageController';
+    import handleUpdateImage from './controllers/updateImageController';
+    import handleDeleteImage from './controllers/deleteImageController';
 
-apiRouter.post('/uploadImage', verifyToken, upload.single('image'), async(req, res) => {
-    const page = req.query.pageName
-    if(typeof(page) !== 'string'){
-        res.status(400).send({
-            msg: 'pageName must be a string'
-        })
-    } else {
-        const file = req.body;
-        const result = await addImage(page, file)
-        res.status(result.status).send(result.data)
-    }
-})
-apiRouter.post('/updateImage', verifyToken, async(req, res) => {
-    const page = req.query.pageName
-    if(typeof(page) !== 'string'){
-        res.status(400).send({
-            msg: 'pageName must be a string'
-        })
-    } else {
-        const file = req.body;
-        const result = await updateImage(page, file)
-        res.status(result.status).send(result.data)
-    }
-})
-
-apiRouter.delete('/deleteImage', verifyToken, async(req, res) => {
-    const pageName = `${req.query.pageName}`
-    const id = `${req.query.id}`
-    const result = await deleteImage(pageName, id)
-    res.status(result.status).send(result.data)
-})
-apiRouter.get('/getUserInfo', verifyToken, async(req, res) => {
-    const userName = getUserName(req)
-    if(userName){
-        res.status(200).send({
-            success: true,
-            msg: 'User data retrieved successfully',
-            userName: userName
-        })
-    } else {
-        res.status(400).send({
-            success: true,
-            msg: 'Username does not exist in token',
-        })
-    }
-})
+    import handleGetUserInfo from './controllers/getUserInfoController';
+    import handleLogIn from './controllers/logInController';
+    import handleSignUp from './controllers/signUpController';
 
 
-apiRouter.post('/logIn', async(req, res) => {
-    const userName = req.body.userName
-    const result = await logIn(userName)
-    res.status(result.status).send(result.data)
-})
-apiRouter.post('/signUp', async(req, res) => {
-    const userName = req.body.userName
-    const result = await signUp(userName)
-    res.status(result.status).send(result.data)
-})
+apiRouter.get('/pageList', verifyToken, async(req, res) => { handlePageList(req, res) })
+apiRouter.get('/getPageContents', verifyToken, async(req, res) => { handleGetPageContents(req, res) })
+apiRouter.get('/startEditing', verifyToken, async(req, res) => { handleStartEditing(req,res) })
+apiRouter.post('/updatePageContents', verifyToken, async(req, res) => { handleUpdatePageContents(req, res) })
+apiRouter.delete('/deletePage', verifyToken, async(req, res) => { handleDeletePage(req, res) })
 
+apiRouter.get('/getImages', verifyToken, async(req, res) => { handleGetImages(req, res) })
+apiRouter.get('/getImage', verifyToken, async(req, res) => { handleGetImage(req, res) })
+apiRouter.get('/imageList', verifyToken, async(req, res) => { handleImageList(req, res)})
+apiRouter.get('/getTags', verifyToken, async(req, res) => { handleGetTags(req, res) })
+apiRouter.post('/uploadImage', verifyToken, upload.single('image'), async(req, res) => { handleUploadImage(req, res) })
+apiRouter.post('/updateImage', verifyToken, async(req, res) => { handleUpdateImage(req, res) })
+apiRouter.delete('/deleteImage', verifyToken, async(req, res) => { handleDeleteImage(req, res) })
+
+apiRouter.get('/getUserInfo', verifyToken, async(req, res) => { handleGetUserInfo(req, res) })
+apiRouter.post('/logIn', async(req, res) => { handleLogIn(req, res) })
+apiRouter.post('/signUp', async(req, res) => { handleSignUp(req, res) })
 
 
 export default apiRouter
