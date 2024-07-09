@@ -64,6 +64,7 @@ export class PageComponent implements OnInit {
   title: string = ""
 
   snackbar: any = {success: true, msg: '', hidden: true}
+  currentEditor: string = ''
 
   editMode: boolean = false
 
@@ -81,7 +82,14 @@ export class PageComponent implements OnInit {
       this.editMode = false
       this.savePageContents()
     } else {
-      this.editMode = true
+      this.pageContentService.startEditing(this.title).subscribe((data: any) => {
+        this.editMode = data.success
+        this.openSnackBar(data)
+
+      }, (error: any) => {
+        this.editMode = error.error.success
+        this.openSnackBar(error.error)
+      })
     }
   }
 
@@ -189,6 +197,7 @@ export class PageComponent implements OnInit {
         this.pageContents = data.contents
         this.pageRegistered = data.registered
         this.pageList = data.pageList
+        this.currentEditor = data.currentEditor
         this.cachedImagesService.setCachedImages(data.images)
         this.isLoading = false
       }
@@ -208,9 +217,6 @@ export class PageComponent implements OnInit {
     },3000)
   }
 
-  test(){
-    console.log(this.isLoading)
-  }
 
   navigateToPage(pageName: string){
     this.router.navigate([`/page/${pageName}`]).then(() => {

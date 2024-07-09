@@ -17,8 +17,8 @@ apiRouter.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
     //controllers
     import handlePageList from './controllers/pageListController';
     import handleGetPageContents from './controllers/pageContentsController';
-    import handleUpdatePageContents from './controllers/updatePageContentsController';
     import handleStartEditing from './controllers/startEditingController';
+    import handleUpdatePageContents from './controllers/updatePageContentsController';
     import handleDeletePage from './controllers/deletePageController';
 
     import handleGetImages from './controllers/getImagesController';

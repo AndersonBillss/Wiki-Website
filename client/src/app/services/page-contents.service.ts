@@ -61,4 +61,13 @@ export class PageContentsService {
     return(res)
   }
 
+  startEditing(pageName: string){
+    this.authHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    });
+    const url: string = `${this.apiUrl}/api/startEditing?pageName=${pageName}`
+    const res = this.http.get(url, {headers: this.authHeaders})
+    return(res)
+  }
+
 }
