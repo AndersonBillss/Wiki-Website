@@ -2,8 +2,6 @@ import sharp from 'sharp';
 import { httpResponse } from '../models';
 
 export default async function getImageObject(img: any): Promise<httpResponse>{
-
-    
     if(!img.title.toLowerCase().trim()){
         return{
             status: 400,
@@ -96,6 +94,5 @@ export default async function getImageObject(img: any): Promise<httpResponse>{
             success: true,
             img: imgObject
         }
-    }
-)
+    })
 }

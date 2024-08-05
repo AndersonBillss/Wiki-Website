@@ -4,8 +4,8 @@ import bodyParser from 'body-parser';
 
 // Configure express
 const apiRouter = express.Router()
-apiRouter.use(bodyParser.json({ limit: '50mb' }));
-apiRouter.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+apiRouter.use(bodyParser.json({ limit: '5gb' }));
+apiRouter.use(bodyParser.urlencoded({ limit: '5gb', extended: true }));
 
 
 

@@ -1,7 +1,6 @@
 import AssetContent from '../models/assetContents';
 import ConceptContent from '../models/conceptContents';
 import getImageObject from '../../utils/getImageObject';
-import sharp from 'sharp';
 
 import getImages from './getImages';
 import { httpResponse } from '../../models';
