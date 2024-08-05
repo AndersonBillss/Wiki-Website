@@ -6,7 +6,6 @@ import getPageList from "./getPageList"
 
 export default async function getPageContents(section: string, title: string): Promise<httpResponse>{
     try{
-
         let queryResult: any;
         let pageList: any;
         if(section === "gameplay"){
@@ -23,7 +22,8 @@ export default async function getPageContents(section: string, title: string): P
                 }
             }
         }
-
+        console.log(title)
+        console.log(queryResult)
         
         if(queryResult){
             const contents = queryResult.contents

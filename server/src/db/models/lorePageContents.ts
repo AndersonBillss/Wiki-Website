@@ -10,6 +10,6 @@ const PageContentSchema: Schema = new Schema({
   contents: { type: Array, required: true }
 });
 
-const LorePageContent = mongoose.model<IPageContent>('Lore', PageContentSchema);
+const LorePageContent = mongoose.model<IPageContent>('Lore Page', PageContentSchema);
 
 export default LorePageContent;

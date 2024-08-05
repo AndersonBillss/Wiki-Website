@@ -10,6 +10,6 @@ const PageContentSchema: Schema = new Schema({
   contents: { type: Array, required: true }
 });
 
-const GameplayPageContents = mongoose.model<IPageContent>('Gameplay', PageContentSchema);
+const GameplayPageContents = mongoose.model<IPageContent>('Gameplay Page', PageContentSchema);
 
 export default GameplayPageContents;
