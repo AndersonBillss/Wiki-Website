@@ -22,8 +22,6 @@ export default async function getPageContents(section: string, title: string): P
                 }
             }
         }
-        console.log(title)
-        console.log(queryResult)
         
         if(queryResult){
             const contents = queryResult.contents

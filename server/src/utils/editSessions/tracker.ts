@@ -2,9 +2,9 @@
 export const tracker = {
     editingSessions: [] as editSession[],
 
-    addEditSession(userName: string, pageName: string){
+    addEditSession(section: string, userName: string, pageName: string){
         this.removeEditSession(userName)
-        this.editingSessions.push({ pageName: pageName, userName: userName })
+        this.editingSessions.push({ pageName: pageName, userName: userName, section: section })
     },
     removeEditSession(userName: string){
         let targetSessionIndex: number = -1
@@ -19,8 +19,11 @@ export const tracker = {
         }
     },
 
-    findWhoIsEditing(pageName: string): string | undefined{
-        const targetSession: editSession | undefined = this.editingSessions.find((session: editSession) => session.pageName === pageName)
+    findWhoIsEditing(section: string, pageName: string): string | undefined{
+        const targetSession: editSession | undefined = this.editingSessions.find(
+            (session: editSession) => 
+            session.pageName === pageName/*  && session.section === section */
+        )
 
         const targetUser = targetSession?.userName
         return targetUser
@@ -31,5 +34,6 @@ export const tracker = {
 
 interface editSession {
     pageName: string,
-    userName: string
+    userName: string,
+    section: string,
 }

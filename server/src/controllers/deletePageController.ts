@@ -9,7 +9,7 @@ export default async function handleDeletePage(req: any, res: any){
 
 
     const userName = getUserName(req)
-    const currentSession = tracker.findWhoIsEditing(title)
+    const currentSession = tracker.findWhoIsEditing(section, title)
     if(typeof(currentSession) === 'string' && currentSession !== userName){
         res.status(409).send(
             {

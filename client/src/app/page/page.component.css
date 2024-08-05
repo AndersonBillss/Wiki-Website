@@ -39,7 +39,7 @@
     flex-direction: column;
     justify-content: center;
 }
-.page-top h1{
+.page-header{
     padding: 5px 50px 5px 5px;
     border-bottom: 3px var(--primary-dark) solid;
 }
@@ -123,8 +123,14 @@
         margin: 5px;
         padding: 5px;
     }
+    .page-header{
+        padding-right: 5px;
+    }
 }
 @media(max-width: 600px){
+    .page-header{
+        font-size: 24px;
+    }
     .page{
         margin: 5px;
         padding: 5px;

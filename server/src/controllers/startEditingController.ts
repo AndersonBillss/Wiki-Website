@@ -3,6 +3,7 @@ import { tracker } from "../utils/editSessions/tracker"
 
 export default function handleStartEditing(req: any, res: any){
     const userName = getUserName(req)
+    const section = req.query.section
 
     if(userName){
         tracker.removeEditSession(userName)
@@ -27,7 +28,7 @@ export default function handleStartEditing(req: any, res: any){
         )
         return
     }
-    const currentSession = tracker.findWhoIsEditing(pageName)
+    const currentSession = tracker.findWhoIsEditing(section, pageName)
 
     if(typeof(currentSession) === 'string' && currentSession !== userName){
         res.status(409).send(
@@ -38,7 +39,7 @@ export default function handleStartEditing(req: any, res: any){
         )
         return
     }
-    tracker.addEditSession(userName, pageName)
+    tracker.addEditSession(section, userName, pageName)
     res.status(200).send(
         {
             success: true,
