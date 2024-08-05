@@ -2,7 +2,6 @@ export function parsePageContent(string: string){
     string = htmlEncode(string)
 
     for(let i=0; i<string.length; i++){
-        const prevLetter = string[i-1]
         const letter = string[i]
         const nextLetter = string[i+1]
         
@@ -33,11 +32,6 @@ export function parsePageContent(string: string){
                 return
             }
             const linkTarget = linkCode.slice(0, seperationIndex)
-            const invalidCharsRegex = /[\/'"|\[`]/;
-            if(invalidCharsRegex.test(linkTarget)){
-                console.error("linkTarget has invalid characters")
-                return
-            }
             const linkText = linkCode.slice(seperationIndex+1, linkCode.length)
             const anchorElement = `<a href="/page/${linkTarget}">${linkText}</a>`
             
@@ -138,13 +132,6 @@ export function encodePageContent(string: string){
                 return
             }
             const pageName = href.slice(location.length, href.length)
-            //return if pagename has a /, ', ". or `
-            const invalidCharsRegex = /[\/'"|\[`]/;
-            if(invalidCharsRegex.test(pageName)){
-                console.error("pageName has invalid characters")
-                return
-            }
-
 
             let linkedWordStart
             let linkedWordEnd

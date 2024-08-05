@@ -1,7 +1,13 @@
 <div class="navbar" color="primary">
+    <div class="navbar-right">
+        <app-icon class="icon button" [icon]="'home'" routerLink="/page"></app-icon>
+        <h1 class="section-title">
+        {{section | titlecase}}
+        </h1>
+    </div>
+
     <app-search-box 
-    [label]="'label'" 
-    [placeholder]="'placeholder'" 
+    [label]="'Select Page'" 
     [options]="searchOptions"
     [optionSelectFunction]="navigateToPage.bind(this)"
     [(value)]="searchTerm">

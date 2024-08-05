@@ -3,9 +3,10 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Input } from '@angular/core';
 
-import { Router } from '@angular/router';
-
 import { PageContentsService } from '../services/page-contents.service';
+import { LocationService } from '../services/location.service';
+import { IconComponent } from '../icon/icon.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,9 @@ import { PageContentsService } from '../services/page-contents.service';
   imports: [
     AsyncPipe,
     SearchBoxComponent,
-    CommonModule
+    CommonModule,
+    IconComponent,
+    RouterModule
   ],
   styleUrl: './navbar.component.css'
 })
@@ -23,18 +26,20 @@ export class NavbarComponent implements OnInit, OnChanges {
   @Input() pageSelectFunction: any
 
   searchOptions: string[] | null = []
-
   searchTerm: string = ''
+
+  section: string = ''
 
   constructor( 
     private pageContentsService: PageContentsService,
-    private router: Router
+    private locationService: LocationService
   ){
   }
 
   ngOnInit(): void {
+    this.section = this.locationService.getCurrentRoute()[1]
     if(this.pageList === undefined){
-      this.pageContentsService.getPageList().subscribe((data) => {
+      this.pageContentsService.getPageList(this.section).subscribe((data) => {
         this.searchOptions = data
       })
     } else {

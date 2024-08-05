@@ -1,5 +1,9 @@
 <div class="linkContainer">
-    <app-search-box [(value)]="newLink"></app-search-box>
+    <app-search-box 
+    [(value)]="newLink"
+    [options]="pagesList"
+    >
+    </app-search-box>
 
     <div class="linkButtonsContainer">
         <div class="linkButtons">

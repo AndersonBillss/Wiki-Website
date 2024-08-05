@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SearchBoxComponent } from '../../../navbar/search-box/search-box.component';
 import { IconComponent } from '../../../icon/icon.component';
+import { LocationService } from '../../../services/location.service';
 
 @Component({
   selector: 'app-link',
@@ -15,7 +16,11 @@ import { IconComponent } from '../../../icon/icon.component';
   styleUrl: './link.component.css'
 })
 export class LinkComponent {
+  @Input() pagesList!: any
+  
   newLink: string = ""
+
+  constructor(private locationService: LocationService){}
 
   addLink() {
     const selection = window.getSelection();
@@ -66,7 +71,7 @@ export class LinkComponent {
       }
       
       const linkElement = document.createElement('a');
-      linkElement.href = `/page/${this.newLink}`; 
+      linkElement.href = `/page/${this.locationService.getCurrentRoute()[1]}/${this.newLink}`; 
       linkElement.textContent = selectedText;
   
       range.deleteContents();

@@ -1,19 +1,36 @@
 import { httpResponse } from "../../models";
 import getImageArray from "../image/getImageArray";
-import PageContents from "../models/pageContents";
+import LorePageContents from "../models/lorePageContents";
+import GameplayPageContents from "../models/gameplayPageContents";
 import getPageList from "./getPageList"
 
-export default async function getPageContents(title: string): Promise<httpResponse>{
+export default async function getPageContents(section: string, title: string): Promise<httpResponse>{
     try{
-        const queryResult =  await PageContents.findOne({ title })
-        const pageList = await getPageList()
+
+        let queryResult: any;
+        let pageList: any;
+        if(section === "gameplay"){
+            queryResult =  await GameplayPageContents.findOne({ title })
+            pageList = await getPageList(section)
+        } else if(section === "lore"){
+            queryResult =  await LorePageContents.findOne({ title })
+            pageList = await getPageList(section)
+        } else {
+            return {
+                status: 400,
+                data: {
+                    msg: "Invalid section name!"
+                }
+            }
+        }
+
         
         if(queryResult){
             const contents = queryResult.contents
 
             //get an array of image locations
             let imageLocationArray: any[] = []
-            contents.forEach(item => {
+            contents.forEach((item: any) => {
                 if(item.imageLocation){
                     imageLocationArray.push(item.imageLocation)
                 }

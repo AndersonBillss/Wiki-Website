@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IconComponent } from '../icon/icon.component';
-import { RouterModule, Router, ActivatedRoute, NavigationEnd  } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LocationService } from '../services/location.service';
 
 
 @Component({
@@ -21,24 +21,14 @@ export class TabsComponent  implements OnInit{
   viewTabs: boolean = true
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute
+    private locationService: LocationService
   ) {}
 
   ngOnInit(): void {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      let route = this.router.url;
-      route = route.slice(1,route.length)
-
-      let routeSlashIndex = route.indexOf('/')
-      if(routeSlashIndex !== -1){
-        this.selectedPage = route.slice(0,routeSlashIndex)
-      } else {
-        this.selectedPage = route
+    this.locationService.getRoute().subscribe((routes: string[]) => {
+      if(routes.length > 0){
+        this.selectedPage = routes[0]
       }
-
       const isLoginPage = this.selectedPage==="login"||this.selectedPage==="signUp"
       this.viewTabs=!isLoginPage
     });

@@ -16,6 +16,7 @@ import { ElementComponent } from './tools/element/element.component';
 })
 export class EditToolbarComponent {
   @Input() elementsContainer!: any
+  @Input() pagesList!: any
   @Input() data!: any;
   @Output() dataChange: EventEmitter<string> = new EventEmitter<string>();
   selectedToolIndex = 0;

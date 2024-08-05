@@ -4,6 +4,7 @@ import { getUserName } from '../middleware/jwt';
 import { tracker } from '../utils/editSessions/tracker';
 
 export default async function handleDeletePage(req: any, res: any){
+    const section = req.query.section
     const title = req.query.title
 
 
@@ -22,7 +23,7 @@ export default async function handleDeletePage(req: any, res: any){
 
     let result: httpResponse
     if(typeof(title) === 'string'){
-        result = await deletePage(title)
+        result = await deletePage(section, title)
     } else {
         result = {
             status: 400,

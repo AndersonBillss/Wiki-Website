@@ -12,6 +12,7 @@ id="edit-toolbar"
 *ngIf="editMode"
 [(data)]="pageContents"
 [elementsContainer]="elementsContainer"
+[pagesList]="pageList"
 >
 </app-edit-toolbar>
 
@@ -20,7 +21,7 @@ id="edit-toolbar"
     <div class="page-top">
         <div class="page-title">
             <div class="title-top">
-                <app-icon class="icon button" [icon]="'home'" routerLink="/page"></app-icon>
+                <app-icon class="icon button" [icon]="'back'" routerLink="/page/{{section}}"></app-icon>
                 <h1>
                     {{title | titlecase}}
                 </h1>

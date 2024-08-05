@@ -4,7 +4,7 @@
         <div 
         class="page-option" 
         *ngFor="let page of pages" 
-        routerLink="/page/{{page}}"
+        routerLink="/page/{{section}}/{{page}}"
         >
             {{page | titlecase}}
         </div>

@@ -18,29 +18,29 @@ export class PageContentsService {
     });
   }
 
-  getPageList(){
+  getPageList(section: string){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
-    const url: string = `${this.apiUrl}/api/pageList`
+    const url: string = `${this.apiUrl}/api/pageList?section=${section}`
     const res = this.http.get<any>(url, {headers: this.authHeaders})
     return res
   }
 
-  getPageContents(title: string){
+  getPageContents(section: string, title: string){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
-    const url: string = `${this.apiUrl}/api/getPageContents?title=${title}`
+    const url: string = `${this.apiUrl}/api/getPageContents?title=${title}&section=${section}`
     const res = this.http.get<any[]>(url, {headers: this.authHeaders})
     return res
   }
 
-  savePageContents(title: string, contents: any[]){
+  savePageContents(section: string, title: string, contents: any[]){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
-    const url: string = `${this.apiUrl}/api/updatePageContents`
+    const url: string = `${this.apiUrl}/api/updatePageContents?section=${section}`
     const res = this.http.post(
       url, 
       {
@@ -52,20 +52,20 @@ export class PageContentsService {
     return res
   }
 
-  deletePage(title: string){
+  deletePage(section: string, title: string){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
-    const url: string = `${this.apiUrl}/api/deletePage?title=${title}`
+    const url: string = `${this.apiUrl}/api/deletePage?title=${title}&section=${section}`
     const res = this.http.delete(url, {headers: this.authHeaders})
     return(res)
   }
 
-  startEditing(pageName: string){
+  startEditing(section: string, pageName: string){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
-    const url: string = `${this.apiUrl}/api/startEditing?pageName=${pageName}`
+    const url: string = `${this.apiUrl}/api/startEditing?pageName=${pageName}&section=${section}`
     const res = this.http.get(url, {headers: this.authHeaders})
     return(res)
   }

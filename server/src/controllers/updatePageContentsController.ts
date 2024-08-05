@@ -3,6 +3,7 @@ import { getUserName } from "../middleware/jwt"
 import { tracker } from "../utils/editSessions/tracker"
 
 export default async function handleUpdatePageContents(req: any, res: any){
+    const section = req.query.section
     const userName = getUserName(req)
     const editor = tracker.findWhoIsEditing(req.body.page)
     if(editor !== userName && typeof(editor) === 'string'){
@@ -21,6 +22,6 @@ export default async function handleUpdatePageContents(req: any, res: any){
     }
     tracker.removeEditSession(userName)
 
-    const response = await updatePageContents(req.body)
+    const response = await updatePageContents(section, req.body)
     res.status(response.status).json(response.data)
 }

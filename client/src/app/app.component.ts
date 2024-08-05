@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 import { RouterOutlet } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { TabsComponent } from './tabs/tabs.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   title = 'client';
   pageHtml: string | undefined = ''
 
@@ -24,8 +24,6 @@ export class AppComponent implements AfterViewInit {
 
   constructor(){}
 
-  ngAfterViewInit(): void {
-  }
 }
 
 

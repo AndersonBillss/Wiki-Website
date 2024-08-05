@@ -12,12 +12,18 @@
     </div>
 
     <div class="tool">
-        <app-link *ngIf="tools[selectedToolIndex] === 'Link'"></app-link>
+
+        <app-link 
+        *ngIf="tools[selectedToolIndex] === 'Link'"
+        [pagesList]="pagesList"
+        ></app-link>
+
         <app-element 
         *ngIf="tools[selectedToolIndex] === 'Element'"
         [elementsContainer]="elementsContainer"
         [(data)]="data"
         ></app-element>
+
     </div>
 
 </div>

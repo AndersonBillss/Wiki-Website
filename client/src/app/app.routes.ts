@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { PageDefaultComponent } from './page-default/page-default.component';
+import { PageDefaultComponent } from './page/page-default/page-default.component';
+import { PageSelectComponent } from './page/page-select/page-select.component';
 import { PageComponent } from './page/page.component';
 import { ImagesComponent } from './images/images.component';
 import { ImageGalleryComponent } from './images/image-gallery/image-gallery.component';
@@ -16,8 +17,13 @@ export const routes: Routes = [
     {path: "home", component: HomeComponent},
     {path: "login", component: LoginComponent},
     {path: "signUp", component: SignUpComponent},
-    {path: "page/:title", component: PageComponent},
-    {path: "page", component: PageDefaultComponent},
+
+    {path: "page", component: PageSelectComponent},
+    {path: "page/lore", component: PageDefaultComponent},
+    {path: "page/gameplay", component: PageDefaultComponent},
+    {path: "page/lore/:title", component: PageComponent},
+    {path: "page/gameplay/:title", component: PageComponent},
+
     {path: "images", component: ImagesComponent},
     {path: "images/concept", component: ImageGalleryComponent},
     {path: "images/assets", component: ImageGalleryComponent},

@@ -16,6 +16,7 @@ import { IconComponent } from '../icon/icon.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { ImageComponent } from './elements/image/image.component';
 import { CachedImagesService } from '../services/cachedImages.service';
+import { LocationService } from '../services/location.service';
 
 
 
@@ -60,6 +61,7 @@ export class PageComponent implements OnInit, OnDestroy {
   }
 
 
+  section: string = ""
   title: string = ""
 
   snackbar: any = {success: true, msg: '', hidden: true}
@@ -72,7 +74,8 @@ export class PageComponent implements OnInit, OnDestroy {
     private pageContentService: PageContentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private cachedImagesService: CachedImagesService
+    private cachedImagesService: CachedImagesService,
+    private locationService: LocationService
   ){ }
 
 
@@ -81,7 +84,7 @@ export class PageComponent implements OnInit, OnDestroy {
       this.editMode = false
       this.savePageContents()
     } else {
-      this.pageContentService.startEditing(this.title).subscribe((data: any) => {
+      this.pageContentService.startEditing(this.section, this.title).subscribe((data: any) => {
         this.editMode = data.success
         this.openSnackBar(data)
 
@@ -94,7 +97,7 @@ export class PageComponent implements OnInit, OnDestroy {
 
   savePageContents(){
     this.isLoading = true
-    this.pageContentService.savePageContents(this.title, this.pageContents).subscribe((data: any) => {
+    this.pageContentService.savePageContents(this.section, this.title, this.pageContents).subscribe((data: any) => {
       this.pageContents = data.updatedContents.data.contents
       this.pageRegistered = true
 
@@ -108,7 +111,7 @@ export class PageComponent implements OnInit, OnDestroy {
   deletePage(){
     this.isLoading = true
     this.editMode = false
-    this.pageContentService.deletePage(this.title).subscribe((data: any) => {
+    this.pageContentService.deletePage(this.section, this.title).subscribe((data: any) => {
       if(data.success){
         this.pageRegistered = false
       }
@@ -191,10 +194,10 @@ export class PageComponent implements OnInit, OnDestroy {
     this.savePageContents()
   }
   loadData(){
+      this.title = this.locationService.getCurrentRoute()[2]
+      this.section = this.locationService.getCurrentRoute()[1]
     this.isLoading = true
-
-    this.title = this.route.snapshot.params["title"];
-    this.pageContentService.getPageContents(this.title).subscribe((data: any) => {
+    this.pageContentService.getPageContents(this.section, this.title).subscribe((data: any) => {
       if(data){
         this.pageContents = data.contents
         this.pageRegistered = data.registered
@@ -221,7 +224,7 @@ export class PageComponent implements OnInit, OnDestroy {
 
 
   navigateToPage(pageName: string){
-    this.router.navigate([`/page/${pageName}`]).then(() => {
+    this.router.navigate([`/page/${this.section}/${pageName}`]).then(() => {
       this.loadData()
     })
   }
