@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { PageContentsService } from '../../services/page-contents.service';
+import { PageContentsService } from '../../../services/page-contents.service';
 
-import { NavbarComponent } from '../../navbar/navbar.component';
+import { NavbarComponent } from '../../../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { LoadingComponent } from '../../loading/loading.component';
+import { LoadingComponent } from '../../../loading/loading.component';
 
 import { Router } from '@angular/router';
-import { LocationService } from '../../services/location.service';
+import { LocationService } from '../../../services/location.service';
 
 @Component({
   selector: 'app-page-default',

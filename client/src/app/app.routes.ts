@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { PageDefaultComponent } from './page/page-default/page-default.component';
+import { PageDefaultComponent } from './page/elements/page-default/page-default.component';
 import { PageSelectComponent } from './page/page-select/page-select.component';
 import { PageComponent } from './page/page.component';
 import { ImagesComponent } from './images/images.component';
