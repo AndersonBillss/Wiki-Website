@@ -22,7 +22,7 @@
     background-color: var(--primary-color);
     color: var(--background-dark);
     border-radius: 50%;
-    margin: 10px;
+    margin: 10px 10px 10px 0;
 }
 
 
@@ -40,8 +40,9 @@
     justify-content: center;
 }
 .page-header{
-    padding: 5px 50px 5px 5px;
+    padding: 5px 15px 5px 5px;
     border-bottom: 3px var(--primary-dark) solid;
+    max-width: calc(100vw - 120px);
 }
 .page-registered{
     color: gray;
