@@ -2,16 +2,15 @@ import mongoose, { Document, Schema } from 'mongoose';
 
 interface IAssetContent extends Document {
   title: string;
-  contents: Array<any>;
+  tags: Array<any>;
+  _id: string
 }
 
 const AssetContentSchema: Schema = new Schema({
-  highResSrc: { type: String, required: true },
-  lowResSrc: { type: String, required: true },
   title: { type: String, required: true },
   tags: { type: Array, required: true }
 });
 
-const AssetContent = mongoose.model<IAssetContent>('Assets', AssetContentSchema);
+const AssetContent = mongoose.model<IAssetContent>('Asset Images', AssetContentSchema);
 
 export default AssetContent;

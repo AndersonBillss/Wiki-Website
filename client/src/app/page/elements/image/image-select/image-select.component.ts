@@ -12,6 +12,8 @@ import { LoadingComponent } from '../../../../loading/loading.component';
 import getTags from '../../../../utils/getTags';
 import filterImages from '../../../../utils/filterImages';
 
+import { environment } from '../../../../../environments/environment';
+
 @Component({
   selector: 'app-image-select',
   standalone: true,
@@ -29,6 +31,7 @@ import filterImages from '../../../../utils/filterImages';
   styleUrl: './image-select.component.css'
 })
 export class ImageSelectComponent {
+  //TODO: fix error when switching between tabs
   @Input() isVisible!: boolean;
   @Output() isVisibleChange = new EventEmitter<boolean>();
 
@@ -43,7 +46,7 @@ export class ImageSelectComponent {
   filterString: string = ""
   filteredImages: any[] = []
 
-
+  apiUrl: string = environment.apiUrl
 
   snackbar: any = {
     success: true,
@@ -74,8 +77,6 @@ export class ImageSelectComponent {
       }
       this.isLoading = false
     })
-
-    //HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHere
   }
 
 

@@ -8,10 +8,10 @@ export default async function getImage(pageName: string, _id: string, resolution
     let tagsResponse: httpResponse = await getTagList(pageName)
     const tags = tagsResponse.data.tags
     if(pageName === "assets"){
-        image = await AssetContent.findOne({ _id }).select('highResSrc title tags');
+        image = await AssetContent.findOne({ _id }).select('title tags');
     }
     if(pageName === "concept"){
-        image = await ConceptContent.findOne({ _id }).select('highResSrc title tags');
+        image = await ConceptContent.findOne({ _id }).select('title tags');
     }
 
     if(!image){

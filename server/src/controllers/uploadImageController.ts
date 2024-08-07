@@ -8,6 +8,16 @@ export default async function handleUploadImage(req: any, res: any){
         })
     } else {
         const file = req.body;
+        if(page !== "concept" && page !== "assets"){
+            res.status(400).send(
+                { 
+                    msg: 'Specified page does not exist',
+                    success: false
+                }
+            )
+            return
+        }
+
         const result = await addImage(page, file)
         res.status(result.status).send(result.data)
     }

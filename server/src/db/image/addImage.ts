@@ -4,9 +4,13 @@ import getImageObject from '../../utils/getImageObject';
 
 import getImages from './getImages';
 import { httpResponse } from '../../models';
+import { uploadImage } from '../../utils/multer';
+
 
 export default async function addImage(pageName: string, newContents: any): Promise<httpResponse>{
     newContents.tags = JSON.parse(newContents.tags)
+    const imageObjectData: any = await getImageObject(newContents)
+    let imageInfo: any
 
 
     if(new Set(newContents.tags).size !== newContents.tags.length){
@@ -22,15 +26,19 @@ export default async function addImage(pageName: string, newContents: any): Prom
 
 
     try {
-      const imgObjectData = await getImageObject(newContents)
-        if(!imgObjectData.data.success){
-            return imgObjectData
+        if(!imageObjectData.data.success){
+            return imageObjectData
         }
-        const imgObject = imgObjectData.data.img
+        const imgObject = {
+            title: imageObjectData.data.img.title,
+            tags: imageObjectData.data.img.tags
+        }
 
         let saveResult: any
-        if(pageName === 'assets'){
-            try{
+
+        try{
+
+            if(pageName === 'assets'){
                 const title = imgObject!.title
     
                 const imageWithSameTitle = await AssetContent.findOne({ title });
@@ -43,7 +51,7 @@ export default async function addImage(pageName: string, newContents: any): Prom
                         }
                     }
                 } else {
-                    await AssetContent.insertMany(imgObject);
+                    imageInfo = await AssetContent.insertMany(imgObject);
                     const updatedImages = await getImages('assets')
                     saveResult = {
                         status: 200,
@@ -53,24 +61,9 @@ export default async function addImage(pageName: string, newContents: any): Prom
                             success: true
                         }
                     };
-                }
-        
-            } catch (err) {
-                console.error(err)
-                saveResult = (
-                    {
-                        status: 500,
-                        data: { 
-                            msg: 'Error saving contents' ,
-                            success: false
-                        }
-                    }
-                );
-            }
-    
+                }  
 
-        } else if(pageName === 'concept'){
-            try {
+            } else if(pageName === 'concept'){
                 const title = imgObject!.title
     
                 const imageWithSameTitle = await ConceptContent.findOne({ title });
@@ -83,7 +76,7 @@ export default async function addImage(pageName: string, newContents: any): Prom
                         }
                     }
                 } else {
-                    await ConceptContent.insertMany(imgObject);
+                    imageInfo = await ConceptContent.insertMany(imgObject);
                     const updatedImages = await getImages('concept')
                     saveResult = {
                         status: 200,
@@ -94,28 +87,52 @@ export default async function addImage(pageName: string, newContents: any): Prom
                         }
                     };
                 }
-        
-            } catch (err) {
-                console.error(err)
-                saveResult = (
-                    {
-                        status: 500,
-                        data: { 
-                            msg: 'Error saving contents',
-                            success: false
-                        },
-                    }
-                );
-            }
-        } else {
-            saveResult = {
+            } else {
+                return {
                     status: 400,
+                    data: {
+                        msg: 'Invalid page name!',
+                        success: false
+                    }
+                }
+            }
+        
+
+
+            if(!imageInfo){
+                return {
+                    status: 500,
+                    data: {
+                        msg: 'Error processing image. Please ask admin to look at the database',
+                        success: false
+                    }
+                }
+            }
+            const imageId = imageInfo[0]._id.toString()
+            try{
+                uploadImage(pageName, imageId, imageObjectData.data.img.src)
+            } catch(err){
+                console.error("Error while uploading image: ", err)
+                return {
+                    status: 500,
+                    data: {
+                        msg: 'Error processing image. Please ask admin to look at the database',
+                        success: false
+                    }
+                }
+            }
+
+        } catch (err) {
+            console.error(err)
+            saveResult = (
+                {
+                    status: 500,
                     data: { 
-                        msg: 'Specified page does not exist',
+                        msg: 'Error saving contents',
                         success: false
                     },
                 }
-        
+            );
         }
 
         return saveResult

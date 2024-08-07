@@ -9,6 +9,8 @@ import { IconComponent } from '../../icon/icon.component';
 import { Location } from '@angular/common';
 import { SearchBoxComponent } from '../../navbar/search-box/search-box.component';
 
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'app-image-detail',
   standalone: true,
@@ -30,6 +32,8 @@ export class ImageDetailComponent implements OnInit{
   pageName: string = ''
   imgId: string = ''
   isLoading: boolean = true
+
+  apiUrl: string = environment.apiUrl
 
   tags: any[] = []
 

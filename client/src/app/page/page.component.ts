@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 import { IconComponent } from '../icon/icon.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { ImageComponent } from './elements/image/image.component';
-import { CachedImagesService } from '../services/cachedImages.service';
 import { LocationService } from '../services/location.service';
 
 
@@ -28,8 +27,8 @@ import { LocationService } from '../services/location.service';
   imports: [
     ParagraphComponent,
     HeaderComponent,
-    ImageComponent,
     IconComponent,
+    ImageComponent,
 
     EditToolbarComponent,
     NavbarComponent,
@@ -74,7 +73,6 @@ export class PageComponent implements OnInit, OnDestroy {
     private pageContentService: PageContentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private cachedImagesService: CachedImagesService,
     private locationService: LocationService
   ){ }
 
@@ -203,7 +201,6 @@ export class PageComponent implements OnInit, OnDestroy {
         this.pageRegistered = data.registered
         this.pageList = data.pageList
         this.currentEditor = data.currentEditor
-        this.cachedImagesService.setCachedImages(data.images)
         this.isLoading = false
       }
     })

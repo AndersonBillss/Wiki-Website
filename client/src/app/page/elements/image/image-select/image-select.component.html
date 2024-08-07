@@ -51,7 +51,7 @@
                     *ngFor="let image of filteredImages"
                     (click)="selectImage(image._id)"
                     >
-                        <img src="data:image/png;base64,{{image.lowResSrc}}">
+                        <img src="{{apiUrl}}/api/image/{{selectedGallery}}/{{image._id}}.png">
                         {{image.title | titlecase}}
                     </div>
                 </div>

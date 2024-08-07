@@ -3,9 +3,11 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange
 import { ImageSelectComponent } from './image-select/image-select.component';
 import { IconComponent } from '../../../icon/icon.component';
 import { RouterModule } from '@angular/router';
-import { CachedImagesService } from '../../../services/cachedImages.service';
-import { LoadingComponent } from '../../../loading/loading.component';
+/* import { CachedImagesService } from '../../../services/cachedImages.service';
+ */import { LoadingComponent } from '../../../loading/loading.component';
 import { parsePageContent, encodePageContent } from '../../../utils/pageContentFunctions';
+
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-image',
@@ -29,24 +31,25 @@ export class ImageComponent implements OnInit{
   @Output() deleteElement: EventEmitter<void> = new EventEmitter<void>();
 
   selectComponentOpen: boolean = false
-  imageUrl: string = ''
+  imageId: string = ''
+  pageName: string = ''
   isLoading: boolean = true
 
   innerHtml: string | undefined = ''
-
-  constructor(private cachedImagesService: CachedImagesService){ }
+  apiUrl: string = environment.apiUrl
 
   ngOnInit(): void {
     this.data = {
       type: "Image",
       text: this.data.text,
       imageLocation: {
-        _id: this.data.imageLocation?._id||'',
+        _id: this.data.imageLocation?._id || '',
         pageName: this.data.imageLocation?.pageName ||''
       }
     }
+    this.pageName = this.data.imageLocation?.pageName || ''
+    this.imageId = this.data.imageLocation?._id || ''
 
-    this.imageUrl = this.cachedImagesService.getCachedImage(this.data.imageLocation._id)
     this.isLoading = false
 
     this.innerHtml = parsePageContent(this.data.text)
@@ -81,9 +84,6 @@ export class ImageComponent implements OnInit{
   async selectImage(imageLocation: any){
     this.isLoading = true
     this.data.imageLocation = imageLocation
-    const src = await this.cachedImagesService.getNewImage(imageLocation)
-    this.imageUrl = src.medResSrc
-
     this.dataChange.emit(this.data);
     this.isLoading = false
   }

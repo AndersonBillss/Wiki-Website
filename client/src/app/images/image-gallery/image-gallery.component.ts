@@ -13,6 +13,8 @@ import { LoadingComponent } from '../../loading/loading.component';
 import getTags from '../../utils/getTags';
 import filterImages from '../../utils/filterImages';
 
+import { environment } from '../../../environments/environment'
+
 import { getCachedImageTags, getCachedSearchTerm, setCachedImageTags, setCachedSearchTerm } from '../../utils/cachedImageSearch';
 
 
@@ -41,6 +43,8 @@ export class ImageGalleryComponent implements OnInit {
   filterTags: any[] = []
   filterString: string = ""
   filteredImages: any[] = []
+
+  apiUrl: string = environment.apiUrl
 
   snackbar: any = {
     success: true,

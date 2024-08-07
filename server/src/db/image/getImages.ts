@@ -6,9 +6,9 @@ export default async function getImages(pageName: string): Promise<httpResponse>
     try{
         let images: any
         if(pageName === "assets"){
-            images = await AssetContent.find({}).select('_id lowResSrc title tags')
+            images = await AssetContent.find({}).select('_id title tags')
         } else if(pageName === "concept"){
-            images = await ConceptContent.find({}).select('_id lowResSrc title tags')
+            images = await ConceptContent.find({}).select('_id title tags')
         } else {
             return{
                 status: 400,

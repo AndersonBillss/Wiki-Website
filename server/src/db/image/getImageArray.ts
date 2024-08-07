@@ -30,9 +30,9 @@ async function getImages(imageLocationArray: any[]){
     const imageListPromises = imageLocationArray.map(async (imageLocation) => {
         const _id = imageLocation._id;
         if (imageLocation.pageName === "assets" && _id) {
-            return AssetContent.findOne({ _id }).select('_id, medResSrc').exec();
+            return AssetContent.findOne({ _id }).select('_id').exec();
         } else if (imageLocation.pageName === "concept" && _id) {
-            return ConceptContent.findOne({ _id }).select('_id, medResSrc').exec()
+            return ConceptContent.findOne({ _id }).select('_id').exec()
         }
         return null;
     });
