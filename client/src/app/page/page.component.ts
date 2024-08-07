@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { PageContentsService } from '../services/page-contents.service';
 import { CommonModule } from '@angular/common';
@@ -67,11 +67,10 @@ export class PageComponent implements OnInit, OnDestroy {
   currentEditor: string = ''
 
   editMode: boolean = false
-
+  deleted: boolean = false
   
   constructor( 
     private pageContentService: PageContentsService,
-    private route: ActivatedRoute,
     private router: Router,
     private locationService: LocationService
   ){ }
@@ -109,6 +108,7 @@ export class PageComponent implements OnInit, OnDestroy {
   deletePage(){
     this.isLoading = true
     this.editMode = false
+    this.deleted = true
     this.pageContentService.deletePage(this.section, this.title).subscribe((data: any) => {
       if(data.success){
         this.pageRegistered = false
@@ -188,8 +188,10 @@ export class PageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadData()
   }
-  ngOnDestroy(): void {
-    this.savePageContents()
+  ngOnDestroy(): void{
+    if(!this.deleted){
+      this.savePageContents()
+    }
   }
   loadData(){
       this.title = this.locationService.getCurrentRoute()[2]
