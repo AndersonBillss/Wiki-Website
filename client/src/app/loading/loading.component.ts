@@ -81,7 +81,7 @@ export class LoadingComponent {
   }
 
   animate() {
-/*     const loadingCanvas: HTMLCanvasElement = this.loadingElement.nativeElement;
+    const loadingCanvas: HTMLCanvasElement = this.loadingElement.nativeElement;
     const centerX = loadingCanvas.width / 2;
     const centerY = loadingCanvas.height / 2;
     const ctx = loadingCanvas.getContext("2d")!;
@@ -92,7 +92,7 @@ export class LoadingComponent {
       this.drawProgressSpinner(ctx, centerX, centerY);
     }
 
-    animateFrame(); */
+    animateFrame();
   }
 
 
