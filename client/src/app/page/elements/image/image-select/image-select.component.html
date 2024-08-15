@@ -6,20 +6,6 @@
 
         <div class="pop-up-card-contents">
 
-            <div class="page-select">
-                <div 
-                [ngClass]="selectedGallery==='concept'?'selected':''"
-                class="page-option button"
-                (click)="selectGallery('concept')"
-                >Concept</div>
-
-                <div 
-                [ngClass]="selectedGallery==='assets'?'selected':''"
-                class="page-option button"
-                (click)="selectGallery('assets')"
-                >Assets</div>
-            </div>
-
             <div class="search-box-container">
                 <app-search-box
                 [(value)]="filterString"
@@ -45,13 +31,13 @@
                 </div>
             </div>
 
-            <div class="image-select" *ngIf="selectedGallery && !isLoading">
+            <div class="image-select" *ngIf="!isLoading">
                 <div class="images">
                     <div class="image button" 
                     *ngFor="let image of filteredImages"
                     (click)="selectImage(image._id)"
                     >
-                        <img src="{{apiUrl}}/api/image/{{selectedGallery}}/{{image._id}}.png">
+                        <img src="{{apiUrl}}/api/image/concept/{{image._id}}.png">
                         {{image.title | titlecase}}
                     </div>
                 </div>

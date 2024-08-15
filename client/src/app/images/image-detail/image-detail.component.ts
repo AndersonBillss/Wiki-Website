@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
 import { SearchBoxComponent } from '../../navbar/search-box/search-box.component';
 
 import { environment } from '../../../environments/environment';
+import { LocationService } from '../../services/location.service';
 
 @Component({
   selector: 'app-image-detail',
@@ -29,7 +30,6 @@ export class ImageDetailComponent implements OnInit{
   newTagName: string = ''
   tagErrMsg: string = ''
 
-  pageName: string = ''
   imgId: string = ''
   isLoading: boolean = true
 
@@ -54,19 +54,13 @@ export class ImageDetailComponent implements OnInit{
 
   constructor(
     private imagesService: ImagesService,
-    private router: Router,
+    private locationService: LocationService,
     private location: Location
   ){ }
 
   ngOnInit(): void {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      this.setRouteData()
-    });
-    this.setRouteData()
-
-    this.imagesService.getImage(this.pageName, this.imgId).subscribe(data => {
+    this.imgId = this.locationService.getCurrentRoute()[2] 
+    this.imagesService.getImage(this.imgId).subscribe(data => {
       this.img = data.image
       this.tags = data.tags
       this.isLoading = false
@@ -83,23 +77,6 @@ export class ImageDetailComponent implements OnInit{
       this.editImage()
     } else {
       this.editMode = true
-    }
-  }
-
-
-  setRouteData(){
-    const routeName = '/images'
-    let route = this.router.url;
-    const routeEndpoint = route.slice(routeName.length, route.length).trim()
-
-
-    if(routeEndpoint !== ''){
-      const routeEndpointWithouSlash = routeEndpoint.slice(1,routeEndpoint.length)
-      const slashIndex = routeEndpointWithouSlash.indexOf('/')
-      if(slashIndex !== -1){
-        this.pageName = routeEndpointWithouSlash.slice(0,slashIndex)
-        this.imgId = routeEndpointWithouSlash.slice(slashIndex+1,routeEndpointWithouSlash.length)
-      }
     }
   }
 
@@ -134,7 +111,7 @@ export class ImageDetailComponent implements OnInit{
 
   editImage(){
     this.isLoading = true
-    this.imagesService.updateImage(this.pageName, this.img).subscribe(data => {
+    this.imagesService.updateImage(this.img).subscribe(data => {
       this.img = data.image
       this.isLoading = false
       this.openSnackBar(data)
@@ -157,7 +134,7 @@ export class ImageDetailComponent implements OnInit{
   }
 
   deleteImage(){
-    this.imagesService.deleteImage(this.pageName, this.imgId).subscribe(() => {
+    this.imagesService.deleteImage(this.imgId).subscribe(() => {
       this.location.back()
     })
   }

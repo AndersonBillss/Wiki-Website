@@ -1,0 +1,33 @@
+<div class="asset-gallery-top">
+    <h1 class="title">
+        Game Assets
+    </h1>
+
+    <div class="top-right">    
+        <app-search-box
+        class="input"
+        [(value)]="newFolderName"
+        [label]="'New Folder Name'"
+        [optionSelectFunction]="addFolder.bind(this)"
+        ></app-search-box>
+        <div>
+            <div (click)="addFolder()" class="icon button">
+                <app-icon icon="plus"></app-icon>
+            </div>
+        </div>
+
+        <div class="error">
+
+        </div>
+    </div>
+</div>
+<div class="asset-gallery-page">
+
+    <div *ngFor="let folder of folders" class="asset-folder button">
+        <app-icon icon="folder"></app-icon>
+        <h3>
+            {{folder.title}}
+        </h3>
+    </div>
+
+</div>

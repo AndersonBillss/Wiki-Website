@@ -7,12 +7,12 @@
                 <app-loading class="image"></app-loading>
             } @else{
     
-                @if(imageId && pageName){
+                @if(imageId){
                     <img class="image"
-                    [routerLink]="data.imageLocation._id && !editMode?
-                    ['/images', data.imageLocation.pageName, data.imageLocation._id]
+                    [routerLink]="data.imageId && !editMode?
+                    ['/images', 'concept', data.imageId]
                     :null"
-                    src="{{apiUrl}}/api/image/{{pageName}}/{{imageId}}.png"
+                    src="{{apiUrl}}/api/image/concept/{{data.imageId}}.png"
                     >
                 } @else {
                     <div class="image" *ngIf="!imageId">

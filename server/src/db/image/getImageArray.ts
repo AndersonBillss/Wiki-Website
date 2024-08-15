@@ -1,10 +1,9 @@
 import ConceptContent from '../models/conceptContents';
-import AssetContent from '../models/assetContents';
 import { httpResponse } from '../../models';
 
-export default async function getImageArray(imageLocationArray: any[]): Promise<httpResponse>{
+export default async function getImageArray(imageIdArray: string[]): Promise<httpResponse>{
     try{
-        const imageList = await getImages(imageLocationArray)
+        const imageList = await getImages(imageIdArray)
 
         return{
             status: 200,
@@ -26,15 +25,9 @@ export default async function getImageArray(imageLocationArray: any[]): Promise<
 
 }
 
-async function getImages(imageLocationArray: any[]){
-    const imageListPromises = imageLocationArray.map(async (imageLocation) => {
-        const _id = imageLocation._id;
-        if (imageLocation.pageName === "assets" && _id) {
-            return AssetContent.findOne({ _id }).select('_id').exec();
-        } else if (imageLocation.pageName === "concept" && _id) {
-            return ConceptContent.findOne({ _id }).select('_id').exec()
-        }
-        return null;
+async function getImages(imageIdArray: any[]){
+    const imageListPromises = imageIdArray.map(async (_id) => {
+        return ConceptContent.findOne({ _id }).select('_id').exec()
     });
 
     const imageList = (await Promise.all(imageListPromises)).filter(img => img !== null);

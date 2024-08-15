@@ -36,7 +36,7 @@ import { getCachedImageTags, getCachedSearchTerm, setCachedImageTags, setCachedS
 })
 export class ImageGalleryComponent implements OnInit {
   newImg: File | null = null
-  selectedGallery: string = ''
+  selectedGallery: string = 'concept'
   images: any[] = []
   tags: any[] = []
 
@@ -57,23 +57,15 @@ export class ImageGalleryComponent implements OnInit {
 
   
   constructor(
-    private router: Router,
     private imagesService: ImagesService
   ) {}
 
   ngOnInit(): void {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      this.setUrl()
-    });
-    this.setUrl()
-
     this.filterTags = getCachedImageTags(this.selectedGallery)
     this.filterString = getCachedSearchTerm(this.selectedGallery)
 
 
-    this.imagesService.getImages(this.selectedGallery).subscribe(data => {
+    this.imagesService.getImages().subscribe(data => {
       if(data.images){
         this.images = data.images
         this.filteredImages = filterImages(this.images,this.filterString,this.filterTags)
@@ -83,15 +75,6 @@ export class ImageGalleryComponent implements OnInit {
     })
   }
 
-  setUrl(){
-    const routeName = '/images'
-    let route = this.router.url;
-    const galleryPage = route.slice(routeName.length, route.length)
-
-    if(galleryPage.trim() !== ''){
-      this.selectedGallery = galleryPage.slice(1,galleryPage.length)
-    }
-  }
 
   openImageUpload(){
     this.addingNewImage = true
@@ -101,7 +84,7 @@ export class ImageGalleryComponent implements OnInit {
 
   addImage(image: any){
     this.isLoading = true
-    this.imagesService.uploadImage(this.selectedGallery, image).subscribe(
+    this.imagesService.uploadImage(image).subscribe(
       data => {
         this.openSnackBar(data)
         this.isLoading = false

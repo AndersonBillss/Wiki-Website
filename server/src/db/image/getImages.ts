@@ -1,22 +1,9 @@
 import { httpResponse } from '../../models';
-import AssetContent from '../models/assetContents';
 import ConceptContent from '../models/conceptContents';
 
-export default async function getImages(pageName: string): Promise<httpResponse> {
+export default async function getImages(): Promise<httpResponse> {
     try{
-        let images: any
-        if(pageName === "assets"){
-            images = await AssetContent.find({}).select('_id title tags')
-        } else if(pageName === "concept"){
-            images = await ConceptContent.find({}).select('_id title tags')
-        } else {
-            return{
-                status: 400,
-                data: {
-                    msg: 'That pageName does not exist'
-                }
-            }
-        }
+        const images = await ConceptContent.find({}).select('_id title tags')
 
         return{
             status: 200,

@@ -1,6 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../../navbar/navbar.component';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { ImagesService } from '../../../../services/images.service';
 
@@ -30,15 +30,13 @@ import { environment } from '../../../../../environments/environment';
   templateUrl: './image-select.component.html',
   styleUrl: './image-select.component.css'
 })
-export class ImageSelectComponent {
-  //TODO: fix error when switching between tabs
+export class ImageSelectComponent implements OnInit {
   @Input() isVisible!: boolean;
   @Output() isVisibleChange = new EventEmitter<boolean>();
 
   @Input() selectFuntion!: any
 
   newImg: File | null = null
-  selectedGallery: string = ''
   images: any[] = []
   tags: any[] = []
 
@@ -62,14 +60,8 @@ export class ImageSelectComponent {
     private imagesService: ImagesService
   ) {}
 
-
-  openImageUpload(){
-    this.addingNewImage = true
-  }
-
-  selectGallery(pageName: string){
-    this.selectedGallery = pageName
-    this.imagesService.getImages(this.selectedGallery).subscribe(data => {
+  ngOnInit(): void {
+    this.imagesService.getImages().subscribe(data => {
       if(data.images){
         this.images = data.images
         this.filteredImages = data.images
@@ -79,6 +71,9 @@ export class ImageSelectComponent {
     })
   }
 
+  openImageUpload(){
+    this.addingNewImage = true
+  }
 
   close(){
     this.isVisible = false
@@ -99,7 +94,6 @@ export class ImageSelectComponent {
 
 
   addTagFilter(tagName: string){
-    console.log('filter tag')
     tagName = tagName.trim().toLowerCase()
     let isValidFilter = true
     if(tagName){
@@ -120,13 +114,13 @@ export class ImageSelectComponent {
     this.searchImages()
   }
 
-  searchImages(string?: string){
+  searchImages(){
     this.filteredImages = filterImages(this.images,this.filterString,this.filterTags)
   }
 
 
   selectImage(id: string){
-    this.selectFuntion({_id: id, pageName: this.selectedGallery})
+    this.selectFuntion(id)
     this.isVisible = false
     this.isVisibleChange.emit(this.isVisible)
   }

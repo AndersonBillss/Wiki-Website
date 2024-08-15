@@ -42,13 +42,9 @@ export class ImageComponent implements OnInit{
     this.data = {
       type: "Image",
       text: this.data.text,
-      imageLocation: {
-        _id: this.data.imageLocation?._id || '',
-        pageName: this.data.imageLocation?.pageName ||''
-      }
+      imageId: this.data?.imageId || '',
     }
-    this.pageName = this.data.imageLocation?.pageName || ''
-    this.imageId = this.data.imageLocation?._id || ''
+    this.imageId = this.data?.imageId || ''
 
     this.isLoading = false
 
@@ -81,11 +77,9 @@ export class ImageComponent implements OnInit{
     this.selectComponentOpen = true
   }
 
-  async selectImage(imageLocation: any){
-    this.isLoading = true
-    this.data.imageLocation = imageLocation
+  async selectImage(id: string){
+    this.data.imageId = id
     this.dataChange.emit(this.data);
-    this.isLoading = false
   }
 
 }

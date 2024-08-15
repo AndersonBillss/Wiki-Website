@@ -31,7 +31,7 @@
     background-color: var(--primary-color);
 }
 
-@media (max-width: 350px){
+@media (max-width: 400px){
     .text{
         display: none;
     }
@@ -39,7 +39,7 @@
         padding: 10px 20px;
     }
 }
-@media (max-width: 250px){
+@media (max-width: 300px){
     .tab{
         padding: 5px 10px;
     }

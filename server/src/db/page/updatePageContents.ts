@@ -20,7 +20,7 @@ export default async function updatePageContents(section: string, newContents: a
             return{
                 type: item.type,
                 text: item.text,
-                imageLocation: item.imageLocation
+                imageId: item.imageId
             }
         }
         return item

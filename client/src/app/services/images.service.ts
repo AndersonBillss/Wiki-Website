@@ -20,34 +20,33 @@ export class ImagesService {
     });
   }
 
-  getImages(pageName: string){
+  getImages(){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
-    const url = `${this.apiUrl}/api/getImages?pageName=${pageName}`
+    const url = `${this.apiUrl}/api/getImages`
     const res = this.http.get<any>(url, {headers: this.authHeaders})
     return res
   }
-  getImage(pageName: string, imageId: string){
+  getImage(imageId: string){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
-    const url = `${this.apiUrl}/api/getImage?pageName=${pageName}&id=${imageId}`
+    const url = `${this.apiUrl}/api/getImage?id=${imageId}`
     const res = this.http.get<any>(url, {headers: this.authHeaders})
     return res
   }
   
-  getImageList(pageName?: string){
+  getImageList(){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
-    const query = pageName?`?pageName=${pageName}`:''
-    const url = `${this.apiUrl}/api/imageList${query}`
+    const url = `${this.apiUrl}/api/imageList`
     const res = this.http.get<any>(url, {headers: this.authHeaders})
     return res
   }
 
-  updateImage(pageName: string, image: any){
+  updateImage(image: any){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
@@ -56,11 +55,11 @@ export class ImagesService {
       title: image.title,
       tags: image.tags,
     }
-    const url: string = `${this.apiUrl}/api/updateImage?pageName=${pageName}`
+    const url: string = `${this.apiUrl}/api/updateImage`
     const res = this.http.post<any>(url, requestObject, {headers: this.authHeaders})
     return res
   }
-  uploadImage(pageName: string, image: any){
+  uploadImage(image: any){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
@@ -69,26 +68,25 @@ export class ImagesService {
     formData.append('title', image.title);
     formData.append('tags', JSON.stringify(image.tags));
 
-    const url: string = `${this.apiUrl}/api/uploadImage?pageName=${pageName}`
+    const url: string = `${this.apiUrl}/api/uploadImage`
     const res = this.http.post<any>(url, formData, {headers: this.authHeaders})
     return res
   }
 
-  getTagList(pageName?: string){
+  getTagList(){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
-    const query = pageName?`?pageName=${pageName}`:''
-    const url = `${this.apiUrl}/api/getTags${query}`
+    const url = `${this.apiUrl}/api/getTags`
     const res = this.http.get(url, {headers: this.authHeaders})
     return res
   }
 
-  deleteImage(pageName: string, _id: string){
+  deleteImage(_id: string){
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
-    const url = `${this.apiUrl}/api/deleteImage?pageName=${pageName}&id=${_id}`
+    const url = `${this.apiUrl}/api/deleteImage?id=${_id}`
     const res = this.http.delete(url, {headers: this.authHeaders})
     return res
   }

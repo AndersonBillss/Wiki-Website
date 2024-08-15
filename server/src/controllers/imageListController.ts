@@ -1,7 +1,6 @@
 import getImageList from "../db/image/getImageList"
 
 export default async function handleImageList(req: any, res: any){
-    const pageName = `${req.query.pageName}`
-    const result = await getImageList(pageName)
+    const result = await getImageList()
     res.send(result)
 }

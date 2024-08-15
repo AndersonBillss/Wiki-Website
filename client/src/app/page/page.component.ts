@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { PageContentsService } from '../services/page-contents.service';
@@ -43,6 +43,7 @@ import { LocationService } from '../services/location.service';
 })
 export class PageComponent implements OnInit, OnDestroy {
   @ViewChild('elementsContainer') elementsContainer!: ElementRef;
+
 
   isLoading: boolean = true
   pageContents: any[] = []
@@ -102,7 +103,6 @@ export class PageComponent implements OnInit, OnDestroy {
       this.isLoading = false
       this.openSnackBar(data)
     })
-
   }
 
   deletePage(){

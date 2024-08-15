@@ -26,4 +26,13 @@
         <app-icon [class]="selectedPage==='images'?'icon-selected':''"  icon="image"></app-icon>
         <div class="text">Images</div>
     </div>
+
+    <div
+    class="tab"
+    [routerLink]="'/assets'"
+    [class]="selectedPage==='assets'?'selected':''"
+    >
+        <app-icon [class]="selectedPage==='images'?'icon-selected':''"  icon="globe"></app-icon>
+        <div class="text">Assets</div>
+    </div>
 </div>

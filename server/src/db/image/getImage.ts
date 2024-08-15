@@ -1,18 +1,13 @@
 import { httpResponse } from '../../models';
-import AssetContent from '../models/assetContents';
 import ConceptContent from '../models/conceptContents';
 import getTagList from './getTagList';
 
-export default async function getImage(pageName: string, _id: string, resolution?: string): Promise<httpResponse> {
+export default async function getImage(_id: string): Promise<httpResponse> {
     let image: any
-    let tagsResponse: httpResponse = await getTagList(pageName)
+    let tagsResponse: httpResponse = await getTagList()
     const tags = tagsResponse.data.tags
-    if(pageName === "assets"){
-        image = await AssetContent.findOne({ _id }).select('title tags');
-    }
-    if(pageName === "concept"){
-        image = await ConceptContent.findOne({ _id }).select('title tags');
-    }
+
+    image = await ConceptContent.findOne({ _id }).select('title tags');
 
     if(!image){
         return{
