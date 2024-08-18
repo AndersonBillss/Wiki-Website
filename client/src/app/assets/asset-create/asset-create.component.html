@@ -1,0 +1,50 @@
+<div *ngIf="isVisible" class="file-preview pop-up">
+    <div class="pop-up-card imgInput-card">
+
+        <div class="back icon button" (click)="close()">
+            <app-icon icon="close"></app-icon>
+        </div>
+
+        <div class="scrollable-section">
+            <app-search-box 
+            [label]="'Enter asset title'" 
+            [(value)]="assetTitle">
+            </app-search-box>
+
+
+            <div class="flex">
+                <app-search-box 
+                [optionSelectFunction]="addTag.bind(this)" 
+                [label]="'Add tags'" 
+                [(value)]="assetTagName"
+                ></app-search-box>
+                <div class="mt icon button">
+                    <app-icon icon="plus" (click)="addTag(assetTagName)"></app-icon>
+                </div>
+            </div>
+            <div class="image-tag-container">
+                <div class="image-tags" *ngFor="let tag of assetTags; let i = index">
+                    {{tag | titlecase}} 
+                    <div class="icon button" (click)="removeTag(i)">
+                        <app-icon icon="delete"></app-icon>
+                    </div>
+                </div>
+            </div>
+        
+            <div 
+            class="imgInput" 
+            [ngClass]="!assetTitle?'disabled':'button'"
+            (click)="assetTitle?submit():''"
+            >
+                Submit
+            </div>
+
+
+            <div class="errMsg">
+                {{errorMsg}}
+            </div>
+
+        </div>
+
+    </div>
+</div>

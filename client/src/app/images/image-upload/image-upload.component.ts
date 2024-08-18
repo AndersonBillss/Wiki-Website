@@ -20,6 +20,7 @@ import { IconComponent } from '../../icon/icon.component';
 export class ImageUploadComponent {
   @Input() submitFuntion!: Function
 
+  @Input() imageTagOptions!: string[]
   @Input() isVisible!: boolean;
   @Output() isVisibleChange = new EventEmitter<boolean>();
 
@@ -69,8 +70,8 @@ export class ImageUploadComponent {
         return;
       }
       this.imageTags.push(newTagName);
-      this.imgTagName = "";
       this.errorMsg = "";
+      this.imgTagName = "";
     }
   }
 

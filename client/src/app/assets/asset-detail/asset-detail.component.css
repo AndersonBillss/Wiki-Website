@@ -1,0 +1,13 @@
+.asset-gallery-top{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: var(--background-dark);
+    border-bottom: 3px var(--primary-color) solid;
+    align-items: center;
+}
+
+.title{
+    margin-left: 15px;
+}
+

@@ -1,33 +1,33 @@
-<div class="asset-gallery-top">
-    <h1 class="title">
-        Game Assets
-    </h1>
+<div *ngIf="!isLoading">
+    <div class="asset-gallery-top">
+        <h1 class="title">
+            Game Assets
+        </h1>
 
-    <div class="top-right">    
-        <app-search-box
-        class="input"
-        [(value)]="newFolderName"
-        [label]="'New Folder Name'"
-        [optionSelectFunction]="addFolder.bind(this)"
-        ></app-search-box>
-        <div>
-            <div (click)="addFolder()" class="icon button">
+        <div class="top-right">    
+            <div (click)="openAssetAdd()" class="icon button">
                 <app-icon icon="plus"></app-icon>
             </div>
-        </div>
 
-        <div class="error">
+            <div class="error">
 
+            </div>
         </div>
     </div>
-</div>
-<div class="asset-gallery-page">
+    <div class="asset-gallery-page">
 
-    <div *ngFor="let folder of folders" class="asset-folder button">
-        <app-icon icon="folder"></app-icon>
-        <h3>
-            {{folder.title}}
-        </h3>
+        <div *ngFor="let folder of folders" class="asset-folder button" [routerLink]="folder.title">
+            <app-icon icon="folder"></app-icon>
+            <h3>
+                {{folder.title}}
+            </h3>
+        </div>
+
     </div>
-
 </div>
+<app-loading *ngIf="isLoading"></app-loading>
+<app-asset-create
+[(isVisible)]="addingNewAsset"
+[submitFuntion]="addFolder.bind(this)"
+>
+</app-asset-create>

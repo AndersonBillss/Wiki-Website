@@ -12,12 +12,21 @@
                     <div>Choose a file</div>
                 </label>
             
-                <app-search-box [label]="'Enter image title'" [(value)]="imgTitle" *ngIf="imgTitle !== null"></app-search-box>
+                <app-search-box 
+                [label]="'Enter image title'" 
+                [(value)]="imgTitle" 
+                *ngIf="imgTitle !== null"
+                ></app-search-box>
             
                 <img class="pop-up-img" *ngIf="isImage(selectedFile?.name || '')" [src]="filePreview" alt="File Preview" style="max-width: 100%;">
 
                 <div class="flex" *ngIf="imgTitle !== null">
-                    <app-search-box [optionSelectFunction]="addTag.bind(this)" [label]="'Add tags'" [(value)]="imgTagName"></app-search-box>
+                    <app-search-box 
+                    [optionSelectFunction]="addTag.bind(this)" 
+                    [label]="'Add tags'" 
+                    [(value)]="imgTagName"
+                    [options]="imageTagOptions"
+                    ></app-search-box>
                     <div class="mt icon button">
                         <app-icon icon="plus" (click)="addTag(imgTagName)"></app-icon>
                     </div>

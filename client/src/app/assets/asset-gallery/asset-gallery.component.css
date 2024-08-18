@@ -52,3 +52,9 @@
 .input{
     margin: 0 10px;
 }
+
+@media(max-width: 275px){
+    .title{
+        width: 125px;
+    }
+}

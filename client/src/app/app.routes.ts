@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AssetGalleryComponent } from './assets/asset-gallery/asset-gallery.component';
+import { AssetDetailComponent } from './assets/asset-detail/asset-detail.component';
 
 export const routes: Routes = [
     {path: "", redirectTo: "home", pathMatch: 'full'},
@@ -29,7 +30,7 @@ export const routes: Routes = [
 /*     {path: "images/concept", component: ImageGalleryComponent},
     {path: "images/assets", component: ImageGalleryComponent}, */
     {path: "images/concept/:id", component: ImageDetailComponent},
-    {path: "images/assets/:id", component: ImageDetailComponent},
     {path: "assets", component: AssetGalleryComponent},
+    {path: "assets/:title", component: AssetDetailComponent},
     {path: "**", component: PageNotFoundComponent}
 ];
