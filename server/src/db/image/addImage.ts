@@ -1,14 +1,35 @@
 import ConceptContent from '../models/conceptContents';
-import getImageObject from '../../utils/getImageObject';
+import base64ImageToPng from '../../utils/base64ImageToPng';
 
 import getImages from './getImages';
 import { httpResponse } from '../../models';
-import { uploadImage } from '../../utils/multer';
+import { uploadImage } from '../../utils/upload';
 
 
 export default async function addImage(newContents: any): Promise<httpResponse>{
     newContents.tags = JSON.parse(newContents.tags)
-    const imageObjectData: any = await getImageObject(newContents)
+    // const imageObjectData: any = await getImageObject(newContents)
+    const imageSrc = await base64ImageToPng(newContents.src)
+    if(!imageSrc){
+        return{
+            status: 400,
+            data: {
+                success: false,
+                msg: 'Img src is does not exist or is in an invalid format'
+            }
+        }
+    }
+
+    const imageObjectData: any = {
+        status: 200,
+        data: {
+            success: true,
+            img: {
+                ...newContents,
+                src: imageSrc
+            }
+        }
+    }
     let imageInfo: any
 
 

@@ -1,5 +1,5 @@
 import { httpResponse } from '../../models';
-import { removeImage } from '../../utils/multer';
+import { removeImage } from '../../utils/upload';
 import ConceptContent from '../models/conceptContents';
 
 export default async function deleteImage(_id: string): Promise<httpResponse> {

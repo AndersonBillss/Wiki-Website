@@ -18,6 +18,6 @@
 </div>
 <app-asset-item-create
 [(isVisible)]="addingNewItem"
-[submitFuntion]="addItem"
+[submitFuntion]="addItem.bind(this)"
 >
 </app-asset-item-create>

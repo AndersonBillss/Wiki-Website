@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IconComponent } from '../../icon/icon.component';
 import { Location } from '@angular/common';
 import { AssetItemCreateComponent } from './asset-item-create/asset-item-create.component';
+import { AssetService } from '../../services/asset.service';
 
 @Component({
   selector: 'app-asset-detail',
@@ -18,10 +19,10 @@ import { AssetItemCreateComponent } from './asset-item-create/asset-item-create.
 })
 export class AssetDetailComponent implements OnInit{
   assetName: string | null = ''
-  public addingNewItem: boolean = true
+  public addingNewItem: boolean = false
 
   public assetObject: any = {
-    assetName: '',
+    title: '',
     tags: [],
     contents: [
       {
@@ -35,11 +36,18 @@ export class AssetDetailComponent implements OnInit{
 
   constructor(
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private assetService: AssetService,
   ){ }
 
   ngOnInit(): void {
     this.assetName = this.route.snapshot.paramMap.get("title")
+    if(this.assetName){
+      this.assetService.getAssetFolderContents(this.assetName).subscribe(res => {
+        console.log(res)
+        this.assetObject = res
+      })
+    }
   }
 
   goBack(){
@@ -51,6 +59,10 @@ export class AssetDetailComponent implements OnInit{
   }
 
   public addItem(item: any){
-    console.log(item)
+    if(this.assetName){
+      this.assetService.addAssetItem(this.assetName, item).subscribe(res => {
+        console.log(res)
+      })
+    }
   }
 }

@@ -12,7 +12,7 @@ apiRouter.use(bodyParser.urlencoded({ limit: '5gb', extended: true }));
 
 //code from other files
     //utils
-    import { allowUpload } from './utils/multer';
+    import { allowUpload } from './utils/upload';
     //middleware
     import { verifyToken } from './middleware/jwt';
     //controllers
@@ -35,6 +35,7 @@ apiRouter.use(bodyParser.urlencoded({ limit: '5gb', extended: true }));
     import handleGetAssetFolders from './controllers/getAssetFoldersController';
     import handleAddAssetFolder from './controllers/addAssetFolderController';
     import handleDeleteAssetFolder from './controllers/deleteAssetFolderController';
+    import handleAddAssetItem from './controllers/addAssetItemController';
 
     import handleGetUserInfo from './controllers/getUserInfoController';
     import handleLogIn from './controllers/logInController';
@@ -67,10 +68,12 @@ apiRouter.post('/updateImage', verifyToken, async(req, res) => { handleUpdateIma
 apiRouter.delete('/deleteImage', verifyToken, async(req, res) => { handleDeleteImage(req, res) })
 
 //Asset routes
-apiRouter.get('/getAssetFolders', verifyToken, async(req, res) => { handleGetAssetFolders(req, res) })//TODO: handle this
+apiRouter.get('/getAssetFolders', verifyToken, async(req, res) => { handleGetAssetFolders(req, res) })
 apiRouter.get('/getAssetFolderContents', verifyToken, async(req, res) => { handleGetAssetFolderContents(req, res) })//TODO: handle this
-apiRouter.post('/addAssetFolder', verifyToken, async(req, res) => { handleAddAssetFolder(req, res) })//TODO: handle this
+apiRouter.post('/addAssetFolder', verifyToken, async(req, res) => { handleAddAssetFolder(req, res) })
+apiRouter.post('/addAssetItem', verifyToken, allowUpload.array("image.srcArray", 20), async(req, res) => { handleAddAssetItem(req, res) })
 apiRouter.delete('/deleteAssetFolder', verifyToken, async(req, res) => { handleDeleteAssetFolder(req, res) })//TODO: handle this
+//TODO: add endpoints for within assets
 
 //User Info Routes
 apiRouter.get('/getUserInfo', verifyToken, async(req, res) => { handleGetUserInfo(req, res) })

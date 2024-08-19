@@ -23,8 +23,11 @@ export class LocationService {
   }
 
   getCurrentRoute(): string[] { 
-    const url = decodeURIComponent(this.router.url.slice(1, this.router.url.length))
+    const url = this.router.url.slice(1, this.router.url.length)
     const routes = url.split('/')
+    routes.map(route => {
+      return decodeURIComponent(route)
+    })
     return routes
   }
 
