@@ -22,8 +22,8 @@
                     <app-icon icon="plus" (click)="addTag(assetTagName)"></app-icon>
                 </div>
             </div>
-            <div class="image-tag-container">
-                <div class="image-tags" *ngFor="let tag of assetTags; let i = index">
+            <div class="tag-container">
+                <div class="tags" *ngFor="let tag of assetTags; let i = index">
                     {{tag | titlecase}} 
                     <div class="icon button" (click)="removeTag(i)">
                         <app-icon icon="delete"></app-icon>
@@ -32,7 +32,7 @@
             </div>
         
             <div 
-            class="imgInput" 
+            class="input" 
             [ngClass]="!assetTitle?'disabled':'button'"
             (click)="assetTitle?submit():''"
             >

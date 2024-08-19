@@ -1,0 +1,66 @@
+<div *ngIf="isVisible" class="file-preview pop-up">
+    <div class="pop-up-card imgInput-card">
+
+        <div class="back icon button" (click)="close()">
+            <app-icon icon="close"></app-icon>
+        </div>
+
+        <div class="scrollable-section">
+            <app-search-box 
+            [label]="'Enter title for item'" 
+            [(value)]="assetTitle">
+            </app-search-box>
+
+            <div class="options">
+                <div 
+                class="select button {{type === selectedAssetType ? 'selected' : ''}}"
+                *ngFor="let type of assetTypes" 
+                (click)="selectType(type)"
+                >
+                {{type | titlecase}}
+                </div>
+            </div>
+
+
+            @if(selectedAssetType === "Image"){
+                <label for="file-upload" class="fileInput button">
+                    <input id="file-upload" class="hidden" type="file" (change)="onFileSelected($event)">
+                    <div>Choose an Image file</div>
+                </label>  
+                
+                <img class="single-img" *ngIf="preview&&preview!==[]" src="{{preview[0]}}">
+
+            } @else if(selectedAssetType === "Animation"){
+                <label for="file-upload" class="fileInput button">
+                    <input id="file-upload" class="hidden" type="file" (change)="onFileSelected($event)" multiple>
+                    <div>Choose several image files</div>
+                </label> 
+
+                <div class="array-images">
+                    <img class="array-img" *ngFor="let item of preview" src="{{item}}">
+                </div>
+
+            } @else if(selectedAssetType === "Audio"){
+                <div>No Support for audio files yet!</div>
+            }
+
+
+
+        
+            <div 
+            class="input" 
+            [ngClass]="!assetTitle || !itemFiles || errorMsg?'disabled':'button'"
+            (click)="assetTitle && itemFiles && !errorMsg?submit():''"
+            >
+                Submit
+            </div>
+
+
+            <div class="errMsg">
+                {{errorMsg}}
+            </div>
+
+        </div>
+
+    </div>
+</div>

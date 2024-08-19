@@ -1,5 +1,23 @@
 <div class="asset-gallery-top">
-    <h1 class="title">
-        {{assetName}}
-    </h1>
+    <div class="title-container">
+        <div class="icon button" (click)="goBack()">
+            <app-icon icon="back"></app-icon>
+        </div>
+        <h1 class="title">
+            {{assetName | titlecase}}
+        </h1>
+    </div>
+    <div class="icon button" (click)="openAssetAdd()">
+        <app-icon icon="plus"></app-icon>
+    </div>
 </div>
+<div>
+    <div *ngFor="let item of assetObject.contents">
+        {{item.name}}
+    </div>
+</div>
+<app-asset-item-create
+[(isVisible)]="addingNewItem"
+[submitFuntion]="addItem"
+>
+</app-asset-item-create>

@@ -119,7 +119,6 @@ app-standard-button{
     display: flex;
     text-align: left;
     position: fixed;
-    bottom: calc(68.38px + 15px);
     font-weight: bold;
     left: 0;
     right: 0;

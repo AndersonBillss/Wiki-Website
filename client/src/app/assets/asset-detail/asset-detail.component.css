@@ -10,4 +10,21 @@
 .title{
     margin-left: 15px;
 }
+.title-container{
+    display: flex;
+    align-items: center;
+}
 
+.icon.button{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    margin: 15px;
+}
+.icon.button app-icon{
+    color: var(--background-dark);
+}

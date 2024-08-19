@@ -45,7 +45,6 @@ export class AssetGalleryComponent implements OnInit{
     if(!nameFound && info.title.trim() !== ''){
       this.isLoading = true
       this.AssetService.addFolder(info.title, info.tags).subscribe(res => {
-        console.log(res)
         this.folders = res.data
         this.isLoading = false
       })

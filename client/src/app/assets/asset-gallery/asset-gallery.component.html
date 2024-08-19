@@ -19,7 +19,7 @@
         <div *ngFor="let folder of folders" class="asset-folder button" [routerLink]="folder.title">
             <app-icon icon="folder"></app-icon>
             <h3>
-                {{folder.title}}
+                {{folder.title | titlecase}}
             </h3>
         </div>
 
