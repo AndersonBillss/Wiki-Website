@@ -52,7 +52,7 @@
     
     <div class="image-list">
         <div class="image button" *ngFor="let image of filteredImages" routerLink="/images/concept/{{image._id}}">
-            <img src="{{apiUrl}}/api/image/{{selectedGallery}}/{{image._id}}.png">
+            <img src="{{apiUrl}}/api/uploads/{{selectedGallery}}/{{image._id}}.png">
             <div>
             {{image.title | titlecase}}
             </div>

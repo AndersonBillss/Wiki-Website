@@ -28,3 +28,16 @@
 .icon.button app-icon{
     color: var(--background-dark);
 }
+
+
+.items{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.item{
+    margin: 5px 10px;
+}
+.item-title{
+    text-align: center;
+}

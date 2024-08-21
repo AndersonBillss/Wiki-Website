@@ -5,6 +5,8 @@ import { IconComponent } from '../../icon/icon.component';
 import { Location } from '@angular/common';
 import { AssetItemCreateComponent } from './asset-item-create/asset-item-create.component';
 import { AssetService } from '../../services/asset.service';
+import { SpritesheetPreviewComponent } from '../spritesheet-preview/spritesheet-preview.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-asset-detail',
@@ -12,7 +14,8 @@ import { AssetService } from '../../services/asset.service';
   imports: [
     CommonModule,
     IconComponent,
-    AssetItemCreateComponent
+    AssetItemCreateComponent,
+    SpritesheetPreviewComponent
   ],
   templateUrl: './asset-detail.component.html',
   styleUrl: './asset-detail.component.css'
@@ -20,18 +23,12 @@ import { AssetService } from '../../services/asset.service';
 export class AssetDetailComponent implements OnInit{
   assetName: string | null = ''
   public addingNewItem: boolean = false
+  public apiUrl: string = environment.apiUrl
 
   public assetObject: any = {
     title: '',
     tags: [],
-    contents: [
-      {
-        name: "cool",
-        type: "animation",
-        spitesheetSrc: 12345,
-        frames: 12,
-      }
-    ]
+    contents: []
   }
 
   constructor(
@@ -44,7 +41,6 @@ export class AssetDetailComponent implements OnInit{
     this.assetName = this.route.snapshot.paramMap.get("title")
     if(this.assetName){
       this.assetService.getAssetFolderContents(this.assetName).subscribe(res => {
-        console.log(res)
         this.assetObject = res
       })
     }

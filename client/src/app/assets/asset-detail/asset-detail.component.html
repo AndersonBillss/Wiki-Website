@@ -11,10 +11,21 @@
         <app-icon icon="plus"></app-icon>
     </div>
 </div>
-<div>
-    <div *ngFor="let item of assetObject.contents">
-        {{item.name}}
+<div class="items">
+
+    <div class="item" *ngFor="let item of assetObject.contents">
+        <h3 class="item-title">{{item.title}}</h3>
+
+        <app-spritesheet-preview *ngIf="item.type === 'animation'"
+        [title]="item.title"
+        spritesheetSrc="{{apiUrl}}/api/uploads/assets/{{assetName}}/animation/{{item._id}}.png"
+        [frames]="item.spriteSheetFrames"
+        >
+        </app-spritesheet-preview>
+
+
     </div>
+
 </div>
 <app-asset-item-create
 [(isVisible)]="addingNewItem"

@@ -12,7 +12,7 @@
                     [routerLink]="data.imageId && !editMode?
                     ['/images', 'concept', data.imageId]
                     :null"
-                    src="{{apiUrl}}/api/image/concept/{{data.imageId}}.png"
+                    src="{{apiUrl}}/api/uploads/concept/{{data.imageId}}.png"
                     >
                 } @else {
                     <div class="image" *ngIf="!imageId">

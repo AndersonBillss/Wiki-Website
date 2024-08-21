@@ -43,7 +43,7 @@ apiRouter.use(bodyParser.urlencoded({ limit: '5gb', extended: true }));
 
 
 //Serve images from the ../uploads folder
-apiRouter.use('/image', express.static(path.join(__dirname, "../uploads")))
+apiRouter.use('/uploads', express.static(path.join(__dirname, "../uploads")))
 
 //Ping
 apiRouter.get('/ping', async(req, res) => {

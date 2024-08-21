@@ -1,0 +1,23 @@
+<div class="animation-element" style="--animation-width: {{animationWidth}}px;">
+    <div #containerImage class="image-container" style="--animation-height: {{imgHeight}}px;">
+        <img 
+        #animationImage
+        style="--frame-index: {{frameIndex}}"
+        (load)="imageLoad()" 
+        src="{{spritesheetSrc}}" 
+        class="image"
+        >
+    </div>
+    
+    <div class="animation-bottom">
+        <div 
+        class="icon button"
+        (click)="isAnimating?stopAnimating():startAnimating()"
+        >
+            <app-icon
+            [icon]="isAnimating?'pause':'play'"
+            ></app-icon>
+        </div>
+    </div>
+
+</div>
