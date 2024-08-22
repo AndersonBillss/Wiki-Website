@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class AssetCreateComponent {
   @Input() submitFuntion!: Function
 
+  @Input() folders!: any[]
   @Input() assetTagOptions?: string[]
   @Input() isVisible!: boolean;
   @Output() isVisibleChange = new EventEmitter<boolean>();
@@ -34,6 +35,15 @@ export class AssetCreateComponent {
       this.assetTags.push(newTagName);
       this.assetTagName = "";
       this.errorMsg = "";
+    }
+  }
+
+  checkValidity(){
+    const duplicate = this.folders.find(f => f.title === this.assetTitle.toLowerCase()) !== undefined
+    if(duplicate){
+      this.errorMsg = "This is a duplicate title"
+    } else {
+      this.errorMsg = ""
     }
   }
 

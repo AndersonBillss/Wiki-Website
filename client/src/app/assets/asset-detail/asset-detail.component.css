@@ -30,14 +30,35 @@
 }
 
 
+
+
 .items{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
+
 .item{
     margin: 5px 10px;
 }
-.item-title{
+
+
+.diologue-text{
+    min-width: 30vw;
+    max-width: 50vw;
+    flex-wrap: wrap;
     text-align: center;
+}
+
+.card.button{
+    color: var(--background-color);
+    background-color: var(--primary-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.diologue-options{
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
 }

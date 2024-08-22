@@ -8,7 +8,9 @@
         <div class="scrollable-section">
             <app-search-box 
             [label]="'Enter title for item'" 
-            [(value)]="assetTitle">
+            [(value)]="assetTitle"
+            (valueChange)="checkValidity()"
+            >
             </app-search-box>
 
             <div class="options">

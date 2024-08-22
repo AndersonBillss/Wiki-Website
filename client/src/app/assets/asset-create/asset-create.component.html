@@ -8,13 +8,15 @@
         <div class="scrollable-section">
             <app-search-box 
             [label]="'Enter asset title'" 
-            [(value)]="assetTitle">
-            </app-search-box>
+            [(value)]="assetTitle"
+            (valueChange)="checkValidity()"
+            ></app-search-box>
 
 
             <div class="flex">
                 <app-search-box 
                 [optionSelectFunction]="addTag.bind(this)" 
+                [options]="assetTagOptions"
                 [label]="'Add tags'" 
                 [(value)]="assetTagName"
                 ></app-search-box>
@@ -33,8 +35,8 @@
         
             <div 
             class="input" 
-            [ngClass]="!assetTitle?'disabled':'button'"
-            (click)="assetTitle?submit():''"
+            [ngClass]="!assetTitle || errorMsg?'disabled':'button'"
+            (click)="assetTitle && !errorMsg?submit():''"
             >
                 Submit
             </div>

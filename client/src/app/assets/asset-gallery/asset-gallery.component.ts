@@ -6,6 +6,9 @@ import { AssetService } from '../../services/asset.service';
 import { AssetCreateComponent } from '../asset-create/asset-create.component';
 import { LoadingComponent } from '../../loading/loading.component';
 import { RouterModule } from '@angular/router';
+import filterItems from '../../utils/filterItems';
+
+import { getCachedAssetTags, getCachedSearchTerm, setCachedAssetTags, setCachedSearchTerm } from "../../utils/cachedAssetSearch"
 
 @Component({
   selector: 'app-asset-gallery',
@@ -24,6 +27,12 @@ import { RouterModule } from '@angular/router';
 export class AssetGalleryComponent implements OnInit{
   public isLoading: boolean = true
   public folders: any[] = []
+  public tags: string[] = []
+
+  public filterString: string = ""
+  public filterTags: string[] = []
+
+  public filteredFolders: any[] = []
 
   public addingNewAsset: boolean = false
 
@@ -37,7 +46,21 @@ export class AssetGalleryComponent implements OnInit{
     this.AssetService.getFolders().subscribe(res => {
       this.folders = res.data
       this.isLoading = false
+      this.getAllTags()
+      this.search()
     })
+    this.filterString = getCachedSearchTerm()
+    this.filterTags = getCachedAssetTags()
+  }
+
+  getAllTags(){
+    let newTags: string[] = []
+    this.folders.forEach(folder => {
+      newTags = newTags.concat(folder.tags)
+    })
+    newTags = [...new Set(newTags)]
+    newTags.sort()
+    this.tags = newTags
   }
 
   public addFolder(info: any){
@@ -47,6 +70,9 @@ export class AssetGalleryComponent implements OnInit{
       this.AssetService.addFolder(info.title, info.tags).subscribe(res => {
         this.folders = res.data
         this.isLoading = false
+
+        this.getAllTags()
+        this.search()
       })
     }
   }
@@ -55,4 +81,32 @@ export class AssetGalleryComponent implements OnInit{
     this.addingNewAsset = true
   }
 
+  addTagFilter(tagName: string){
+    tagName = tagName.trim().toLowerCase()
+    let isValidFilter = true
+    if(tagName){
+      this.filterTags.forEach(filterTag => {
+        if(filterTag === tagName){
+          isValidFilter = false
+        }
+      })
+      if(isValidFilter){
+        this.filterTags.push(tagName)
+      }
+    }
+    this.search()
+  }
+
+  removeFilterTag(index: number){
+    this.filterTags.splice(index,1)
+    this.search()
+  }
+
+  search(){
+    this.filteredFolders = filterItems(this.folders,this.filterString,this.filterTags)
+    setCachedAssetTags(this.filterTags)
+    setCachedSearchTerm(this.filterString)
+  }
+
 }
+

@@ -18,6 +18,17 @@ export default async function handleAddAssetItem(req: any, res: any){
         return
     }
 
+    const folder = await AssetContent.find({title: assetFolder})
+    const duplicatesFound = folder[0].contents.find(_ => _.title === itemObject.title) !== undefined
+    if(duplicatesFound){
+        res.status(400).send(
+            {
+            msg: 'Duplicate item names found'
+            }
+        )
+        return
+    }
+
 
     if(itemObject.type === "Animation"){
         itemObject.srcArray = JSON.parse(itemObject.srcArray)
@@ -62,6 +73,7 @@ export default async function handleAddAssetItem(req: any, res: any){
             );
             const result = await AssetContent.find({ title: assetFolder })
             res.status(200).send(result[0])
+            return
         } else {
             res.status(400).send(
                 {
@@ -69,6 +81,7 @@ export default async function handleAddAssetItem(req: any, res: any){
                 msg: 'could not create a spritesheet with those images'
                 }
             )
+            return
         }
 
     } else if(itemObject.type === "Image"){
@@ -81,6 +94,35 @@ export default async function handleAddAssetItem(req: any, res: any){
             )
             return
         }
+
+        const pngImage = await base64ImageToPng(itemObject.src)
+        if(!pngImage){
+            res.status(400).send(
+                {
+                success: false,
+                msg: 'invalid image type'
+                }
+            )
+            return
+        }
+
+        const imgId = new ObjectId()
+        uploadImage(`/assets/${assetFolder}/image`, imgId.toHexString(), pngImage)
+
+        const spriteSheetObject = {
+            type: "image",
+            title: itemObject.title,
+            _id: imgId,
+        }
+
+        await AssetContent.updateOne(
+            { title: assetFolder },
+            { $push: { contents: spriteSheetObject } }
+        );
+
+        const result = await AssetContent.find({ title: assetFolder })
+        res.status(200).send(result[0])
+        return
     }
 
 

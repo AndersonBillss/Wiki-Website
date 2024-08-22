@@ -48,7 +48,6 @@ export class AssetService {
   }
 
   addAssetItem(title: string, assetObject: any){
-    console.log(assetObject)
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
@@ -63,6 +62,24 @@ export class AssetService {
     }
     const url = `${this.apiUrl}/api/addAssetItem?title=${title}`
     const res = this.http.post<any>(url, formData, {headers: this.authHeaders})
+    return res
+  }
+
+  deleteAssetItem(title: string, itemId: string){
+    this.authHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    });
+    const url = `${this.apiUrl}/api/deleteAssetItem?title=${title}&itemId=${itemId}`
+    const res = this.http.delete<any>(url, {headers: this.authHeaders})
+    return res
+  }
+
+  deleteAssetFolder(title: string){
+    this.authHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    });
+    const url = `${this.apiUrl}/api/deleteAssetFolder?title=${title}`
+    const res = this.http.delete<any>(url, {headers: this.authHeaders})
     return res
   }
 }

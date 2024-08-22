@@ -1,0 +1,28 @@
+.image-element{
+    width: var(--image-width);
+}
+
+.image{
+    height: 120px;
+    width: auto;
+    background-color: var(--background-dark);
+}
+
+.icon.button{
+    background-color: var(--primary-color);
+    padding: 5px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.icon.button *{
+    color: var(--background-dark);
+}
+
+.image-container{
+    position: relative;
+}
+

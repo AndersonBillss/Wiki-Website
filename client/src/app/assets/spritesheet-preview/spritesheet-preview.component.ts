@@ -1,11 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
 import { IconComponent } from '../../icon/icon.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-spritesheet-preview',
   standalone: true,
   imports: [
+    CommonModule,
     IconComponent
   ],
   templateUrl: './spritesheet-preview.component.html',
@@ -15,13 +17,14 @@ export class SpritesheetPreviewComponent{
   @Input() spritesheetSrc!: string
   @Input() frames!: number
   @Input() title!: string
+  @Input() isEditing!: boolean
+  @Input() deleteFunction!: Function
   @ViewChild('animationImage') animationImageRef!: ElementRef;
 
   public animationElement!: HTMLElement
-  public animationHeight!: number
   public animationWidth!: number
 
-  public imgHeight = 0
+  public imgHeight = 120
   public frameIndex = 0
 
   public isAnimating: boolean = false
@@ -29,10 +32,7 @@ export class SpritesheetPreviewComponent{
 
   imageLoad(){
     this.animationElement = this.animationImageRef.nativeElement  
-    this.animationHeight = this.animationElement.offsetHeight
     this.animationWidth = this.animationElement.offsetWidth
-    this.imgHeight = this.animationHeight / this.frames
-    this.animate()
   }
 
   animate(){

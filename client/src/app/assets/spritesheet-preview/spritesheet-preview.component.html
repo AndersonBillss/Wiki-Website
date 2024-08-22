@@ -1,5 +1,18 @@
-<div class="animation-element" style="--animation-width: {{animationWidth}}px;">
-    <div #containerImage class="image-container" style="--animation-height: {{imgHeight}}px;">
+<div class="animation-element" 
+style="
+--animation-height: {{imgHeight}}px;
+--animation-width: {{animationWidth}}px;
+--total-frames: {{frames}}
+"
+>
+    <h3 class="item-title">        
+        <div *ngIf="isEditing" class="delete icon button" (click)="deleteFunction()">
+            <app-icon icon="delete"></app-icon>
+        </div>
+        {{title}}
+    </h3>
+
+    <div #containerImage class="image-container">
         <img 
         #animationImage
         style="--frame-index: {{frameIndex}}"
@@ -7,6 +20,7 @@
         src="{{spritesheetSrc}}" 
         class="image"
         >
+
     </div>
     
     <div class="animation-bottom">

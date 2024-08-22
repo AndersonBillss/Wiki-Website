@@ -155,7 +155,6 @@ export function encodePageContent(string: string){
             const linkedWord = string.slice(linkedWordStart, linkedWordEnd)
 
             if(htmlDecode(linkedWord).trim() === ""){
-                console.log('empty anchor tag')
                 const newString = `${string.slice(0,i)}${string.slice(linkedWordEnd+4, string.length)}`
                 string = newString
             } else {

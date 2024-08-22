@@ -14,20 +14,55 @@
             </div>
         </div>
     </div>
-    <div class="asset-gallery-page">
 
-        <div *ngFor="let folder of folders" class="asset-folder button" [routerLink]="folder.title">
+    
+    <div class="filter-section">
+        <div class="asset-gallery-search">
+    
+            <app-search-box
+            [(value)]="filterString"
+            label="title"
+            [optionSelectFunction]="search.bind(this)"
+            (valueChange)="search()"
+            >
+            </app-search-box>
+        
+        
+            <app-search-box
+            label="tags"
+            [options]="tags"
+            [optionSelectFunction]="addTagFilter.bind(this)"
+            >
+            </app-search-box>
+        
+        </div>
+
+        <div class="filter-tags">
+            <div class="filter-tag" *ngFor="let tag of filterTags; let i = index">
+                {{tag | titlecase}} 
+                <div class="light icon button" (click)="removeFilterTag(i)">
+                    <app-icon icon="delete"></app-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="asset-gallery-page">
+        <div *ngFor="let folder of filteredFolders" class="asset-folder button" [routerLink]="folder.title">
             <app-icon icon="folder"></app-icon>
             <h3>
                 {{folder.title | titlecase}}
             </h3>
         </div>
-
     </div>
 </div>
+
+
 <app-loading *ngIf="isLoading"></app-loading>
 <app-asset-create
 [(isVisible)]="addingNewAsset"
 [submitFuntion]="addFolder.bind(this)"
+[assetTagOptions]="tags"
+[folders]="folders"
 >
 </app-asset-create>

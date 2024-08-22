@@ -1,0 +1,21 @@
+<div 
+class="image-element"
+style="--image-width: {{imageWidth}}px"
+>
+    <h3 class="item-title">
+        <div *ngIf="isEditing" class="delete icon button" (click)="deleteFunction()">
+            <app-icon icon="delete"></app-icon>
+        </div>
+        {{title}}
+    </h3>
+    
+    <div class="image-container">
+        <img 
+        #image
+        (load)="imageLoad()" 
+        src="{{imageSrc}}" 
+        class="image"
+        >
+
+    </div>
+</div>

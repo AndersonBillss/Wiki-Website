@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, RouterModule } from '@angular/router';
-import { filter } from 'rxjs';
+import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
 import { ImagesService } from '../../services/images.service';
@@ -11,7 +10,7 @@ import { IconComponent } from '../../icon/icon.component';
 import { SearchBoxComponent } from '../../navbar/search-box/search-box.component';
 import { LoadingComponent } from '../../loading/loading.component';
 import getTags from '../../utils/getTags';
-import filterImages from '../../utils/filterImages';
+import filterImages from '../../utils/filterItems';
 
 import { environment } from '../../../environments/environment'
 
@@ -61,8 +60,8 @@ export class ImageGalleryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.filterTags = getCachedImageTags(this.selectedGallery)
-    this.filterString = getCachedSearchTerm(this.selectedGallery)
+    this.filterTags = getCachedImageTags()
+    this.filterString = getCachedSearchTerm()
 
 
     this.imagesService.getImages().subscribe(data => {
@@ -139,8 +138,8 @@ export class ImageGalleryComponent implements OnInit {
 
   searchImages(string?: string){
     this.filteredImages = filterImages(this.images,this.filterString,this.filterTags)
-    setCachedImageTags(this.selectedGallery,this.filterTags)
-    setCachedSearchTerm(this.selectedGallery,this.filterString)
+    setCachedImageTags(this.filterTags)
+    setCachedSearchTerm(this.filterString)
   }
 
 }

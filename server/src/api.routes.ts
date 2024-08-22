@@ -36,6 +36,7 @@ apiRouter.use(bodyParser.urlencoded({ limit: '5gb', extended: true }));
     import handleAddAssetFolder from './controllers/addAssetFolderController';
     import handleDeleteAssetFolder from './controllers/deleteAssetFolderController';
     import handleAddAssetItem from './controllers/addAssetItemController';
+    import handleDeleteAssetItem from './controllers/deleteAssetItemController';
 
     import handleGetUserInfo from './controllers/getUserInfoController';
     import handleLogIn from './controllers/logInController';
@@ -69,11 +70,11 @@ apiRouter.delete('/deleteImage', verifyToken, async(req, res) => { handleDeleteI
 
 //Asset routes
 apiRouter.get('/getAssetFolders', verifyToken, async(req, res) => { handleGetAssetFolders(req, res) })
-apiRouter.get('/getAssetFolderContents', verifyToken, async(req, res) => { handleGetAssetFolderContents(req, res) })//TODO: handle this
+apiRouter.get('/getAssetFolderContents', verifyToken, async(req, res) => { handleGetAssetFolderContents(req, res) })
 apiRouter.post('/addAssetFolder', verifyToken, async(req, res) => { handleAddAssetFolder(req, res) })
 apiRouter.post('/addAssetItem', verifyToken, allowUpload.array("image.srcArray", 20), async(req, res) => { handleAddAssetItem(req, res) })
-apiRouter.delete('/deleteAssetFolder', verifyToken, async(req, res) => { handleDeleteAssetFolder(req, res) })//TODO: handle this
-//TODO: add endpoints for within assets
+apiRouter.delete('/deleteAssetItem', verifyToken, async(req, res) => { handleDeleteAssetItem(req, res) })
+apiRouter.delete('/deleteAssetFolder', verifyToken, async(req, res) => { handleDeleteAssetFolder(req, res) })
 
 //User Info Routes
 apiRouter.get('/getUserInfo', verifyToken, async(req, res) => { handleGetUserInfo(req, res) })

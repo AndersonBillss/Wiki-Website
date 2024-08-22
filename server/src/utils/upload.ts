@@ -18,12 +18,19 @@ export function uploadImage(folder: string, id: string, imageSrc: Buffer){
   }
 
   // Save the image
-  const imagePath = path.join(uploadPath, `${id}.png`); // Adjust the extension as necessary
+  const imagePath = path.join(uploadPath, `${id}.png`);
   fs.writeFileSync(imagePath, imageSrc);
 }
 
 export function removeImage(folder: string, id: string){
   const uploadPath = path.join(__dirname, '../../uploads', folder);
-  const imagePath = path.join(uploadPath, `${id}.png`); // Adjust the extension as necessary
+  const imagePath = path.join(uploadPath, `${id}.png`);
   fs.unlinkSync(imagePath);
 } 
+
+export function removeFolder(folderPath: string){
+  const uploadPath = path.join(__dirname, '../../uploads', folderPath);
+  fs.rm(uploadPath, { recursive: true, force: true }, err => {
+    if(err) throw err
+  })
+}

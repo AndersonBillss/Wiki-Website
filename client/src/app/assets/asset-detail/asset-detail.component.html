@@ -1,7 +1,8 @@
+
 <div class="asset-gallery-top">
     <div class="title-container">
-        <div class="icon button" (click)="goBack()">
-            <app-icon icon="back"></app-icon>
+        <div class="icon button" (click)="isEditing?openDeleteFolderDiologue():goBack()">
+            <app-icon [icon]="isEditing?'delete':'back'"></app-icon>
         </div>
         <h1 class="title">
             {{assetName | titlecase}}
@@ -11,24 +12,52 @@
         <app-icon icon="plus"></app-icon>
     </div>
 </div>
-<div class="items">
-
-    <div class="item" *ngFor="let item of assetObject.contents">
-        <h3 class="item-title">{{item.title}}</h3>
-
+<div class="icon button" (click)="toggleEdit()">
+    <app-icon [icon]="isEditing?'check':'edit'"></app-icon>
+</div>
+<div class="items" *ngIf="!loading">   
+    <div class="item" *ngFor="let item of assetObject.contents, let i = index">
         <app-spritesheet-preview *ngIf="item.type === 'animation'"
         [title]="item.title"
         spritesheetSrc="{{apiUrl}}/api/uploads/assets/{{assetName}}/animation/{{item._id}}.png"
         [frames]="item.spriteSheetFrames"
+        [isEditing]="isEditing"
+        [deleteFunction]="openDeleteItemDiologue.bind(this, i)"
         >
         </app-spritesheet-preview>
+        
+        <app-image-preview *ngIf="item.type === 'image'"
+        [title]="item.title"
+        imageSrc="{{apiUrl}}/api/uploads/assets/{{assetName}}/image/{{item._id}}.png"
+        [isEditing]="isEditing"
+        [deleteFunction]="openDeleteItemDiologue.bind(this, i)"
+        >
+    </app-image-preview>
+    
+</div>
 
-
-    </div>
+<app-loading *ngIf="loading"></app-loading>
 
 </div>
 <app-asset-item-create
 [(isVisible)]="addingNewItem"
 [submitFuntion]="addItem.bind(this)"
+[items]="assetObject.contents"
 >
 </app-asset-item-create>
+
+<div class="pop-up" *ngIf="diologue.open">
+    <div class="pop-up-card">
+        <h3 class="diologue-text">
+            {{diologue.text}}
+        </h3>
+        <div class="diologue-options">
+            <div class="card button" (click)="diologue.declineFunction()">
+                Decline
+            </div>
+            <div class="card button" *ngIf="diologue.showConfirm" (click)="diologue.confirmFunction()">
+                Confirm
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,30 +1,30 @@
-export default function filterImages(images: any[], searchTerm: string, tags: any[]){
+export default function filterItems(items: any[], searchTerm: string, tags: any[]){
     searchTerm = searchTerm.trim().toLowerCase()
     let filteredArray: any[] = []
 
     //filter by searchTerm
     if(searchTerm){
-        images.forEach(image => {
+        items.forEach(image => {
             if(image.title.includes(searchTerm)){
                 filteredArray.push(image)
             }
         })
     } else {
-        filteredArray = images
+        filteredArray = items
     }
 
 
     let matches: any[] = []
-    filteredArray.forEach(image => {
+    filteredArray.forEach(item => {
         matches.push({
-            image: image,
+            item: item,
             matchStrength: 0
         })
     })
 
 
     matches.forEach(match => {
-        match.matchStrength = findNumberOfMatches(match.image.tags,tags)
+        match.matchStrength = findNumberOfMatches(match.item.tags,tags)
     })
 
     matches.sort((a,b) => {
@@ -34,7 +34,7 @@ export default function filterImages(images: any[], searchTerm: string, tags: an
     let responseArray: any[] = []
 
     matches.forEach(match => {
-        responseArray.push(match.image)
+        responseArray.push(match.item)
     })
 
     return responseArray

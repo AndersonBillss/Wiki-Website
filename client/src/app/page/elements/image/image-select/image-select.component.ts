@@ -10,7 +10,7 @@ import { IconComponent } from '../../../../icon/icon.component';
 import { SearchBoxComponent } from '../../../../navbar/search-box/search-box.component';
 import { LoadingComponent } from '../../../../loading/loading.component';
 import getTags from '../../../../utils/getTags';
-import filterImages from '../../../../utils/filterImages';
+import filterImages from '../../../../utils/filterItems';
 
 import { environment } from '../../../../../environments/environment';
 

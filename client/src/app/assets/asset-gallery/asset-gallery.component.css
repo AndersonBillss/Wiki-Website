@@ -42,6 +42,9 @@
 .icon.button *{
     color: var(--background-dark);
 }
+.light.icon.button{
+    background-color: rgb(0,0,0,0);
+}
 
 .top-right{
     display: flex;
@@ -51,6 +54,33 @@
 }
 .input{
     margin: 0 10px;
+}
+
+.asset-gallery-search{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.filter-section{
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-tags{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.filter-tag{
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    background-color: var(--primary-light);
+    color: var(--background-dark);
+    border-radius: 15px;
+    margin: 5px;
 }
 
 @media(max-width: 275px){

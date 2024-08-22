@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
 export class AssetItemCreateComponent {
   @Input() submitFuntion!: Function
 
-  @Input() assetTagOptions?: string[]
+  @Input() items!: any[];
   @Input() isVisible!: boolean;
   @Output() isVisibleChange = new EventEmitter<boolean>();
 
@@ -42,8 +42,18 @@ export class AssetItemCreateComponent {
     this.isVisible = false;
     this.isVisibleChange.emit(this.isVisible)
     this.assetTitle = '';
+    this.itemFiles = null
     this.errorMsg = '';
     this.selectedAssetType = ''
+  }
+
+  checkValidity(){
+    const duplicate = this.items.find(f => f.title.toLowerCase() === this.assetTitle.toLowerCase()) !== undefined
+    if(duplicate){
+      this.errorMsg = "This is a duplicate title"
+    } else {
+      this.errorMsg = ""
+    }
   }
 
   submit(){
