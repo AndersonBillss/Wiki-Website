@@ -15,8 +15,12 @@ export class LocationService {
     return this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       map(() => {
-        const url = decodeURIComponent(this.router.url.slice(1, this.router.url.length))
-        const routes = url.split('/')
+        const url = this.router.url.slice(1, this.router.url.length)
+        let routes = url.split('/')
+        routes = routes.map(route => {
+          return decodeURIComponent(route)
+        })
+        console.log(routes)
         return routes
       })
     )
@@ -24,8 +28,8 @@ export class LocationService {
 
   getCurrentRoute(): string[] { 
     const url = this.router.url.slice(1, this.router.url.length)
-    const routes = url.split('/')
-    routes.map(route => {
+    let routes = url.split('/')
+    routes = routes.map(route => {
       return decodeURIComponent(route)
     })
     return routes
