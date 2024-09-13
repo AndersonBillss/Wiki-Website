@@ -20,7 +20,6 @@ export class LocationService {
         routes = routes.map(route => {
           return decodeURIComponent(route)
         })
-        console.log(routes)
         return routes
       })
     )

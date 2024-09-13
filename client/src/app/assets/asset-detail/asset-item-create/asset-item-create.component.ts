@@ -93,11 +93,10 @@ export class AssetItemCreateComponent {
 
   isImage(filePath: string | null): boolean {
     if(filePath){
-      return filePath.match(/\.(jpeg|jpg|gif|png|heic|webp)$/) != null;
+      return filePath.match(/\.(jpeg|jpg|gif|png|heic|webp|apng)$/) != null;
     } else {
       return false;
     }
-    //this.errorMsg = "Image must be in one of the following formats: jpeg, jpg, gif, png, heic, or webp"
   }
 
   previewFiles(files: File[]): void {
@@ -120,8 +119,11 @@ export class AssetItemCreateComponent {
       if (input.files && input.files.length > 0) {
         this.itemFiles = input.files[0];
         if(!this.isImage(this.itemFiles.name)){
-          this.errorMsg = "Image must be in one of the following formats: jpeg, jpg, gif, png, heic, or webp";
+          this.errorMsg = "Image must be in one of the following formats: jpeg, jpg, gif, png, apng, heic, or webp";
           return;
+        }
+        if(!this.assetTitle){
+          this.assetTitle = this.getFileTitle(this.itemFiles.name)
         }
         this.previewFiles([this.itemFiles]);
         this.errorMsg = "";
@@ -143,6 +145,9 @@ export class AssetItemCreateComponent {
               return;
             }
           }
+          if(!this.assetTitle){
+            this.assetTitle = this.getFileTitle(this.itemFiles[0].name)
+          }
 
           this.previewFiles(this.itemFiles);
           this.errorMsg = "";
@@ -154,5 +159,12 @@ export class AssetItemCreateComponent {
     }
   }
 
-
+  getFileTitle(title: string): string{
+    const splitTitle = title.split('.')
+    let newTitle = ''
+    for(let i=0; i<splitTitle.length-1; i++){
+      newTitle += splitTitle[i]
+    }
+    return newTitle
+  }
 }

@@ -56,8 +56,10 @@ export default async function handleAddAssetItem(req: any, res: any){
             }
         }
 
-        const spriteSheetFrames: number = imageArray.length
-        const spriteSheet = await createSpriteSheet(imageArray)
+        const spriteSheetResult = await createSpriteSheet(imageArray)
+        const spriteSheetFrames = spriteSheetResult?.frames
+        const spriteSheet = spriteSheetResult?.buffer
+
         const spriteSheetId = new ObjectId()
         const spriteSheetObject = {
             type: "animation",
@@ -65,7 +67,7 @@ export default async function handleAddAssetItem(req: any, res: any){
             _id: spriteSheetId,
             spriteSheetFrames: spriteSheetFrames
         }
-        if(spriteSheet){
+        if(spriteSheet && spriteSheetFrames !== undefined){
             uploadImage(`/assets/${assetFolder}/animation`, spriteSheetId.toHexString(), spriteSheet)
             await AssetContent.updateOne(
                 { title: assetFolder },

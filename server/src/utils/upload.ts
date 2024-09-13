@@ -34,3 +34,21 @@ export function removeFolder(folderPath: string){
     if(err) throw err
   })
 }
+
+export function testUpload(title: string, data: Buffer){
+  const uploadPath = path.join(__dirname, '../../TEST_ANIMATIONS');
+
+  // Ensure the upload directory exists
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+  }
+
+  // Save the image
+  const imagePath = path.join(uploadPath, title);
+  fs.writeFileSync(imagePath, data);
+}
+
+export function clearTestUploads(){
+  const uploadPath = path.join(__dirname, '../../TEST_ANIMATIONS');
+  fs.rmSync(uploadPath, { recursive: true, force: true })
+}

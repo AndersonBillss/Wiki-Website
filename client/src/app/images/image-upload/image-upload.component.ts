@@ -40,6 +40,9 @@ export class ImageUploadComponent {
         this.errorMsg = "Image must be in one of the following formats: jpeg, jpg, gif, png, heic, or webp";
         return;
       }
+      if(!this.imgTitle){
+        this.imgTitle = this.getFileTitle(this.selectedFile.name)
+      }
       this.previewFile(this.selectedFile);
       this.errorMsg = "";
     }
@@ -51,7 +54,6 @@ export class ImageUploadComponent {
       this.filePreview = reader.result;
     };
     reader.readAsDataURL(file);
-    this.imgTitle = '';
   }
 
   isImage(filePath: string | null): boolean {
@@ -104,5 +106,14 @@ export class ImageUploadComponent {
       tags: this.imageTags
     })
     this.close()
+  }
+
+  getFileTitle(title: string): string{
+    const splitTitle = title.split('.')
+    let newTitle = ''
+    for(let i=0; i<splitTitle.length-1; i++){
+      newTitle += splitTitle[i]
+    }
+    return newTitle
   }
 }
