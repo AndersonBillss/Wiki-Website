@@ -32,13 +32,11 @@
         [isEditing]="isEditing"
         [deleteFunction]="openDeleteItemDiologue.bind(this, i)"
         >
-    </app-image-preview>
-    
+        </app-image-preview>
+    </div>
 </div>
-
 <app-loading *ngIf="loading"></app-loading>
 
-</div>
 <app-asset-item-create
 [(isVisible)]="addingNewItem"
 [submitFuntion]="addItem.bind(this)"

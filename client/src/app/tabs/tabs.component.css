@@ -1,5 +1,4 @@
 .tabs{
-    justify-self: end;
     display: flex;
     justify-content: space-around;
     padding: 15px 0;
