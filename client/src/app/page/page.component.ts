@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy, OnChanges, SimpleC
 import { RouterModule } from '@angular/router';
 
 import { PageContentsService } from '../services/page-contents.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { EditToolbarComponent } from '../edit-toolbar/edit-toolbar.component';
 import { HeaderComponent } from './elements/header/header.component';
 import { ParagraphComponent } from './elements/paragraph/paragraph.component';
@@ -73,7 +73,8 @@ export class PageComponent implements OnInit, OnDestroy {
   constructor( 
     private pageContentService: PageContentsService,
     private router: Router,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private location: Location,
   ){ }
 
 
@@ -226,6 +227,10 @@ export class PageComponent implements OnInit, OnDestroy {
     this.router.navigate([`/page/${this.section}/${pageName}`]).then(() => {
       this.loadData()
     })
+  }
+
+  goBack(){
+    this.location.back()
   }
 
 }
