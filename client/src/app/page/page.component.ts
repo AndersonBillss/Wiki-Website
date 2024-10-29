@@ -140,13 +140,12 @@ export class PageComponent implements OnInit, OnDestroy {
   
   deleteElement(index: number){
     const parent = this.elementsContainer.nativeElement;
-
+    
     if(this.pageContents.length > 1){
       //remove the element from the DOM before removing it from the array
       const target = parent.children[index]
       parent.removeChild(target)
       this.pageContents.splice(index,1)
-
     }
     setTimeout(() => {
       let targetElement

@@ -66,7 +66,9 @@ export class ImageComponent implements OnInit{
     }
     //delete element
     if(event.key === "Backspace" || event.key === "Delete"){
-      if(event.target.innerHTML.length === 0){
+      const isOnlyNewLine = event.target.innerText === '\n'
+      const noLength: boolean = event.target.innerText.length === 0
+      if(noLength || isOnlyNewLine){
         this.deleteElement.emit()
       }
     }

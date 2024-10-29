@@ -54,7 +54,7 @@ export default async function getPageContents(section: string, title: string): P
                     contents: [
                         {
                             type: "Header",
-                            text: "This is a new page"
+                            text: "This is a New Page"
                         },
                         {
                             type: "Paragraph",
