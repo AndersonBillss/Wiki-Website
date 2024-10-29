@@ -28,6 +28,8 @@ export class PageContentsService {
   }
 
   getPageContents(section: string, title: string){
+    //encode the title before sending
+    title = encodeURI(title)
     this.authHeaders = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     });
