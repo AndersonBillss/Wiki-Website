@@ -10,6 +10,8 @@
     [label]="'Select Page'" 
     [options]="searchOptions"
     [optionSelectFunction]="navigateToPage.bind(this)"
-    [(value)]="searchTerm">
+    [(value)]="searchTerm"
+    [titlecase]="true"
+    >
     </app-search-box>
 </div>

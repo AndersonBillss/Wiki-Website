@@ -29,7 +29,7 @@
                 class="nav-option button {{i === selectedOptionIndex?'selected':''}}" 
                 (click)="handleItemClick(option)"
                 >
-                    {{option}}
+                    {{titlecase?(option|titlecase):option}}
                 </div>
 
             </div>

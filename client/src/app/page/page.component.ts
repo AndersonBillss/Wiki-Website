@@ -231,6 +231,7 @@ export class PageComponent implements OnInit, OnDestroy {
 
   goBack(){
     this.location.back()
+    this.loadData()
   }
 
 }

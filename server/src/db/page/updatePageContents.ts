@@ -4,7 +4,8 @@ import LorePageContents from '../models/lorePageContents';
 import getPageContents from './getPageContents'
 
 export default async function updatePageContents(section: string, newContents: any): Promise<httpResponse>{
-    const title = newContents.title
+    const title: string = newContents.title.toLowerCase().trim()
+    newContents.title = title
     newContents.contents = newContents.contents.map((item: any) => {
         if(item.type === 'Header'){
             return{
@@ -46,12 +47,12 @@ export default async function updatePageContents(section: string, newContents: a
 
         if(section === "lore"){
             await LorePageContents.deleteMany({
-                title: { $regex: new RegExp(`^${title}$`) }
+                title: { $regex: new RegExp(`^${title}$`, "i") }
             });
             await LorePageContents.insertMany(newContents);
         } else if(section === "gameplay"){
             await GameplayPageContents.deleteMany({
-                title: { $regex: new RegExp(`^${title}$`) }
+                title: { $regex: new RegExp(`^${title}$`, "i") }
             });
             await GameplayPageContents.insertMany(newContents);
         } else {

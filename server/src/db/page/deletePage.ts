@@ -4,12 +4,13 @@ import LorePageContents from "../models/lorePageContents";
 import getPageList from "./getPageList";
 
 export default async function deletePage(section: string, title: string): Promise<httpResponse>{
+    title = title.toLowerCase().trim()
     try{
         let res: any
         if(section === "lore"){
-            res = await LorePageContents.deleteMany({ title })
+            res = await LorePageContents.deleteMany({ title: { $regex: new RegExp(title, "i") }})
         } else if(section === "gameplay"){
-            res = await GameplayPageContents.deleteMany({ title })
+            res = await GameplayPageContents.deleteMany({ title: { $regex: new RegExp(title, "i") }})
         } else {
             return {
                 status: 400,

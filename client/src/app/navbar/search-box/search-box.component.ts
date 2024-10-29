@@ -19,6 +19,7 @@ export class SearchBoxComponent implements AfterViewInit, OnInit, OnChanges{
   @Input() options?: string[] | null;
   @Input() value!: string;
   @Input() optionSelectFunction?: any;
+  @Input() titlecase: boolean = false;
 
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
 
@@ -48,7 +49,7 @@ export class SearchBoxComponent implements AfterViewInit, OnInit, OnChanges{
     this.valueChange.emit(newValue);
 
     if(this.options){
-      this.filteredOptions = this.options.filter(option => option.includes(this.value))
+      this.filteredOptions = this.options.filter(option => option.toLowerCase().includes(this.value.toLowerCase()))
     }
 
   }

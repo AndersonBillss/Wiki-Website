@@ -5,14 +5,15 @@ import GameplayPageContents from "../models/gameplayPageContents";
 import getPageList from "./getPageList"
 
 export default async function getPageContents(section: string, title: string): Promise<httpResponse>{
+    title = title.toLowerCase().trim()
     try{
-        let queryResult: any;
+        let queryResult: any;      
         let pageList: any;
         if(section === "gameplay"){
-            queryResult =  await GameplayPageContents.findOne({ title })
+            queryResult =  await GameplayPageContents.findOne({title: { $regex: new RegExp(`^${title}$`, "i") }})
             pageList = await getPageList(section)
         } else if(section === "lore"){
-            queryResult =  await LorePageContents.findOne({ title })
+            queryResult =  await LorePageContents.findOne({title: { $regex: new RegExp(`^${title}$`, "i") }})
             pageList = await getPageList(section)
         } else {
             return {
@@ -34,6 +35,8 @@ export default async function getPageContents(section: string, title: string): P
                 }
             })
             const imageArray = await getImageArray(imageLocationArray)
+
+            pageList.data = pageList.data.map((page: string) => page.toLowerCase())
             return {
                 status: 200,
                 data: {
