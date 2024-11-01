@@ -50,7 +50,7 @@ id="edit-toolbar"
 
 
     <div *ngIf="pageRegistered && !isLoading" #elementsContainer class="elementsContainer" (ngClass)="editMode?'editMode':''">
-        <div *ngFor="let element of pageContents; let i=index" class="element">
+        <div *ngFor="let element of pageContents; let i=index" class="element" (keydown)="onKeyDown($event, i)">
             <div *ngIf="editMode" class="elementType">
                 {{element.type}}
             </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, OnChanges, SimpleChanges, CSP_NONCE } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { PageContentsService } from '../services/page-contents.service';
@@ -16,7 +16,6 @@ import { IconComponent } from '../icon/icon.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { ImageComponent } from './elements/image/image.component';
 import { LocationService } from '../services/location.service';
-
 
 
 
@@ -233,5 +232,73 @@ export class PageComponent implements OnInit, OnDestroy {
     this.loadData()
   }
 
+  onKeyDown(event: KeyboardEvent, index: number){
+    if(event.key === "ArrowUp" || event.key === "ArrowDown"){
+      const direction = event.key === "ArrowUp" ? -1 : 1;
+
+      // this is the top-level container of the element
+      const parentElement = this.elementsContainer.nativeElement
+      const targetElement = parentElement.children[index]
+      if(!targetElement || !parentElement){
+        return
+      }
+
+      //find the index of the element to move to
+      const newElementIndex = index+direction
+      if(newElementIndex < 0 || newElementIndex >= parentElement.children.length){
+        return
+      }
+      //get the current selection
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount <= 0) {
+        return
+      }
+      // get the next focused element to switch to
+      const newFocusedElement: Element|undefined = parentElement.children[newElementIndex].querySelector('[contenteditable="true"]')
+      if(!newFocusedElement){
+        return
+      }
+
+      
+      const range = selection.getRangeAt(0);
+      const prevRangeY = range.getBoundingClientRect().y
+      setTimeout(() => {
+        const newRange = selection.getRangeAt(0);
+        const rangeY = newRange.getBoundingClientRect().y
+        //Focus the new element if the height of the range does not change
+        if(rangeY === prevRangeY){
+          (newFocusedElement as HTMLElement).focus();
+        }
+      })
+    }
+  }
+
+  getLineBreakPositions(element: HTMLElement): number {
+    const text = element.innerText;
+    const lineBreaks: number[] = [];
+    const range = window.getSelection()?.getRangeAt(0);
+    if(!range){
+      return 0
+    }
+    let previousY = null;
+    
+    // const rangePosition = range.startOffset
+    // range.startContainer
+    // console.log(range.startContainer)
+    // const children = element.children[1].children[0].children
+    // for(let i=0; i<children.length; i++){
+    //   const child = children[i]
+    //   console.log(child)
+    // }
+
+    let reachedEnd = false
+    while(!reachedEnd){
+      break
+    }
+    console.log(range.getBoundingClientRect().y)
+  
+    range.detach();
+    return lineBreaks.length;
+  }
 }
 
